@@ -1,0 +1,56 @@
+page{
+	background:#f2f2f2;
+}
+.search{
+	width:94.8%;
+	height:66rpx;
+	background:#fff;
+	border-radius:50rpx;
+	margin:20rpx auto;
+}
+.search_btn{
+	width:12%;
+	text-align: center;
+}
+.search_btn image{
+	width:36rpx;
+	height:36rpx;
+}
+.search input{
+	width:88%;
+	height:100%;
+}
+.need{
+	padding-top:20rpx;
+	padding-bottom:20rpx;
+	background: #fff;
+	border-bottom: solid 1px #e0e0e0;
+	margin-bottom:20rpx;
+}
+.user_img{
+	width:88rpx;
+	height:88rpx;
+	border-radius:50%;
+	overflow:hidden;
+}
+.need_tlt{
+	width:94.8%;
+	padding:0 2.6%;
+	height:70rpx;
+	background: #fff;
+}
+.need_left1{
+	width:16%;
+}
+.need_right1{
+	width:28%;
+}
+.need_right2{
+	width:22%;
+	text-align: center;
+}
+.need_right3{
+	width:34%;
+	text-align:right;
+}
+

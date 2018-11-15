@@ -1,0 +1,54 @@
+<!--userINfor.wxml-->
+<view class="info_img">
+   <view class="user_img">
+        <open-data type="userAvatarUrl"></open-data>
+    </view>
+</view>
+<view style="height:20rpx;background:#f2f2f2;width:100%;"></view>
+<view class="p40">
+  <view class="infor_list flexRowBetween">
+    <view class="infor_left">
+      姓名:
+    </view>
+    <view class="infor_center">
+      <input  placeholder="华路卓"></input>
+    </view>
+    <view class="infor_right">
+       <image src="/images/penceil.jpg"></image>
+    </view>
+  </view>
+  <view class="infor_list flexRowBetween">
+    <view class="infor_left">
+      电话:
+    </view>
+    <view class="infor_center">
+      <input placeholder="女" ></input>
+    </view>
+    <view class="infor_right">
+       <image src="/images/penceil.jpg"></image>
+    </view>
+  </view>
+  <view class="infor_list flexRowBetween">
+    <view class="infor_left">
+      店铺名称:
+    </view>
+    <view class="infor_center">
+      <input type="password"  placeholder="123456" ></input>
+    </view>
+    <view class="infor_right">
+       <image src="/images/penceil.jpg"></image>
+    </view>
+  </view>
+  <view class="infor_list flexRowBetween">
+    <view class="infor_left">
+      店铺介绍:
+    </view>
+    <view class="infor_center">
+      <input placeholder="188888888888"></input>
+    </view>
+    <view class="infor_right">
+       <image src="/images/penceil.jpg"></image>
+    </view>
+  </view>
+</view>
+<view class="submit_info"  bindtap="intoPathRedi" data-path="/pages/user/user"> 保存 </view>

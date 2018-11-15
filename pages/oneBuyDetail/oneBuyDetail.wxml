@@ -1,0 +1,41 @@
+<!--detail.wxml-->
+	<view class="banner">
+		<image src="/images/index1.png"></image>
+	</view>
+	<view class="detail">
+		<view class="product_top">
+			<view class="name_share flexRowBetween" style="align-items:center;">
+				<view class="product_name avoidOverflow color font32" style="width:60%;">
+					¥699
+				</view>
+				<view style="width:40%;text-align:right;" class="font24 color6">
+					剩余<text class="color">20</text>个名额
+				</view>
+			</view>
+			<view class="font32 color6">
+				名称名称名称名称名称名称
+			</view>
+			<view class="price_sale flexRowBetween" style="margin-top: 20rpx;">
+				<view class="font28">
+					活动进度 <text class="color">80%</text>
+				</view>
+				<view class="sale">
+					满100人开奖
+				</view>
+			</view>
+			<view class="progress">
+				<progress percent="60" color="#e83632"  stroke-width="12" border-radius="10px"/>
+			</view>
+		</view>	
+	</view>
+<view style="width:100%;height:20rpx;background:#f2f2f2;"></view>
+<view class="detail">
+	<view class="w710 font30" style="height:90rpx;line-height: 90rpx;">商品详情</view>
+	<view class="w710">
+		<view class="detail_cont font24 color6">
+			商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情
+		</view>
+	</view>
+</view>
+<view class="buy bg color1 font28">1.00马上抢购</view>
+

@@ -1,0 +1,50 @@
+/**index.wxss**/
+
+@import "../../wxParse/wxParse.wxss"; 
+view{
+	
+}
+page{
+	width:100%;
+	min-height:100%;
+}
+.info_img{
+	height:220rpx;
+	display:flex;
+	width:100%;
+	align-items:center;
+	border-bottom:solid 1px #e0e0e0;
+	background:#fff;
+}
+.user_img{
+	width:160rpx;
+	height:160rpx;
+	border-radius:50%;
+	overflow:hidden;
+	margin:0px auto;
+}
+.infor_list{
+	height:100rpx;
+	font-size:28rpx;
+	color:#333;
+}
+.infor_left{
+	width:32%;
+}
+.infor_center{
+	width:53%;
+}
+.infor_right{
+	width:15%;
+	text-align:right;
+}
+.infor_right image{
+	width:24rpx;
+	height:20rpx;
+}
+.p40{
+	background:#fff;
+}
+.submit_info{
+	margin-top:100rpx;
+}

@@ -1,0 +1,44 @@
+<!--manageAddress.wxml-->
+<view class="search flex">
+    <view class="search_btn">
+        <image src="/images/search.png"></image>
+    </view>
+    <input placeholder="请搜索相关产品" class="font28 color9"></input>
+</view>
+<view class="w710">
+	<view style="border-radius: 20rpx;width:100%;">
+		<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail">
+			<view class="need_left1">
+				<view class="user_img">
+	              <open-data type="userAvatarUrl"></open-data>
+	            </view>
+			</view>
+			<view class="need_right1">
+				<view class="font28 color3">商品名称</view>
+			</view>
+			<view class="need_right2">
+				<view class="font28 color3"><text class="color">12</text>件</view>
+			</view>
+			<view class="need_right3">
+				<view class="font28 color3">2018-9-9 发布</view>
+			</view>
+		</view>
+		<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail">
+			<view class="need_left1">
+				<view class="user_img">
+	              <open-data type="userAvatarUrl"></open-data>
+	            </view>
+			</view>
+			<view class="need_right1">
+				<view class="font28 color3">商品名称</view>
+			</view>
+			<view class="need_right2">
+				<view class="font28 color3"><text class="color">12</text>件</view>
+			</view>
+			<view class="need_right3">
+				<view class="font28 color3">2018-9-9 发布</view>
+			</view>
+		</view>
+	</view>
+</view>
+

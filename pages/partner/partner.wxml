@@ -1,0 +1,46 @@
+<!--index1.wxml-->
+<view class="w710">
+    <view class="partner">
+        <view class="partner_tlt">
+            <view class="tlt_cont font32 color1">标题标题标题</view>
+        </view>
+        <view class="partner_intro font24 color6">
+            内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内
+        </view>
+    </view>
+    <view class="partner">
+        <view class="partner_tlt">
+            <view class="tlt_cont font32 color1">标题标题标题</view>
+        </view>
+        <view class="partner_intro font24 color6">
+            内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容内
+        </view>
+    </view>
+</view>
+<view class="navbar">
+    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/index/index">
+        <view class="nav_img">
+          <image src="/images/navbar1.png"></image>
+        </view>
+        <view class="text">首页</view>
+    </view>
+    <view class="navbar_item">
+        <view class="nav_img">
+           <image src="/images/navbar2.png"></image>
+        </view>
+        <view class="text">购物车</view>
+    </view>
+    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/partner/partner">
+        <view class="nav_img">
+           <image src="/images/navbar3-a.png"></image>
+        </view>
+        <view class="text this-text">合伙人</view>
+    </view>
+    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/user/user">
+        <view class="nav_img">
+            <image src="/images/navbar4.png"></image>
+        </view>
+        <view class="text">我的</view>
+    </view>
+</view>
+

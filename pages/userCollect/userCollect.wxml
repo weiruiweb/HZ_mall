@@ -1,0 +1,67 @@
+<!--index.wxml-->
+<view class="tab font30 flexRowBetween">
+    <view class="tab_item {{currentId == 0?'tab_this':''}}" data-id="0" bindtap="tab">
+        收藏店铺
+    </view>
+    <view class="tab_item {{currentId == 1?'tab_this':''}}" data-id="1"  bindtap="tab">
+        收藏产品
+    </view>
+</view>
+<view class="store" style="{{currentId == 0?'display: block':'display:none'}}">
+    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font32 color3">被大王</view>
+                        <view class="color6 font22">商品：8</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex">
+                <view class="submit_info bg font24">进入店铺</view>
+            </view>
+        </view>
+    </view>
+    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font32 color3">被大王</view>
+                        <view class="color6 font22">商品：8</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex">
+                <view class="submit_info bg font24">进入店铺</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="recoment"  style="{{currentId == 1?'display: block':'display:none'}}">
+    <view class="product_all w710 flex">
+      <view class="product flexRowBetween">
+        <view class="product_cont flex">
+            <view class="product_left">
+                <image src="/images/index1.png"></image>
+            </view>
+            <view class="product_right flexRowBetween">
+                <view class="product_detail">
+                    <view class="font32 color3 product_top" style="width:100%;height:80%;">         <view class="product1 font30 color3">名称名称名称名称名称名称   称名称名称名称名称名称</view>
+                        <view class="product_des font26 color9 avoidOverflow">
+                            描述描述描述描述描述描述
+                        </view>
+                    </view>
+                    <view class="font28 color6">
+                        <view class="product_name font32 color">¥699</view>
+                    </view>
+
+                </view>
+            </view>
+        </view>
+      </view> 
+    </view>
+</view>

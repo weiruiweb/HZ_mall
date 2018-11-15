@@ -1,0 +1,191 @@
+{
+	"description": "项目配置文件。",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.2.2",
+	"appid": "wx212611f012b9cf1d",
+	"projectname": "%E5%8D%8E%E7%8F%8D%E5%95%86%E5%9F%8E",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 24,
+			"list": [
+				{
+					"id": -1,
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": ""
+				},
+				{
+					"id": 1,
+					"name": "购物车",
+					"pathName": "pages/shopping/shopping",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "合伙人",
+					"pathName": "pages/partner/partner",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/user/user",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的收藏",
+					"pathName": "pages/userCollect/userCollect",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我的需求",
+					"pathName": "pages/userNeed/userNeed",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "我要开店",
+					"pathName": "pages/userStore/userStore",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "登陆",
+					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "评价",
+					"pathName": "pages/userOrderComment/userOrderComment",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "需求详情",
+					"pathName": "pages/userNeedDetail/userNeedDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "优惠卷",
+					"pathName": "pages/userDiscount/userDiscount",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺",
+					"pathName": "pages/store/store",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "基本信息",
+					"pathName": "pages/stroeInfor/stroeInfor",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺订单",
+					"pathName": "pages/storeOrder/storeOrder",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺产品",
+					"pathName": "pages/storeProduct/storeProduct",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺优惠券",
+					"pathName": "pages/storeDiscount/storeDiscount",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺需求",
+					"pathName": "pages/storeNeed/storeNeed",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺需求详情",
+					"pathName": "pages/storeNeed1/storeNeed1",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺需求中标",
+					"pathName": "pages/storeNeed2/storeNeed2",
+					"query": ""
+				},
+				{
+					"id": 19,
+					"name": "需求大厅详情",
+					"pathName": "pages/needDetail/needDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "发布需求",
+					"pathName": "pages/needSend/needSend",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "一元购",
+					"pathName": "pages/oneBuy/oneBuy",
+					"query": ""
+				},
+				{
+					"id": 22,
+					"name": "详情",
+					"pathName": "pages/detail/detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "确认订单",
+					"pathName": "pages/confirm_order/confirm_order",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺",
+					"pathName": "pages/store1/store1",
+					"query": ""
+				}
+			]
+		}
+	}
+}

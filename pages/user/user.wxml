@@ -1,0 +1,176 @@
+<!--index3.wxml-->
+<view class="user_banner">
+    <view class="user_box w710 flex">
+        <view class="banner_left flex">
+            <view class="" style="text-align:center;width:100%;">
+                <view class="user_img">
+                  <open-data type="userAvatarUrl"></open-data>
+                </view>
+            </view>
+        </view>
+        <view class="user_right">
+            <view class="font32 color1">面桃子</view>
+            <view class="font30 color1">1256456</view>
+        </view>
+    </view>
+</view>
+<view class="order w710 font30 color3" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+    <view class="user_order flexRowBetween">
+        <view class="order_left flex">
+            <image src="/images/user_icon1.png"></image>
+            <view class="my_order">我的订单</view>
+        </view>
+        
+        <view class="check_order flexRowBetween">
+            <view class="font26">
+                查看订单
+            </view>
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+</view>
+<view class="sort flexRowBetween">
+    <view class="sort_cont flexRowBetween">    
+        <view class="sort_item"  bindtap="intoPath"  data-path="/pages/userCollect/userCollect">
+            <view class="sort_icon font32 color3">
+                0
+            </view>
+            <view class="sort_txt">
+               我的收藏
+            </view>
+        </view>
+        <view class="sort_item flexRowBetween"  bindtap="intoPath"  data-path="/pages/userCash/userCash">
+            <view class="thread"></view>
+            <view>
+                <view class="sort_icon font32 color3">
+                    0
+                </view>
+                <view class="sort_txt">
+                   现金券
+                </view>
+            </view>
+            <view class="thread"></view>
+        </view>
+    </view>
+</view>
+<view class="w710 font30 color3 bg1" style="border-top:solid 1px #e0e0e0;">
+    <view class="process flexRowBetween">
+        <view class="peocess_item item_other" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+            <image src="/images/process1.jpg"></image>
+            <text>待付款</text>
+        </view>
+        <view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+            <image src="/images/process2.jpg"></image>
+            <text>待收货</text>
+        </view>
+        <view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+            <image src="/images/process3.jpg"></image>
+            <text>已完成</text>
+        </view>
+        <view class="peocess_item" bindtap="intoPath" data-path="/pages/userOrder/userOrder">
+            <image src="/images/process4.jpg"></image>
+            <text>已取消</text>
+        </view>
+    </view>
+</view>
+<view class="user_all font30 color3">
+    <view class="user_infor flexRowBetween w710"  bindtap="intoPath" data-path="/pages/userDiscount/userDiscount">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon2.png"></image>
+            <text>优惠券</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710"  bindtap="intoPath" data-path="/pages/userCash/userCash">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon3.png"></image>
+            <text>现金券</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userNeed/userNeed">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon4.png"></image>
+            <text>我的需求</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userCollect/userCollect">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon5.png"></image>
+            <text>收藏店铺 </text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userAddress/userAddress">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon6.png"></image>
+            <text>地址管理</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userComment/userComment">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon7.png"></image>
+            <text>我的评价</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="userComment">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon8.png"></image>
+            <text>官方客服</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userStore/userStore">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon9.png"></image>
+            <text>我要开店</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+</view>
+<view style="width:100%;height:150rpx;"></view>
+<view class="navbar">
+    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/index/index">
+        <view class="nav_img">
+          <image src="/images/navbar1.png"></image>
+        </view>
+        <view class="text">首页</view>
+    </view>
+    <view class="navbar_item">
+        <view class="nav_img">
+           <image src="/images/navbar2.png"></image>
+        </view>
+        <view class="text">购物车</view>
+    </view>
+    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/partner/partner">
+        <view class="nav_img">
+           <image src="/images/navbar3.png"></image>
+        </view>
+        <view class="text">合伙人</view>
+    </view>
+    <view class="navbar_item">
+        <view class="nav_img">
+            <image src="/images/navbar4-a.png"></image>
+        </view>
+        <view class="text this-text">我的</view>
+    </view>
+</view>

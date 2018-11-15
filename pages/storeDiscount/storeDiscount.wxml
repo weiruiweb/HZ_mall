@@ -1,0 +1,50 @@
+
+<view class="sort_box">
+    <view class="w710" style="margin-bottom: 78rpx;">
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
+                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
+                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex">
+                <view class="submit_info bg font24">去使用</view>
+            </view>
+        </view>
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
+                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
+                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex">
+                <view class="submit_info bg font24">去使用</view>
+            </view>
+        </view>
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
+                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
+                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex">
+                <view class="submit_info bg font24">去使用</view>
+            </view>
+        </view>
+    </view>
+</view>

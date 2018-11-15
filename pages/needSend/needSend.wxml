@@ -1,0 +1,66 @@
+
+<view class="w710">
+	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;">
+		<view class="flex">
+			<view class="main w710">
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">选择类型:</view>
+					<input placeholder="请输入价格" style="width:66%;"></input>
+					<view class="next_page">
+						<image src="/images/next_page.jpg"></image>
+					</view>
+				</view>
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">商品名称:</view>
+					<input placeholder="请输入商品名称"></input>
+				</view>
+				<view class="input_list1 font28 flex" style="border:none;">
+					<view class="input_before1">产品数量:</view>
+					<input placeholder="0" style="width:28%;padding-left:2%;height:60rpx;background: #f2f2f2;"></input>
+					<view class="font28 color6" style="width:43%;margin-left: 2%;">请输入数量</view>
+				</view>
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">品质:</view>
+					<view style="width:75%" class="flexRowBetween">
+						<view class="choose_item {{currentId==0?'this_item':''}}" data-id="0" bindtap="choose">
+							精选品质
+						</view>
+						<view class="choose_item {{currentId==1?'this_item':''}}" data-id="1" bindtap="choose">精选品质</view>
+						<view class="choose_item {{currentId==2?'this_item':''}}" data-id="2" bindtap="choose">精选品质</view>
+					</view>
+				</view>
+				<view class="font28" style="margin-bottom: 30rpx;margin-top: 20rpx;display:flex;justify-content:space-between;">
+					<view class="input_before1">具体需求:</view>
+					<view class="textarea">
+						<textarea></textarea>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;">
+		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
+			<view class="tlt_cont">店铺名称</view>
+		</view>
+		<view class="flex">
+			<view class="main w710">
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">价格:</view>
+					<input placeholder="请输入价格"></input>
+				</view>
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">姓名:</view>
+					<input placeholder="请输入姓名"></input>
+				</view>
+				<view class="input_list1 font28 flex" style="border:none;">
+					<view class="input_before1">店铺名称:</view>
+					<input placeholder="请输入电话"></input>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view style="width:100%;height:100rpx;"></view>
+<form bindsubmit="login" report-submit="true">
+  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:0rpx auto;border-radius:0;">提交</button>
+</form>

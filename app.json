@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/needSend/needSend",
+    "pages/shopping/shopping",
+    "pages/partner/partner",
+    "pages/user/user",
+    "pages/userCollect/userCollect",
+    "pages/userCash/userCash",
+    "pages/userOrder/userOrder",
+    "pages/userNeed/userNeed",
+    "pages/userNeedDetail/userNeedDetail",
+    "pages/userNeedDetail1/userNeedDetail1",
+    "pages/userAddress/userAddress",
+    "pages/useNewAddress/useNewAddress",
+    "pages/userComment/userComment",
+    "pages/userStore/userStore",
+    "pages/userOrderComment/userOrderComment",
+    "pages/userDiscount/userDiscount",
+    "pages/store/store",
+    "pages/stroeInfor/stroeInfor",
+    "pages/storeOrder/storeOrder",
+    "pages/storeProduct/storeProduct",
+    "pages/login/login",
+    "pages/storeDiscount/storeDiscount",
+    "pages/storeNeed/storeNeed",
+    "pages/storeNeed1/storeNeed1",
+    "pages/storeNeed2/storeNeed2",
+    "pages/need/need",
+    "pages/needDetail/needDetail",
+    "pages/oneBuy/oneBuy",
+    "pages/oneBuyDetail/oneBuyDetail",
+    "pages/detail/detail",
+    "pages/confirm_order/confirm_order",
+    "pages/store1/store1"
+  ],
+
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "首页",
+    "navigationBarTextStyle": "black"
+  }
+}

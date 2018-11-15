@@ -1,0 +1,95 @@
+<!--manageAddress.wxml-->
+<view class="order_sort flexRowBetween">
+	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="menuClick">
+		全部
+	</view>
+	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="menuClick">
+		待选择
+	</view>
+	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="menuClick">
+		已选择
+	</view>
+	<view class="order_item {{num ==3?'order_this':''}}" data-num="3" bindtap="menuClick">
+		已完成
+	</view>
+	<view class="order_item {{num ==4?'order_this':''}}" data-num="4" bindtap="menuClick">
+		已取消
+	</view>
+</view>
+<view class="order_list">
+	<view class="order_all"  bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail">	
+		<view class="order_tlt flexRowBetween">
+			<view class="tlt_left">
+				<text >交易时间:</text>
+				<text>{{item.create_time}}</text>
+			</view>
+			<view class="tlt_right color" >
+            等待卖家发货
+	        </view>
+		</view>
+		<view class="same_stroe bg1">
+			<view class="flexRowBetween orderlistShow" >
+
+				<view class="order_left">
+					<view class="user_img">
+	                  <open-data type="userAvatarUrl"></open-data>
+	                </view>
+				</view>
+				<view class="order_name font32 color3">
+					商品名称
+				</view>
+				<view class="order_right font28 color3">
+					<text class="color">12</text>件
+				</view>
+			</view>
+		</view>
+		<view class="handle">
+			<view class="handle_order">
+				<view class="flexRowBetween">
+					<view class="handle_orders delete_order">关闭需求</view>
+
+					<view class="handle_orders delete_order">删除需求</view>
+
+				</view>
+			</view>
+		</view>
+	</view>	
+	<view class="order_all"  bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail">	
+		<view class="order_tlt flexRowBetween">
+			<view class="tlt_left">
+				<text >交易时间:</text>
+				<text>{{item.create_time}}</text>
+			</view>
+			<view class="tlt_right color" >
+            等待卖家发货
+	        </view>
+		</view>
+		<view class="same_stroe bg1">
+			<view class="flexRowBetween orderlistShow" >
+
+				<view class="order_left">
+					<view class="user_img">
+	                  <open-data type="userAvatarUrl"></open-data>
+	                </view>
+				</view>
+				<view class="order_name font32 color3">
+					商品名称
+				</view>
+				<view class="order_right font28 color3">
+					<text class="color">12</text>件
+				</view>
+			</view>
+		</view>
+		<view class="handle">
+			<view class="handle_order">
+				<view class="flexRowBetween">
+					<view class="handle_orders delete_order">关闭需求</view>
+
+					<view class="handle_orders delete_order">删除需求</view>
+
+				</view>
+			</view>
+		</view>
+	</view>	
+</view>
+

@@ -1,0 +1,102 @@
+<!--manageAddress.wxml-->
+<view class="w710">
+	<view class="need w710 flexs" style="margin-top:20rpx;">
+		<view class="need_left">
+			<view class="user_img">
+              <open-data type="userAvatarUrl"></open-data>
+            </view>
+		</view>
+		<view class="need_right">
+			<view class="need_name flexs">
+				<view class="name_this font28">
+					商品名称：<text class="color9">你好好</text>
+				</view>
+				<view class="need_time font28">
+					2018-5-9 发布
+				</view>
+			</view>
+			<view class="font28">商品数量：<text class="color9">45</text></view>
+			<view class="font28">品质：<text class="color9">品质品质品质品质</text></view>
+			<view class="need_name flexs">
+				<view class="name_this font28" style="width:25%;">
+					具体要求:
+				</view>
+				<view class="need_time font28 color9" style="width:75%;">
+					具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="w710">
+	<view style="border-radius: 20rpx;width:100%;">
+		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
+			<view class="tlt_cont">参与服务商</view>
+		</view>
+		<view class="need w710 flex">
+			<view class="need_left1">
+				<view class="user_img">
+	              <open-data type="userAvatarUrl"></open-data>
+	            </view>
+			</view>
+			<view class="need_right1">
+				<view class="font28 color3">店铺名称</view>
+			</view>
+			<view class="need_right2">
+				<view class="font28 color3">张先生</view>
+			</view>
+		</view>
+		<view class="need w710 flex">
+			<view class="need_left1">
+				<view class="user_img">
+	              <open-data type="userAvatarUrl"></open-data>
+	            </view>
+			</view>
+			<view class="need_right1">
+				<view class="font28 color3">店铺名称</view>
+			</view>
+			<view class="need_right2">
+				<view class="font28 color3">张先生</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="w710">
+	<view style="border-radius: 20rpx;width:100%;">
+		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
+			<view class="tlt_cont">已中标</view>
+		</view>
+		<view class="need w710 flex">
+			<view class="need_left1">
+				<view class="user_img">
+	              <open-data type="userAvatarUrl"></open-data>
+	            </view>
+			</view>
+			<view class="need_right1">
+				<view class="font28 color3">店铺名称</view>
+			</view>
+			<view class="need_right2">
+				<view class="font28 color3">张先生</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="w710">
+	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;">
+		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
+			<view class="tlt_cont">发布人信息</view>
+		</view>
+		<view class="flex">
+			<view class="main w710">
+				<view class="input_list1 font28 flex">
+					<view class="input_before1">发布人姓名:</view>
+					<view class="input flex">刘先生</view>
+				</view>
+				<view class="input_list1 font28 flex" style="border:none;">
+					<view class="input_before1">发布人电话:</view>
+					<view class="input flex">15192685245</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

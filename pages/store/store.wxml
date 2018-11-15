@@ -1,0 +1,64 @@
+<!--index3.wxml-->
+<view class="user_banner">
+    <view class="user_box w710 flex">
+        <view class="banner_left flex">
+            <view class="" style="text-align:center;width:100%;">
+                <view class="user_img">
+                  <open-data type="userAvatarUrl"></open-data>
+                </view>
+            </view>
+        </view>
+        <view class="user_right">
+            <view class="font32 color1">面桃子</view>
+            <view class="font30 color1">1256456</view>
+        </view>
+    </view>
+</view>
+<view class="user_all font30 color3">
+    <view class="user_infor flexRowBetween w710"  bindtap="intoPath" data-path="/pages/stroeInfor/stroeInfor">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon10.png"></image>
+            <text>基本信息</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710"  bindtap="intoPath" data-path="/pages/storeProduct/storeProduct">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon11.png"></image>
+            <text>我的产品</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/storeDiscount/storeDiscount">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon2.png"></image>
+            <text>我的优惠券</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/storeOrder/storeOrder">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon1.png"></image>
+            <text>我的订单</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/storeNeed/storeNeed">
+        <view class="user_left flexRowBetween">
+            <image src="/images/user_icon4.png"></image>
+            <text>我的需求</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+</view>
+<view style="width:100%;height:150rpx;"></view>

@@ -1,0 +1,136 @@
+/**index.wxss**/
+
+@import "../../wxParse/wxParse.wxss"; 
+page{
+	background:#f2f2f2;
+}
+.user_banner{
+	width:100%;
+	height:294rpx;
+	position:relative;
+	background:#e5747c;
+}
+.user_banner image{
+	width:100%;
+	height:100%;
+}
+.user_box{
+	position:absolute;
+	left:0;
+	top:0;
+	height:294rpx;
+	display:flex;
+}
+.banner_left{
+	width:33%;
+	height:100%;
+
+}
+.user_img{
+	width:140rpx;
+	height:140rpx;
+	border-radius:50%;
+	overflow:hidden;
+	margin:0px auto;
+}
+
+.order{
+	margin-top:12rpx;
+	background:#fff;
+	border-bottom:solid 1px #dcdcdc;}
+.user_order{
+	height:96rpx;
+	align-items:center;
+	line-height:96rpx;
+	width:100%;
+}
+.order_left{
+	align-items:center;
+	width:80%;
+}
+.order_left image{
+	width:34rpx;
+	height:34rpx;
+
+	margin-right:16rpx;
+}
+.check_order{
+	width:20%;
+	height:100%;
+	text-align:right;
+}
+.check_order image{
+	width:11rpx;
+	height:20rpx;
+	margin-left:8rpx;
+}
+.check_order{
+	font-size:24rpx;
+	color:#333;
+}
+.process{
+	background:#fff;
+	height:136rpx;
+}
+.peocess_item {
+	text-align:center;
+	width:25%;
+}
+.peocess_item image{
+	width:52rpx;
+	height:42rpx;}
+.item_other image{
+	width:50rpx;
+}
+.peocess_item text{display:block;}
+.user_left{
+	align-items:center;
+}
+.user_left image{
+	width:30rpx;
+	height:32rpx;
+	margin-right:12rpx;
+}
+.user_infor{
+	height:96rpx;
+	line-height:96rpx;
+	background:#fff;
+	border-bottom:solid 1px #dcdcdc;
+	align-items:center;
+	}
+.next_page image{
+	width:11rpx;
+	height:20rpx;
+}
+.user_all{
+	margin-top:12rpx;
+}
+/*******************分类***********************/
+.sort{
+	width:100%;
+	height:126rpx;
+	box-shadow: 0 0 20rpx #f2f2f2;
+	margin-top:20rpx;
+	background: #fff;
+}
+.sort_cont{
+	width:100%;
+}
+.sort_item{
+	width:50%;
+	height: 100%;
+	text-align:center;
+}
+.sort_item image{
+	width:42rpx;
+	height:42rpx;
+}
+.sort_txt{
+	font-size: 30rpx;
+	color:#999;
+}
+.thread{
+	width:1rpx;
+	height:80rpx;
+	background: #e0e0e0;
+}

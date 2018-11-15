@@ -1,0 +1,68 @@
+<!--manageAddress.wxml-->
+<view class="order_sort flexRowBetween">
+	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="menuClick">
+		待付款
+	</view>
+	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="menuClick">
+		已付款
+	</view>
+	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="menuClick">
+		已取消
+	</view>
+</view>
+<view class="order_list">
+	<view class="order_all">	
+		<view class="order_tlt flexRowBetween">
+			<view class="tlt_left">
+				<text >交易时间:</text>
+				<text>2018-9-9</text>
+			</view>
+		</view>
+		
+		<view class="same_stroe">
+			<view class="flexRowBetween orderlistShow" >
+				<view class="all_select" style="width:8%;text-align:left;overflow:hidden;">
+					<image src="/images/select.png"></image>
+				</view>
+				<view class="order_left"><image src="/images/index1.png"></image></view>
+				<view class="order_name">
+					<view class="text1" style="height:30%">商品名称</view >
+					<view class="order_type avoidOverflow" style="height:40%">
+						<text style="font-size:28rpx;color:#808080">描述描述描述描述描述描述</text></view>
+					<view class="orders flexRowBetween" style="height:30%">
+						<text class="order_number">X4</text>
+						<text class="font32 color">¥544</text>
+					</view>
+				</view>
+			</view>
+		</view>
+
+	</view>	
+	<view class="order_all">	
+		<view class="order_tlt flexRowBetween">
+			<view class="tlt_left">
+				<text >交易时间:</text>
+				<text>2018-9-9</text>
+			</view>
+		</view>
+		
+		<view class="same_stroe">
+			<view class="flexRowBetween orderlistShow" >
+				<view class="all_select" style="width:8%;text-align:left;overflow:hidden;">
+					<image src="/images/select.png"></image>
+				</view>
+				<view class="order_left"><image src="/images/index1.png"></image></view>
+				<view class="order_name">
+					<view class="text1" style="height:30%">商品名称</view >
+					<view class="order_type avoidOverflow" style="height:40%">
+						<text style="font-size:28rpx;color:#808080">描述描述描述描述描述描述</text></view>
+					<view class="orders flexRowBetween" style="height:30%">
+						<text class="order_number">X4</text>
+						<text class="font32 color">¥544</text>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>	
+</view>
+
