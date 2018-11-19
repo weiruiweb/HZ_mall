@@ -12,6 +12,11 @@ Page({
   preventTouchMove:function(e) {
 
   },
+  pay(){
+    wx.navigateTo({
+      url:'/pages/confirm_order/confirm_order'
+    })
+  },
   intoPath(e){
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');

@@ -9,7 +9,7 @@ page{
 	line-height:80rpx;
 	white-space:nowrap;
 	display: flex;
-	background: #fafafa;
+	background: #fff;
 }
 ::-webkit-scrollbar {
 	width:0;

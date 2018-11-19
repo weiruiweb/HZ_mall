@@ -1,8 +1,6 @@
 import {Api} from '../../utils/api.js';
 var api = new Api();
 const app = getApp();
-import {Token} from '../../utils/token.js';
-const token = new Token();
 
 Page({
   data: {
@@ -11,12 +9,12 @@ Page({
 
   onLoad(options){
      const self = this;
-    self.setData({
-      fonts:getApp().globalData.font
-    });
-  
   },
-  
+  addOrder(){
+    wx.navigateTo({
+      url:'/pages/store/store'
+    })
+  },
   intoPath(e){
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
@@ -28,9 +26,6 @@ Page({
       delta:1
     })
   },
-  
-
-
  
 })
 

@@ -112,9 +112,12 @@ page{
 	border-radius:50rpx;
 	color:#fff;
 	background:#e83632;
-	border-radius:10rpx;
 }
-
 .bg1{
 	background:#fff;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }

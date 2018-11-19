@@ -68,20 +68,20 @@
                 <image src="/images/index_icon9.png"></image>
                 <text class="font30 color6">优惠折扣</text>
             </view>
-            <view class="discount_left discount_right font26 color6">
+            <view class="discount_left discount_right font26 color6"  bindtap="intoPath" data-path="/pages/storeProduct/storeProduct">
                 更多 >>
             </view>
         </view>
         <view class="discount_product flexRowBetween">
-            <view class="discount_item">
+            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
                 <image src="/images/index1.png"></image>
                 <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
             </view>
-            <view class="discount_item">
+            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
                 <image src="/images/index1.png"></image>
                 <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
             </view>
-            <view class="discount_item">
+            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
                 <image src="/images/index1.png"></image>
                 <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
             </view>
@@ -147,7 +147,7 @@
     </view>
 </view>
 <view class="navbar">
-    <view class="navbar_item"   bindtap="intoPathRedirect" data-path="/pages/index/index">
+    <view class="navbar_item">
         <view class="nav_img">
           <image src="/images/navbar1-a.png"></image>
         </view>
@@ -171,4 +171,25 @@
         </view>
         <view class="text">我的</view>
     </view>
+</view>
+
+<view class="mask" wx:if="{{is_show}}" catchtouchmove="true" bindtap="mask">
+</view>
+<view class="discount1" wx:if="{{is_show}}" catchtouchmove="true">
+  <view class="discount1_cont" >
+    <image src="/images/congratulate.png"></image>
+    <view class="discount1_box">
+        <view class="discount1_number color1">
+            20<text class="font28 color1">元</text>
+        </view>
+       <view class="discount1_btn">
+           <form bindsubmit="submit" report-submit="true">
+            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;">点击领取</button>
+           </form>
+       </view>
+    </view>
+    <view class="close" bindtap="close">
+        <image src="/images/close.png"></image>
+    </view>
+  </view>
 </view>

@@ -76,7 +76,7 @@
 		<view class="font24" style="width:70%">
 			商品评价(457858585)
 		</view>
-		<view class="next_page" style="width:30%;">
+		<view class="next_page" style="width:30%;" bindtap="intoPath" data-path="/pages/userComment/userComment">
 			<text class="font28 color9">查看全部</text>
 			<image src="/images/next_page.jpg"></image>
 		</view>
@@ -111,7 +111,7 @@
 			<view class="font28">商品数量：111件 已拼1234</view>
 		</view>
 		<view class="comment_data color6 font24"  style="width:30%;">
-			<view class="store_in">进店逛逛</view>
+			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1">进店逛逛</view>
 		</view>
 	</view>
 	<view class="store_img flexRowBetween">
@@ -158,7 +158,7 @@
 				<view class="font28">单独购买</view>
 			</view>
 		</view>
-		<view class="btn_right flex">
+		<view class="btn_right flex" bindtap="group">
 			<view style="width:100%;text-align: center;">
 				<view class="font24">¥135</view>
 				<view class="font28">发起拼单</view>
@@ -193,26 +193,28 @@
 		</form>
 	</view>
 </view>
+<view class="mask" wx:if="{{isShow}}" catchtouchmove="true" bindtap="mask">
+</view>
 <view id="choose" class="{{isShow?'sildeIn':'slideOut'}}">
 	<view class="w710" style="position: relative;">
 		<view class="flexRowBetween pricity">
 			<view class="choose_pro">
 				<image src="/images/index1.png"></image>
 			</view>
-			<view class="close1" bindtap="close1">
+			<view class="close1" bindtap="close">
 			<image src="/images/close_icon.png"></image>
 			</view>
 		</view>
 		<view class="font28 color6">款式</view>
 		<view class="style_choose font28 flex">
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
-			<view class="this_style">蓝色500ml</view>
+			<view class="this_style {{chooseType==0?'color':''}}" data-type="0" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==1?'color':''}}" data-type="1" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==2?'color':''}}" data-type="2" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==3?'color':''}}" data-type="3" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==4?'color':''}}" data-type="4" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==5?'color':''}}" data-type="5" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==6?'color':''}}" data-type="6" bindtap="chooseType">蓝色500ml</view>
+			<view class="this_style {{chooseType==7?'color':''}}" data-type="7" bindtap="chooseType">蓝色500ml</view>
 		</view>
 		<view class="choose_number flexRowBetween">
 			<view class="number_txt">
@@ -226,6 +228,6 @@
 		</view>
 	</view>
 	<form  bindsubmit="submit" class="form_bottom">
-		<button class="submit_info" bindtap="intoPath" data-path="pages/confirm_order/confirm_order" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
+		<button class="submit_info" bindtap="submit" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
 	</form>
 </view>

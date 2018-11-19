@@ -10,7 +10,7 @@ Page({
   tab(e){
     const self = this;
     self.setData({
-      currentId:e.currentTarget.dataset.num
+      currentId:e.currentTarget.dataset.id
     })
     console.log(self.data.currentId)
   },

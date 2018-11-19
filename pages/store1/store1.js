@@ -1,12 +1,21 @@
 import {Api} from '../../utils/api.js';
 var api = new Api();
 const app = getApp();
-const token = new Token();
 Page({
   data: {
    currentId:0,
+   isShow:false,
   },
-
+  discout:function(){
+    this.setData({
+      isShow:true
+    })
+  },
+  close:function(){
+    this.setData({
+      isShow:false
+    })
+  },
   tab(e){
     const self = this;
     self.setData({

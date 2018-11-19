@@ -1,7 +1,7 @@
 <!--manageAddress.wxml-->
 <scroll-view class="categories font30" scroll-x="true">
-    <view class="category" bindtap="tab" data-id="0" style="{{currentId == 0?'border-bottom: solid 1px #e83632':''}}">热门</view>
-    <view class="category" bindtap="tab" data-id="1" style="{{currentId == 0?'border-bottom: solid 1px #e83632':''}}">生态生货</view>
+    <view class="category" bindtap="tab" data-id="0" style="{{currentId == 0?'border-bottom: solid 1px #e83632;color:red;':''}}">热门</view>
+    <view class="category" bindtap="tab" data-id="1" style="{{currentId == 1?'border-bottom:solid 1px red;color:red;':''}}">生态生货</view>
     <view class="category" bindtap="tab" data-id="2">生鲜鲜果</view>
     <view class="category" bindtap="tab" data-id="3">生态生货</view>
     <view class="category" bindtap="tab" data-id="4">精品工艺</view>
@@ -35,7 +35,7 @@
             </view>
         </view>
   </view> 
-  <view class="product flexRowBetween">
+  <view class="product flexRowBetween"  bindtap="intoPath" data-path="/pages/detail/detail">
         <view class="product_left">
             <image src="/images/index1.png"></image>
         </view>

@@ -1,21 +1,28 @@
 
 <view class="w710">
-	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;">
+	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;margin-top:20rpx;">
 		<view class="flex">
 			<view class="main w710">
 				<view class="input_list1 font28 flex">
-					<view class="input_before1">选择类型:</view>
-					<input placeholder="请输入价格" style="width:66%;"></input>
-					<view class="next_page">
-						<image src="/images/next_page.jpg"></image>
-					</view>
+					<view class="input_before1 flex">选择类型:</view>
+					<picker bindchange="bindPickerChange" style="width:75%;" value="{{index}}" range="{{array}}">
+						<view class="flex" style="width:100%;">
+						    <view class="font28 color6" style="width:80%;">
+						    {{array[index]}}
+						    </view>
+						    <view class="next_page">
+								<image src="/images/next_page.jpg"></image>
+							</view>
+						</view>
+					  </picker>
+					
 				</view>
 				<view class="input_list1 font28 flex">
-					<view class="input_before1">商品名称:</view>
+					<view class="input_before1 flex">商品名称:</view>
 					<input placeholder="请输入商品名称"></input>
 				</view>
 				<view class="input_list1 font28 flex" style="border:none;">
-					<view class="input_before1">产品数量:</view>
+					<view class="input_before1 flex">产品数量:</view>
 					<input placeholder="0" style="width:28%;padding-left:2%;height:60rpx;background: #f2f2f2;"></input>
 					<view class="font28 color6" style="width:43%;margin-left: 2%;">请输入数量</view>
 				</view>

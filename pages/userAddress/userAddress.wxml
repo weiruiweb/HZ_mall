@@ -55,6 +55,6 @@
 		</view>
 	</view>
 </view>
-<button class="submit_info"  bindtap="intoPath" data-path="/pages/useNewAddress/useNewAddress">添加新地址</button>
+<button class="submit_info"  bindtap="intoPath" data-path="/pages/userNewAddress/userNewAddress">添加新地址</button>
 
 

@@ -1,11 +1,6 @@
 import {Api} from '../../utils/api.js';
 const api = new Api();
 const app = getApp();
-
-const token = new Token();
-
-
-
 Page({
   data: {
    num:0,

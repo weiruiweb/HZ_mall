@@ -14,7 +14,7 @@
         </view>
     </view>
 </view>
-<view class="flexRowBetween w710 bg1" style="height:84rpx;margin-top: 20rpx;border-bottom:solid 1px #e0e0e0;">
+<view class="flexRowBetween w710 bg1" bindtap="discout" style="height:84rpx;margin-top: 20rpx;border-bottom:solid 1px #e0e0e0;">
     <view class="font32 color6">优惠券</view>
     <view class="next_page">
         <image src="/images/next_page.jpg"></image>
@@ -83,4 +83,82 @@
             </view>
         </view>
   </view>  
+</view>
+<view class="mask" wx:if="{{isShow}}" catchtouchmove="true" bindtap="mask">
+</view>
+<view class="w710 discout {{isShow?'sildeIn':'slideOut'}}">
+    <view class="discout_cont">
+        <view class="discount_tlt font30 color3">优惠券</view>
+    </view>
+    <view class="font26 color6">领券</view>
+      <scroll-view class="recommend_scroll_x_box" scroll-y="true" style="height:556rpx;width:100%;">
+      <view class="discount_box">
+        <view class="discount_cont flex">
+            <view class="discount_center font28">
+                <view class="discount_color">¥<text>100</text>满500减100</view>
+                <view class="discount_color">仅限本店使用仅限本店使用</view>
+                <view class="discount_color">2018.9.20 -2018-9.22</view>
+            </view>
+            <view class="line"></view>
+            <view class="discount_right flex font28">
+                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
+            </view>
+        </view>
+      </view>
+      <view class="discount_box">
+        <view class="discount_cont flex">
+            <view class="discount_center font28">
+                <view class="discount_color">¥<text>100</text>满500减100</view>
+                <view class="discount_color">仅限本店使用仅限本店使用</view>
+                <view class="discount_color">2018.9.20 -2018-9.22</view>
+            </view>
+            <view class="line"></view>
+            <view class="discount_right flex font28">
+                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
+            </view>
+        </view>
+      </view>
+      <view class="discount_box">
+        <view class="discount_cont flex">
+            <view class="discount_center font28">
+                <view class="discount_color">¥<text>100</text>满500减100</view>
+                <view class="discount_color">仅限本店使用仅限本店使用</view>
+                <view class="discount_color">2018.9.20 -2018-9.22</view>
+            </view>
+            <view class="line"></view>
+            <view class="discount_right flex font28">
+                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
+            </view>
+        </view>
+      </view>
+      <view class="discount_box">
+        <view class="discount_cont flex">
+            <view class="discount_center font28">
+                <view class="discount_color">¥<text>100</text>满500减100</view>
+                <view class="discount_color">仅限本店使用仅限本店使用</view>
+                <view class="discount_color">2018.9.20 -2018-9.22</view>
+            </view>
+            <view class="line"></view>
+            <view class="discount_right flex font28">
+                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
+            </view>
+        </view>
+      </view>
+      <view class="discount_box">
+        <view class="discount_cont flex">
+            <view class="discount_center font28">
+                <view class="discount_color">¥<text>100</text>满500减100</view>
+                <view class="discount_color">仅限本店使用仅限本店使用</view>
+                <view class="discount_color">2018.9.20 -2018-9.22</view>
+            </view>
+            <view class="line"></view>
+            <view class="discount_right flex font28">
+                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
+            </view>
+        </view>
+      </view>
+    </scroll-view>
+    <form bindsubmit="close" report-submit="true">
+        <button class="submit_info"  form-type="submit" style="line-height:80rpx;">确    认</button>
+    </form>
 </view>

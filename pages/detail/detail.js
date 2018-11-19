@@ -1,6 +1,6 @@
-//index.js
-//获取应用实例
-const app = getApp()
+import {Api} from '../../utils/api.js';
+var api = new Api();
+const app = getApp();
 
 Page({
   data: {
@@ -21,6 +21,11 @@ Page({
     is_show:false,
     is_show1:false,
    })
+ },
+ submit(){
+  wx.navigateTo({
+    url:'/pages/confirm_order/confirm_order'
+  })
  },
  group:function(e){
   this.setData({
@@ -44,4 +49,12 @@ Page({
       chooseType:chooseType
     })
   },
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
+  intoPathRedirect(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'redi');
+  }, 
 })
