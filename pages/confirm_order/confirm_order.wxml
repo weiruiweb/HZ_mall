@@ -27,18 +27,18 @@
     </view>
 </view>
 <view class="product">
-    <block wx:for="{{web_mainData}}" wx:key="id">
+    <block wx:for="{{web_mainData.products}}" wx:key="id">
         <view class="product_box w710 flexRowBetween">
             <view class="product_left">
-                <image src="{{item.product.mainImg[0].url}}"></image>
+                <image src="{{item.snap_product.mainImg[0].url}}"></image>
             </view>
             <view class="product_right">
                 <view class="product_detail">
-                    <view class="font32 color3 product_top">{{item.product.title}}</view>
-                    <view class="font24 color9 product_top">{{item.product.description}}</view>
+                    <view class="font32 color3 product_top">{{item.snap_product.title}}</view>
+                    <view class="font24 color9 product_top">{{item.snap_product.description}}</view>
                     <view class="product_top flex">
                         <view class="font30 color6 product_number">X{{item.count}}</view>
-                        <view class="font30 product_price color">¥{{item.product.price}}</view>
+                        <view class="font30 product_price color">¥{{item.snap_product.price}}</view>
                     </view>
                 </view>
             </view>
@@ -53,6 +53,23 @@
     <view class="infor_left flexRowBetween font28" style="width:70%;text-align:right;">
     <text class="color">-¥{{web_couponPrice}}</text><image src="/images/next_page.png" class="next_img"></image></view>
 </view>
+<block wx:for="{{web_orderData}}">
+    <view class="sort_cont flex">
+        <view class="sort_left flex">
+            <view class="sort_in flex">
+                <view class="sort_img"><image src="/images/index1.png"></image></view>
+                <view class="sort_txt">
+                    <view class="font26 color text1">¥<text>100</text>{{item.products[0].snap_product.description}}</view>
+                    <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
+                    <view class="color6 font22 text3">{{func.timestampToTime(item.products[0].snap_product.end_time)}}前有效</view>
+                    <view class="submit_info bg font24" data-id="{{item.id}}" data-count="{{item.discount}}" bindtap="useCoupon" >去使用
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+
 
 <view class="w710 discount flexRowBetween  bg1" style="height:78rpx">
     <view class="font28 color6" style="width:25%;">分享商品</view>
@@ -61,6 +78,6 @@
     </view>
 </view>
 <view class="confirm_btn flex font30">
-   <view class="confirm_left color">合计: ¥{{web_totalPrice}}</view> 
-   <view class="confirm_right color1" bindtap="{{web_buttonCanClick?'addOrder':''}}">提交订单</view> 
+   <view class="confirm_left color">微信支付: ¥{{web_pay.wxPay}}</view> 
+   <view class="confirm_right color1" bindtap="{{web_buttonCanClick?'pay':''}}">提交订单</view> 
 </view>

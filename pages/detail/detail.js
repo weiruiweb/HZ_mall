@@ -38,6 +38,7 @@ Page({
     isLoadAll:false,
     buttonCanClick:false,
     isFirstLoadAllStandard:['getMessageData','getMainData'],
+    count:1
   },
   
   onLoad(options){
@@ -203,7 +204,6 @@ Page({
       }else if(self.data.choosed_skuData.count > '1'){
         self.data.count--;
       }
-      self.data.choosed_skuData.count = self.data.count;
     }else{
       self.data.count = 1;
     };
@@ -296,21 +296,33 @@ Page({
   goBuy(){
 
     const self = this;
+    api.buttonCanClick(self);
     if(JSON.stringify(self.data.choosed_skuData)=='{}'){
       api.showToast('未选中商品','success');
       return;
     };
     
-    if(self.data.choosed_skuData.id !=''&&self.data.choosed_skuData.id !=undefined){
-      wx.setStorageSync('payPro',[{
-        id:self.data.choosed_skuData.id,
-        count:self.data.choosed_skuData.count,
-      }]);
-      api.pathTo('/pages/confirm_order/confirm_order','nav');
-    }else{
-      api.showToast('请完善信息','none');
-      
+    const postData = {
+      tokenFuncName:'getProjectToken',
+      sku:[
+        {
+          id:self.data.choosed_skuData.id,
+          count:self.data.count
+        }
+      ],
+      type:1
     };
+
+    const c_callback = (res)=>{
+      api.buttonCanClick(self,true);
+      if(res&&res.solely_code==100000){
+        api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id,'nav');        
+      }else{
+        api.showToast(res.msg,'none');
+      };
+    };
+    api.addOrder(postData,c_callback);
+
   },
    
 

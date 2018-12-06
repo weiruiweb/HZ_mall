@@ -1,5 +1,5 @@
 <!--detail.wxml-->
-<func src="../../utils/func.wxs" module="func" />
+<wxs src="../../utils/func.wxs" module="func" />
 <view class="banner">
 	<image src="/images/index1.png"></image>
 </view>
@@ -206,7 +206,9 @@
 		<view class="font28 color6">{{item.title}}</view>
 		<view class="style_choose font28 flex">
 			<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
-				<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" calss="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:green':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
+				
+				<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" calss="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:gray':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
+				
 			</block>
 		</view>
 		</block>
