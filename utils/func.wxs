@@ -5,20 +5,12 @@ var timestampToTime = function(timestamp) {
     
     var format = getDate(timestamp).getFullYear()+'/'+(getDate(timestamp).getMonth()+1)+'/'+getDate(timestamp).getDate()+'  ';
 
-    if(getDate(timestamp).getHours()<10){
-    	var format = format + '0' + getDate(timestamp).getHours();
-    }else{
-    	var format = format +  getDate(timestamp).getHours();
-    }
-    if(getDate(timestamp).getMinutes()<10){
-    	var format = format + ':' + '0' + getDate(timestamp).getMinutes();
-    }else{
-    	var format = format + ':' + getDate(timestamp).getMinutes();
-    }
+
 
     return format;
 
 }
+
 
 var timeToTimestamp= function(format){
     
@@ -61,6 +53,7 @@ var integer= function(num){
 }
 
 var inArray= function(value,array){
+    console.log('funcarray',array);
     return  array.indexOf(parseInt(value));
 }
 

@@ -5,10 +5,10 @@
 			<view class="main w710">
 				<view class="input_list1 font28 flex">
 					<view class="input_before1 flex">选择类型:</view>
-					<picker bindchange="bindPickerChange" style="width:75%;" value="{{index}}" range="{{array}}">
+					<picker bindchange="bindPickerChange" style="width:75%;"  range="{{web_labelData}}" range-key="title" value="{{web_labelData[index].title}}">
 						<view class="flex" style="width:100%;">
 						    <view class="font28 color6" style="width:80%;">
-						    {{array[index]}}
+						    	{{web_submitData.title}}
 						    </view>
 						    <view class="next_page">
 								<image src="/images/next_page.jpg"></image>
@@ -19,27 +19,27 @@
 				</view>
 				<view class="input_list1 font28 flex">
 					<view class="input_before1 flex">商品名称:</view>
-					<input placeholder="请输入商品名称"></input>
+					<input placeholder="请输入商品名称" data-key="keywords" bindinput="changeBind" value="{{web_submitData.keywords}}"></input>
 				</view>
 				<view class="input_list1 font28 flex" style="border:none;">
 					<view class="input_before1 flex">产品数量:</view>
-					<input placeholder="0" style="width:28%;padding-left:2%;height:60rpx;background: #f2f2f2;"></input>
+					<input placeholder="0" style="width:28%;padding-left:2%;height:60rpx;background: #f2f2f2;" data-key="score" bindinput="changeBind" value="{{web_submitData.score}}"></input>
 					<view class="font28 color6" style="width:43%;margin-left: 2%;">请输入数量</view>
 				</view>
 				<view class="input_list1 font28 flex">
 					<view class="input_before1">品质:</view>
 					<view style="width:75%" class="flexRowBetween">
-						<view class="choose_item {{currentId==0?'this_item':''}}" data-id="0" bindtap="choose">
+						<view class="choose_item {{web_submitData.class==1?'this_item':''}}" data-key="class" data-value="1" bindtap="changeBind">
 							精选品质
 						</view>
-						<view class="choose_item {{currentId==1?'this_item':''}}" data-id="1" bindtap="choose">精选品质</view>
-						<view class="choose_item {{currentId==2?'this_item':''}}" data-id="2" bindtap="choose">精选品质</view>
+						<view class="choose_item {{web_submitData.class==2?'this_item':''}}" data-key="class" data-value="2" bindtap="changeBind">一般品质</view>
+						<view class="choose_item {{web_submitData.class==3?'this_item':''}}" data-key="class" data-value="3" bindtap="changeBind">还行品质</view>
 					</view>
 				</view>
 				<view class="font28" style="margin-bottom: 30rpx;margin-top: 20rpx;display:flex;justify-content:space-between;">
 					<view class="input_before1">具体需求:</view>
 					<view class="textarea">
-						<textarea></textarea>
+						<textarea data-key="content" bindinput="changeBind" value="{{web_submitData.content}}"></textarea>
 					</view>
 				</view>
 			</view>
@@ -47,27 +47,27 @@
 	</view>
 	<view style="border-radius: 20rpx;width:100%;margin-bottom: 20rpx;padding-bottom: 20rpx;">
 		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
-			<view class="tlt_cont">店铺名称</view>
+			<view class="tlt_cont">个人信息</view>
 		</view>
 		<view class="flex">
 			<view class="main w710">
 				<view class="input_list1 font28 flex">
-					<view class="input_before1">价格:</view>
-					<input placeholder="请输入价格"></input>
+					<view class="input_before1">姓名:</view>
+					<input placeholder="请输入姓名" data-key="passage1" bindinput="changeBind" value="{{web_submitData.passage1}}"></input>
 				</view>
 				<view class="input_list1 font28 flex">
-					<view class="input_before1">姓名:</view>
-					<input placeholder="请输入姓名"></input>
+					<view class="input_before1">电话:</view>
+					<input placeholder="请输入电话" data-key="phone" bindinput="changeBind" value="{{web_submitData.phone}}"></input>
 				</view>
 				<view class="input_list1 font28 flex" style="border:none;">
 					<view class="input_before1">店铺名称:</view>
-					<input placeholder="请输入电话"></input>
+					<input placeholder="请输入店铺名称" data-key="passage2" bindinput="changeBind" value="{{web_submitData.passage2}}"></input>
 				</view>
 			</view>
 		</view>
 	</view>
 </view>
 <view style="width:100%;height:100rpx;"></view>
-<form bindsubmit="login" report-submit="true">
-  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:0rpx auto;border-radius:0;">提交</button>
+<form bindsubmit="{{web_buttonCanClick?'submit':''}}" report-submit="true">
+  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:0rpx auto;border-radius:0;" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">提交</button>
 </form>

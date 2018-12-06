@@ -1,4 +1,5 @@
 <!--detail.wxml-->
+<func src="../../utils/func.wxs" module="func" />
 <view class="banner">
 	<image src="/images/index1.png"></image>
 </view>
@@ -6,22 +7,21 @@
 	<view class="product_top w710">
 		<view class="name_share flexRowBetween" style="align-items:center;">
 			<view class="product_name avoidOverflow color" style="width:60%; font-size:34rpx;">
-				¥699.00
+				¥{{web_mainData.price}}
 				<text class="font24 color3" style="text-decoration: line-through;">¥899.00</text>
 			</view>
 			<view style="width:40%;text-align:right;" class="font24 color6">
-				已售<text class="color">200</text>件
+				已售<text class="color">{{web_mainData.sale_count}}</text>件
 			</view>
 		</view>
 		<view class="font32 color3">
-			名称名称名称名称名称名称
+			{{web_mainData.title}}
 		</view>
 		<view class="detail_text flex" style="height:78rpx;line-height: 78rpx;border-bottom:solid 1px #e0e0e0;">
 			<view class="font24 color6" style="width:90%">
-				<text>全场包邮</text><span class="font20">•</span>
-				<text>7天退换</text><span class="font20">•</span>
-				<text>48小时退货</text><span class="font20">•</span>
-				<text>假一赔十</text><span class="font20">•</span>
+				<block wx:for="{{web_mainData.passage1}}" wx:key="id">
+					<text>{{item}}</text><span class="font20">•</span>
+				</block>
 			</view>
 			<view class="next_page">
 				<image src="/images/next_page.jpg"></image>
@@ -74,7 +74,7 @@
 <view class="comment">
 	<view class="w710 detail_text flex" style="height:94rpx;line-height: 94rpx;border-bottom:solid 1px #e0e0e0;">
 		<view class="font24" style="width:70%">
-			商品评价(457858585)
+			商品评价({{web_num}})
 		</view>
 		<view class="next_page" style="width:30%;" bindtap="intoPath" data-path="/pages/userComment/userComment">
 			<text class="font28 color9">查看全部</text>
@@ -82,21 +82,19 @@
 		</view>
 	</view>
 	<view class="w710 comment_cont">
-		<view class="comment_sort flex">
-			<view class="sort_item font24">质量好(1234)</view>
-			<view class="sort_item font24">质量好(1234)</view>
-			<view class="sort_item font24">质量好(1234)</view>
-		</view>
-		<view class="comment_user flex">
-			<view class="comment_left">
-				<view class="user_img">
-                  <open-data type="userAvatarUrl"></open-data>
-                </view>
+	
+		<block wx:for="{{web_messageData}}" wx:key="id">
+			<view class="comment_user flex">
+				<view class="comment_left">
+					<view class="user_img">
+	                  <image src="{{item.user[0].headImgUrl}}"></image>
+	                </view>
+				</view>
+				<view class="comment_name font28">{{item.user[0].nickname}}</view>
+				<view class="comment_data color6 font24">{{item.creta_time}}</view>
 			</view>
-			<view class="comment_name font28">庆阳</view>
-			<view class="comment_data color6 font24">2018-9-9</view>
-		</view>
-		<view class="font28 color6">很满意,很满意很满意很满意很满意很满意很满意很满意很满意很满意很满意很满意</view>
+			<view class="font28 color6">{{item.content}}</view>
+		</block>
 	</view>
 </view>
 <view class="store w710">
@@ -107,58 +105,57 @@
             </view>
 		</view>
 		<view class="comment_name font28" style="width:60%;">
-			<view class="font28">被大王</view>
-			<view class="font28">商品数量：111件 已拼1234</view>
+			<view class="font28">{{web_mainData.merchant[0].passage1}}</view>
+			<view class="font28">商品数量：{{web_mainData.product.totalCount}}件 已拼{{web_mainData.product.saleNum}}件</view>
 		</view>
 		<view class="comment_data color6 font24"  style="width:30%;">
-			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1">进店逛逛</view>
+			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1?user_no={{web_mainData.user_no	}}">进店逛逛</view>
 		</view>
 	</view>
 	<view class="store_img flexRowBetween">
-		<view class="storeImgs">
-			<image src="/images/index1.png"></image>
-		</view>
-		<view class="storeImgs">
-			<image src="/images/index1.png"></image>
-		</view>
-		<view class="storeImgs">
-			<image src="/images/index1.png"></image>
-		</view>
+		<block wx:for="{{web_mainData.product}}" wx:key="id">
+			<view class="storeImgs" wx:if="{{item.mainImg[0].url}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+				<image src="{{item.mainImg[0].url}}" ></image>
+			</view>
+		</block>
 	</view>
 </view>
 <view class="w710 detail_introduce">
 	<view class="w710 font30" style="height:90rpx;line-height: 90rpx;border-bottom: solid 1px #e0e0e0">商品详情</view>
 	<view class="w710" style="margin-top:40rpx;">
 		<view class="detail_cont font24 color6">
-			商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情商品详情
+			<view class="content ql-editor" >
+	            <import src="../../wxParse/wxParse.wxml"/>
+	            <template is="wxParse" data="{{wxParseData:web_mainData.content}}"/>
+	        </view>
 		</view>
 	</view>
 </view>
 <view style="width:100%;height:110rpx;"></view>
 <view class="group_bottom flex">
 	<view class="consult font24 flex">
-		<view class="cart" style="width:38%;">
+		<view class="cart" style="width:38%;" bindtap="selectModel" data-type="addCart">
 			<image src="/images/navbar2.png"></image>
 			<view>购物车</view>
 		</view>
-		<view class="cart">
-			<image src="/images/collect.png"></image>
+		<view class="cart" bindtap="{{web_buttonCanClick?'collect':''}}">
+			<image src="{{url}}">></image>
 			<view>收藏</view>
 		</view>
-		<view class="cart">
+		<view class="cart" bindtap="{{web_buttonCanClick?'phoneCall':''}}">
 			<image src="/images/consule.png"></image>
 			<view>客服</view>
 		</view>
 
 	</view>
 	<view class="buy_btn flex">
-		<view class="btn_left color1 flex" bindtap="goBuy">
+		<view class="btn_left color1 flex" bindtap="isShow" bindtap="selectModel" data-type="buy">
 			<view style="width:100%;text-align: center;">
 				<view class="font24">¥135</view>
 				<view class="font28">单独购买</view>
 			</view>
 		</view>
-		<view class="btn_right flex" bindtap="group">
+		<view class="btn_right flex" bindtap="isShow1">
 			<view style="width:100%;text-align: center;">
 				<view class="font24">¥135</view>
 				<view class="font28">发起拼单</view>
@@ -166,11 +163,11 @@
 		</view>
 	</view>
 </view>
-<view class="mask" wx:if="{{is_show1}}"  catchtouchmove="true" bindtap="mask">
+<view class="mask" wx:if="{{web_isShow1}}"  catchtouchmove="true" bindtap="mask">
 </view>
-<view id="group2" wx:if="{{is_show1}}"  catchtouchmove="true">
+<view id="group2" wx:if="{{web_isShow1}}"  catchtouchmove="true">
 	<view class="group1 group2">
-		<view class="close" bindtap="mask"><image src="/images/close_icon.png"></image></view>
+		<view class="close" bindtap="isShow1"><image src="/images/close_icon.png"></image></view>
 		<view class="font32 color3">参与小美的拼团</view>
 		<view class="font28 color6">仅剩<text>1个</text>名额，23:49:07后结束</view>
 		<view class="group_member flexCenter;">
@@ -193,41 +190,38 @@
 		</form>
 	</view>
 </view>
-<view class="mask" wx:if="{{isShow}}" catchtouchmove="true" bindtap="mask">
+<view class="mask" wx:if="{{web_isShow}}" catchtouchmove="true" bindtap="mask">
 </view>
-<view id="choose" class="{{isShow?'sildeIn':'slideOut'}}">
+<view id="choose" class="{{web_isShow?'sildeIn':'slideOut'}}">
 	<view class="w710" style="position: relative;">
 		<view class="flexRowBetween pricity">
 			<view class="choose_pro">
 				<image src="/images/index1.png"></image>
 			</view>
-			<view class="close1" bindtap="close">
+			<view class="close1" bindtap="isShow">
 			<image src="/images/close_icon.png"></image>
 			</view>
 		</view>
-		<view class="font28 color6">款式</view>
+		<block wx:for="{{web_labelData}}" wx:key="id">
+		<view class="font28 color6">{{item.title}}</view>
 		<view class="style_choose font28 flex">
-			<view class="this_style {{chooseType==0?'color':''}}" data-type="0" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==1?'color':''}}" data-type="1" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==2?'color':''}}" data-type="2" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==3?'color':''}}" data-type="3" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==4?'color':''}}" data-type="4" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==5?'color':''}}" data-type="5" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==6?'color':''}}" data-type="6" bindtap="chooseType">蓝色500ml</view>
-			<view class="this_style {{chooseType==7?'color':''}}" data-type="7" bindtap="chooseType">蓝色500ml</view>
+			<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
+				<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" calss="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:green':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
+			</block>
 		</view>
+		</block>
 		<view class="choose_number flexRowBetween">
 			<view class="number_txt">
 				数量
 			</view>
 			<view class="edit_number flexRowBetween">
-				<view class="minus" style="line-height:45rpx;border-right: solid 1px #e5e5e5;">-</view>
-				<view class="number">1</view>
-				<view class="add">+</view>
+				<view class="minus" style="line-height:45rpx;border-right: solid 1px #e5e5e5;" bindtap="counter" data-type="-">-</view>
+				<view class="number">{{web_count}}</view>
+				<view class="add" bindtap="counter" data-type="+">+</view>
 			</view>
 		</view>
 	</view>
-	<form  bindsubmit="submit" class="form_bottom">
-		<button class="submit_info" bindtap="submit" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
-	</form>
+
+		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':'addCart'}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
+
 </view>

@@ -2,10 +2,11 @@
 <view class="banner">
     <image src="/images/banner.png"></image>
     <view class="search flex">
-        <view class="search_btn">
+
+        <input placeholder="请搜索相关产品" class="font28 color9" bindinput="inputChange"  data-key="item"></input>
+        <view class="search_btn"  bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?item={{web_sForm.item}}">
             <image src="/images/search.png"></image>
         </view>
-        <input placeholder="请搜索相关产品" class="font28 color9"></input>
     </view>
 </view>
 <view class="index_cont bg">
@@ -73,18 +74,12 @@
             </view>
         </view>
         <view class="discount_product flexRowBetween">
-            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
-                <image src="/images/index1.png"></image>
-                <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
-            </view>
-            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
-                <image src="/images/index1.png"></image>
-                <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
-            </view>
-            <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail">
-                <image src="/images/index1.png"></image>
-                <view class="font28 color6 avoidOverflow">名称名称名称名称</view>
-            </view>
+            <block wx:for="{{web_productData}}" wx:key="id">
+                <view class="discount_item" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+                    <image src="{{item.mainImg[0].url}}"></image>
+                    <view class="font28 color6 avoidOverflow">{{item.title}}</view>
+                </view>
+            </block>
         </view>
     </view>
 </view>
@@ -97,55 +92,36 @@
         </view>
         <view class="tlt_right"></view>
     </view>
-    <view class="product_all w710" >
-      <view class="product flexRowBetween" bindtap="intoPath" data-path="/pages/detail/detail">
-            <view class="product_left">
-                <image src="/images/index1.png"></image>
-            </view>
-            <view class="product_right flexRowBetween">
-                <view class="product_detail">
-                    <view class="font32 color3 product_top" style="width:100%;height:74%;">         <view class="product1 font30 color3">名称名称名称名称名称名称   称名称名称名称名称名称</view>
-                        <view class="product_des font26 color9 avoidOverflow">
-                            描述描述描述描述描述描述
+    <view class="product_all w710">
+        <block wx:for="{{web_moreData}}" wx:key="id">
+            <view class="product flexRowBetween"  bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+                <view class="product_left">
+                    <image src="{{item.mainImg[0].url}}"></image>
+                </view>
+                <view class="product_right flexRowBetween">
+                    <view class="product_detail">
+                        <view class="font32 color3 product_top" style="width:100%;height:74%;">
+                        <view class="product1 font30 color3">{{item.title}}</view>
+                            <view class="product_des font26 color9 avoidOverflow">
+                                {{item.description}}
+                            </view>
+                        </view>
+                        <view class="product_tlt flex">
+                            <block wx:for="{{item.passage1}}"  wx:for-item="c_item" wx:key="c_item">
+                                <view class="tlt_item font24 color avoidOverflow">{{c_item}}</view>
+                            </block>
+                        </view>
+                        <view class="font28 color6 flexRowBetween">
+                            <view class="product_name font32 color">¥{{item.price}}</view>
+                            <view class="font24 color9">已售<text>{{item.sale_count}}</text>件</view>
                         </view>
                     </view>
-                    <view class="product_tlt flex">
-                        <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                        <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                    </view>
-                    <view class="font28 color6 flexRowBetween">
-                        <view class="product_name font32 color">¥699</view>
-                        <view class="font24 color9">已售<text>699</text>件</view>
-                    </view>
-
                 </view>
             </view>
-      </view> 
-      <view class="product flexRowBetween"  bindtap="intoPath" data-path="/pages/detail/detail">
-            <view class="product_left">
-                <image src="/images/index1.png"></image>
-            </view>
-            <view class="product_right flexRowBetween">
-                <view class="product_detail">
-                    <view class="font32 color3 product_top" style="width:100%;height:74%;">         <view class="product1 font30 color3">名称名称名称名称名称名称   称名称名称名称名称名称</view>
-                        <view class="product_des font26 color9 avoidOverflow">
-                            描述描述描述描述描述描述
-                        </view>
-                    </view>
-                    <view class="product_tlt flex">
-                        <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                        <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                    </view>
-                    <view class="font28 color6 flexRowBetween">
-                        <view class="product_name font32 color">¥699</view>
-                        <view class="font24 color9">已售<text>699</text>件</view>
-                    </view>
-
-                </view>
-            </view>
-      </view>  
+        </block>  
     </view>
 </view>
+<view style="width:100%;height:150rpx;"></view>
 <view class="navbar">
     <view class="navbar_item">
         <view class="nav_img">
@@ -180,12 +156,10 @@
     <image src="/images/congratulate.png"></image>
     <view class="discount1_box">
         <view class="discount1_number color1">
-            20<text class="font28 color1">元</text>
+            {{web_couponData.discount}}<text class="font28 color1">元</text>
         </view>
-       <view class="discount1_btn">
-           <form bindsubmit="submit" report-submit="true">
-            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;">点击领取</button>
-           </form>
+       <view class="discount1_btn">     
+            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;" data-id="{{web_couponData.id}}" bindtap="{{web_buttonCanClick?'submit':''}}">点击领取</button>   
        </view>
     </view>
     <view class="close" bindtap="close">

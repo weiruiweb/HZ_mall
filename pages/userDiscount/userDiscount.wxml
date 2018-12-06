@@ -1,33 +1,19 @@
-
+<wxs module="func" src="../../utils/func.wxs" />
 <view class="sort_box">
-    <view class="w710" style="margin-bottom: 78rpx;">
+    <block wx:for="{{web_mainData}}" wx:key="id">
+        <view class="w710" style="margin-bottom: 78rpx;">
         <view class="stroe flex">
             <image src="/images/discount_icon.jpg"></image>
-            <text class="font30 color3">被大王</text>
+            <text class="font30 color3">{{item.merchant[0].passage1}}</text>
         </view>
         <view class="sort_cont flex">
             <view class="sort_left flex">
                 <view class="sort_in flex">
                     <view class="sort_img"><image src="/images/index1.png"></image></view>
                     <view class="sort_txt">
-                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
-                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
-                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
-                    </view>
-                </view>
-            </view>
-            <view class="sort_right flex">
-                <view class="submit_info bg font24">去使用</view>
-            </view>
-        </view>
-        <view class="sort_cont flex">
-            <view class="sort_left flex">
-                <view class="sort_in flex">
-                    <view class="sort_img"><image src="/images/index1.png"></image></view>
-                    <view class="sort_txt">
-                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
-                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
-                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
+                        <view class="font26 color text1">¥<text>100</text>{{item.description}}</view>
+                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
+                        <view class="color6 font22 text3">{{func.timestampToTime(item.end_time)}}前有效</view>
                     </view>
                 </view>
             </view>
@@ -36,40 +22,5 @@
             </view>
         </view>
     </view>
-    <view class="w710">
-        <view class="stroe flex">
-            <image src="/images/discount_icon.jpg"></image>
-            <text class="font30 color3">被大王</text>
-        </view>
-        <view class="sort_cont flex">
-            <view class="sort_left flex">
-                <view class="sort_in flex">
-                    <view class="sort_img"><image src="/images/index1.png"></image></view>
-                    <view class="sort_txt">
-                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
-                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
-                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
-                    </view>
-                </view>
-            </view>
-            <view class="sort_right flex">
-                <view class="submit_info bg font24">去使用</view>
-            </view>
-        </view>
-        <view class="sort_cont flex">
-            <view class="sort_left flex">
-                <view class="sort_in flex">
-                    <view class="sort_img"><image src="/images/index1.png"></image></view>
-                    <view class="sort_txt">
-                        <view class="font26 color text1">¥<text>100</text>满500减100</view>
-                        <view class="color6 font24 text2 avoidOverflow">仅限本店使用仅限本店使用仅限本店使用仅限本店使用</view>
-                        <view class="color6 font22 text3">2018.9.20 -2018-9.22</view>
-                    </view>
-                </view>
-            </view>
-            <view class="sort_right flex">
-                <view class="submit_info bg font24">去使用</view>
-            </view>
-        </view>
-    </view>
+    </block>
 </view>

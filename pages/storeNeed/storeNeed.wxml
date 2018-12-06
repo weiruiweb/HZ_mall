@@ -14,59 +14,36 @@
 	</view>
 </view>
 <view class="order_list">
-	<view class="order_all"  bindtap="intoPath" data-path="/pages/storeNeed1/storeNeed1">	
-		<view class="order_tlt flexRowBetween">
-			<view class="tlt_left">
-				<text >参与时间:</text>
-				<text>{{item.create_time}}</text>
+	<block wx:for="{{web_mainData}}" wx:key="id">
+		<view class="order_all"  bindtap="intoPath" data-path="/pages/storeNeed1/storeNeed1?id={{item.id}}">	
+			<view class="order_tlt flexRowBetween">
+				<view class="tlt_left">
+					<text >参与时间:</text>
+					<text>{{item.create_time}}</text>
+				</view>
+				<view class="tlt_right color" wx:if="{{item.behavior==2}}">
+	            已中标
+		        </view>
+		        <view class="tlt_right color" wx:if="{{item.behavior==3}}">
+	            未中标
+		        </view>
 			</view>
-			<view class="tlt_right color" >
-            已中标
-	        </view>
-		</view>
-		<view class="same_stroe bg1">
-			<view class="flexRowBetween orderlistShow" >
-
-				<view class="order_left">
-					<view class="user_img">
-	                  <open-data type="userAvatarUrl"></open-data>
-	                </view>
-				</view>
-				<view class="order_name font32 color3">
-					商品名称
-				</view>
-				<view class="order_right font28 color3">
-					<text class="color">12</text>件
-				</view>
-			</view>
-		</view>
-	</view>	
-	<view class="order_all"  bindtap="intoPath" data-path="/pages/storeNeed1/storeNeed1">	
-		<view class="order_tlt flexRowBetween">
-			<view class="tlt_left">
-				<text >参与时间:</text>
-				<text>{{item.create_time}}</text>
-			</view>
-			<view class="tlt_right color" >
-            未中标
-	        </view>
-		</view>
-		<view class="same_stroe bg1">
-			<view class="flexRowBetween orderlistShow" >
-
-				<view class="order_left">
-					<view class="user_img">
-	                  <open-data type="userAvatarUrl"></open-data>
-	                </view>
-				</view>
-				<view class="order_name font32 color3">
-					商品名称
-				</view>
-				<view class="order_right font28 color3">
-					<text class="color">12</text>件
+			<view class="same_stroe bg1">
+				<view class="flexRowBetween orderlistShow" >
+					<view class="order_left">
+						<view class="user_img">
+		                  <open-data type="userAvatarUrl"></open-data>
+		                </view>
+					</view>
+					<view class="order_name font32 color3">
+						{{item.userMessage[0].keywords}}
+					</view>
+					<view class="order_right font28 color3">
+						<text class="color">{{item.score}}</text>件
+					</view>
 				</view>
 			</view>
 		</view>
-	</view>	
+	</block>	
 </view>
 

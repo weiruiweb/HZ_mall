@@ -3,42 +3,28 @@
     <view class="search_btn">
         <image src="/images/search.png"></image>
     </view>
-    <input placeholder="请搜索相关产品" class="font28 color9"></input>
+    <input placeholder="请搜索相关产品" class="font28 color9" bindconfirm="changeBind" data-key="item" value="{{web_sForm.item}}"></input>
 </view>
 <view class="w710">
 	<view style="border-radius: 20rpx;width:100%;">
-		<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail">
-			<view class="need_left1">
-				<view class="user_img">
-	              <open-data type="userAvatarUrl"></open-data>
-	            </view>
+		<block wx:for="{{web_mainData}}" wx:key="id">
+			<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail?id={{item.id}}">
+				<view class="need_left1">
+					<view class="user_img">
+		              <image src="{{item.userData[0].headImgUrl}}" style="width:44px;height:44px"/>
+		            </view>
+				</view>
+				<view class="need_right1">
+					<view class="font28 color3">{{item.keywords}}</view>
+				</view>
+				<view class="need_right2">
+					<view class="font28 color3"><text class="color">{{item.score}}</text>件</view>
+				</view>
+				<view class="need_right3">
+					<view class="font28 color3">{{item.create_time}}发布</view>
+				</view>
 			</view>
-			<view class="need_right1">
-				<view class="font28 color3">商品名称</view>
-			</view>
-			<view class="need_right2">
-				<view class="font28 color3"><text class="color">12</text>件</view>
-			</view>
-			<view class="need_right3">
-				<view class="font28 color3">2018-9-9 发布</view>
-			</view>
-		</view>
-		<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail">
-			<view class="need_left1">
-				<view class="user_img">
-	              <open-data type="userAvatarUrl"></open-data>
-	            </view>
-			</view>
-			<view class="need_right1">
-				<view class="font28 color3">商品名称</view>
-			</view>
-			<view class="need_right2">
-				<view class="font28 color3"><text class="color">12</text>件</view>
-			</view>
-			<view class="need_right3">
-				<view class="font28 color3">2018-9-9 发布</view>
-			</view>
-		</view>
+		</block>
 	</view>
 </view>
 

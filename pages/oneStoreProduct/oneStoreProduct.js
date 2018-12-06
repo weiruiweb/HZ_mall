@@ -1,5 +1,3 @@
-
-
 import {Api} from '../../utils/api.js';
 const api = new Api();
 const app = getApp();
@@ -13,9 +11,9 @@ Page({
     labelData:[],
     searchItem:{},
     num:0,
-    isFirstLoadAllStandard:['getMainData'],
+    isFirstLoadAllStandard:['getLabelData','getMainData'],
     isLoadAll:false,
-
+    buttonCanClick:false
   },
 
 
@@ -24,7 +22,7 @@ Page({
     wx.showLoading();
     wx.removeStorageSync('checkLoadAll');
     self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    self.getMainData();
+    self.getLabelData();
     self.setData({
       web_num:self.data.num
     })
@@ -41,7 +39,7 @@ Page({
     postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
     postData.searchItem.user_no = wx.getStorageSync('threeInfo').user_no;
-    postData.searchItem.type=['in',[3,4]];
+    postData.searchItem.type=1;
     postData.order = {
       listorder:'desc'
     };
@@ -57,14 +55,76 @@ Page({
         api.showToast('没有更多了','none');
       };
 
-  
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.setData({
         web_mainData:self.data.mainData,
       });  
+      api.buttonCanClick(self,true);
     };
     api.productGet(postData,callback);
   },
+
+  getLabelData(){
+    const self = this;
+    const postData = {};
+    postData.searchItem = {
+      thirdapp_id:getApp().globalData.thirdapp_id,
+      type:3
+    };
+    postData.order = {
+      create_time:'normal'
+    };
+    postData.getBefore = {
+      label:{
+        tableName:'label',
+        searchItem:{
+          title:['=',['商品分类']],
+        },
+        middleKey:'parentid',
+        key:'id',
+        condition:'in'
+      },
+    };
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.labelData.push.apply(self.data.labelData,res.info.data);
+      }else{
+        api.showToast('没有更多了','none');
+      }
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getLabelData',self);
+      console.log(self.data.labelData)
+      self.setData({
+        web_labelData:self.data.labelData,
+      });
+      self.getMainData();
+    };
+    api.labelGet(postData,callback);   
+  },
+
+  menuClick: function (e) {
+    const self = this;
+    api.buttonCanClick(self);
+    const num = e.currentTarget.dataset.num;
+    self.changeSearch(num);
+  },
+
+
+  changeSearch(num){
+    const self = this;
+    this.setData({
+      web_num: num
+    });
+    if(num==0){
+      delete self.data.searchItem.category_id
+    }else{
+      self.data.searchItem.category_id = num; 
+    }
+    self.getMainData(true);
+  },
+
+ 
+
+  
 
   onReachBottom() {
     const self = this;
@@ -74,11 +134,13 @@ Page({
     };
   },
 
+  
 
   intoPath(e){
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
+
 
   intoPathRedi(e){
     const self = this;
@@ -87,10 +149,4 @@ Page({
     })
   },
 
-  intoPathRedirect(e){
-    const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'redi');
-  }, 
 })
-
-  

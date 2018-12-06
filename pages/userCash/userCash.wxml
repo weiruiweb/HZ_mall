@@ -7,11 +7,11 @@
             </view>
         </view>
         <view class="credit_infor">
-            <view class="font30 color3">米桃子</view>
-            <view class="font26 color6">1556546466</view>
+            <view class="font30 color3"><open-data type="userNickName" lang="zh_CN"></open-data></view>
+            <view class="font26 color6">{{web_userData.user_no}}  </view>
         </view>
         <view class="credit_number color">
-            积分:18000
+            积分:{{web_userData.info.data[0].score}}  
         </view>
     </view>
 </view>
@@ -19,16 +19,16 @@
     <view class="date_item">
         <view style="width:45%;display:flex;align-items:center;">
             <view class="date_left" style="width:100%;">
-                <picker  mode="date"  bindchange="bindTimeChange" >
+                <picker  mode="date"  value="{{web_startTime}}" data-type="startTime" bindchange="bindTimeChange">
                     <view style="display:flex;align-items:center;width:100%;height:100%;">
                         <view style="width:85%;height:70rpx;">
-                            <view class="picker text color">
+                            <view class="picker text {{web_startTime?'color':''}}">
                               起始日期
                             </view>
-                            <view class="text  font22  color" >{{time}}</view>
+                            <view class="text  font22  color" >{{web_startTime}}</view>
                         </view>
                         <view style="width:15%;height:70rpx;align-items:center;">
-                            <image src="/images/up_icon2.jpg"></image>
+                            <image src="{{web_startTime?'/images/up_icon2':'/images/up_icon1'}}.jpg"></image>
                         </view>
                     </view> 
                 </picker>
@@ -40,16 +40,16 @@
     <view class="date_item">
         <view style="width:45%;display:flex;align-items:center;">
             <view class="date_left" style="width:100%;">
-                <picker  mode="date" bindchange="bindTimeChange" >
+                <picker  mode="date" value="{{web_endTime}}" data-type="endTime" bindchange="bindTimeChange">
                     <view style="display:flex;align-items:center;width:100%;height:100%;">
                         <view style="width:85%;height:70rpx;">
-                            <view class="picker text">
+                            <view class="picker text {{web_endTime?'color':''}}">
                               截至日期
                             </view>
-                            <view class="text font22">{{time}}</view>
+                            <view class="text font22">{{web_endTime}}</view>
                         </view>
                         <view style="width:15%;height:70rpx;">
-                            <image src="/images/up_icon1.jpg"></image>
+                            <image src="{{web_endTime?'/images/up_icon2':'/images/up_icon1'}}.jpg"></image>
                         </view>
                     </view>
                 </picker>

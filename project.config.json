@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.2",
-	"appid": "wx212611f012b9cf1d",
+	"appid": "wx4c16a5493b7fff43",
 	"projectname": "%E5%8D%8E%E7%8F%8D%E5%95%86%E5%9F%8E",
 	"isGameTourist": false,
 	"condition": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 30,
 			"list": [
 				{
 					"id": -1,
@@ -102,10 +102,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 11,
 					"name": "店铺",
-					"pathName": "pages/store/store",
-					"query": ""
+					"pathName": "pages/store1/store1",
+					"query": "user_no=UC03248096238172"
 				},
 				{
 					"id": -1,
@@ -184,6 +184,42 @@
 					"name": "店铺",
 					"pathName": "pages/store1/store1",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "店铺产品",
+					"pathName": "pages/storeProduct/storeProduct",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "需求大厅",
+					"pathName": "pages/need/need",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "需求详情",
+					"pathName": "pages/needDetail/needDetail",
+					"query": "id=74"
+				},
+				{
+					"id": -1,
+					"name": "商家我的",
+					"pathName": "pages/store/store",
+					"query": "id=74"
+				},
+				{
+					"id": -1,
+					"name": "商品详情",
+					"pathName": "pages/detail/detail",
+					"query": "id=49"
+				},
+				{
+					"id": 30,
+					"name": "一元购",
+					"pathName": "pages/oneBuyDetail/oneBuyDetail",
+					"query": "id=55"
 				}
 			]
 		}

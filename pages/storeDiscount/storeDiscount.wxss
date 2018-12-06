@@ -15,7 +15,7 @@
 	
 }
 .sort_left{
-	width:72%;
+	width:100%;
 	height:172rpx;
 	background:#fff3f2;
 	border-radius:20rpx;

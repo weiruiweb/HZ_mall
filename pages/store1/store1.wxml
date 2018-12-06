@@ -1,20 +1,21 @@
 <!--manageAddress.wxml-->
+<wxs module="func" src="../../utils/func.wxs" />
 <view class="store">
     <view class="user_img">
       <open-data type="userAvatarUrl"></open-data>
     </view>
-    <view class="font30">被大王</view>
-    <view class="font24 color9">已拼：1555件</view>
+    <view class="font30">{{web_userData.info.passage1}}</view>
+    <view class="font24 color9">已拼：{{web_userData.product.saleNum}}件</view>
     <view class="flexCenter collect" style="margin-top:30rpx;">
-        <view class="font30 color6 flex" style="margin:0 50rpx;">
+        <view class="font30 color6 flex" style="margin:0 50rpx;" bindtap="{{web_buttonCanClick?'phoneCall':''}}">
             <image src="/images/consule.png"></image> 客服
         </view>
-        <view class="font30 color6 flex" style="margin:0 50rpx;">
-            <image src="/images/collect.png"></image> 收藏
+        <view class="font30 color6 flex" style="margin:0 50rpx;" bindtap="{{web_buttonCanClick?'collect':''}}">
+            <image src="{{url}}"></image> 收藏
         </view>
     </view>
 </view>
-<view class="flexRowBetween w710 bg1" bindtap="discout" style="height:84rpx;margin-top: 20rpx;border-bottom:solid 1px #e0e0e0;">
+<view class="flexRowBetween w710 bg1" bindtap="couponShow" style="height:84rpx;margin-top: 20rpx;border-bottom:solid 1px #e0e0e0;">
     <view class="font32 color6">优惠券</view>
     <view class="next_page">
         <image src="/images/next_page.jpg"></image>
@@ -37,52 +38,33 @@
 
 </view>
 <view class="product_all w710">
-  <view class="product flexRowBetween" bindtap="intoPath" data-path="/pages/detail/detail">
+    <block wx:for="{{web_productData}}" wx:key="id">
+    <view class="product flexRowBetween" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
         <view class="product_left">
-            <image src="/images/index1.png"></image>
+            <image src="{{item.mainImg[0].url}}"></image>
         </view>
         <view class="product_right flexRowBetween">
             <view class="product_detail">
-                <view class="font32 color3 product_top" style="width:100%;height:74%;">         <view class="product1 font30 color3">名称名称名称名称名称名称   称名称名称名称名称名称</view>
+                <view class="font32 color3 product_top" style="width:100%;height:74%;">         
+                <view class="product1 font30 color3">{{item.title}}</view>
                     <view class="product_des font26 color9 avoidOverflow">
-                        描述描述描述描述描述描述
+                        {{item.description}}
                     </view>
                 </view>
                 <view class="product_tlt flex">
-                    <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                    <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
+                    <block wx:for="{{item.passage1}}"  wx:for-item="c_item" wx:key="c_item">
+                        <view class="tlt_item font24 color avoidOverflow">{{c_item}}</view>
+                    </block>
                 </view>
                 <view class="font28 color6 flexRowBetween">
-                    <view class="product_name font32 color">¥699</view>
-                    <view class="font24 color9">已售<text>699</text>件</view>
+                    <view class="product_name font32 color">¥{{item.price}}</view>
+                    <view class="font24 color9">已售<text>{{item.sale_count}}</text>件</view>
                 </view>
 
             </view>
         </view>
   </view> 
-  <view class="product flexRowBetween">
-        <view class="product_left">
-            <image src="/images/index1.png"></image>
-        </view>
-        <view class="product_right flexRowBetween">
-            <view class="product_detail">
-                <view class="font32 color3 product_top" style="width:100%;height:74%;">         <view class="product1 font30 color3">名称名称名称名称名称名称   称名称名称名称名称名称</view>
-                    <view class="product_des font26 color9 avoidOverflow">
-                        描述描述描述描述描述描述
-                    </view>
-                </view>
-                <view class="product_tlt flex">
-                    <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                    <view class="tlt_item font24 color avoidOverflow">标题标题标题</view>
-                </view>
-                <view class="font28 color6 flexRowBetween">
-                    <view class="product_name font32 color">¥699</view>
-                    <view class="font24 color9">已售<text>699</text>件</view>
-                </view>
-
-            </view>
-        </view>
-  </view>  
+  </block>
 </view>
 <view class="mask" wx:if="{{isShow}}" catchtouchmove="true" bindtap="mask">
 </view>
@@ -92,73 +74,23 @@
     </view>
     <view class="font26 color6">领券</view>
       <scroll-view class="recommend_scroll_x_box" scroll-y="true" style="height:556rpx;width:100%;">
-      <view class="discount_box">
-        <view class="discount_cont flex">
-            <view class="discount_center font28">
-                <view class="discount_color">¥<text>100</text>满500减100</view>
-                <view class="discount_color">仅限本店使用仅限本店使用</view>
-                <view class="discount_color">2018.9.20 -2018-9.22</view>
+        <block wx:for="{{web_couponData}}" wx:key="id">
+          <view class="discount_box">
+            <view class="discount_cont flex">
+                <view class="discount_center font28">
+                    <view class="discount_color">¥<text>{{item.discount}}</text>{{item.description}}</view>
+                    <view class="discount_color">仅限本店使用</view>
+                    <view class="discount_color">{{func.timestampToTime(item.end_time)}}前有效</view>
+                </view>
+                <view class="line"></view>
+                <view class="discount_right flex font28">
+                    <view style="text-align: center;width:100%;color:#e65e24;" bindtap="{{web_buttonCanClick?'addCouponOrder':''}}" data-id="{{item.id}}" data-end_time="{{item.end_time}}">立即领取</view>
+                </view>
             </view>
-            <view class="line"></view>
-            <view class="discount_right flex font28">
-                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
-            </view>
-        </view>
-      </view>
-      <view class="discount_box">
-        <view class="discount_cont flex">
-            <view class="discount_center font28">
-                <view class="discount_color">¥<text>100</text>满500减100</view>
-                <view class="discount_color">仅限本店使用仅限本店使用</view>
-                <view class="discount_color">2018.9.20 -2018-9.22</view>
-            </view>
-            <view class="line"></view>
-            <view class="discount_right flex font28">
-                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
-            </view>
-        </view>
-      </view>
-      <view class="discount_box">
-        <view class="discount_cont flex">
-            <view class="discount_center font28">
-                <view class="discount_color">¥<text>100</text>满500减100</view>
-                <view class="discount_color">仅限本店使用仅限本店使用</view>
-                <view class="discount_color">2018.9.20 -2018-9.22</view>
-            </view>
-            <view class="line"></view>
-            <view class="discount_right flex font28">
-                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
-            </view>
-        </view>
-      </view>
-      <view class="discount_box">
-        <view class="discount_cont flex">
-            <view class="discount_center font28">
-                <view class="discount_color">¥<text>100</text>满500减100</view>
-                <view class="discount_color">仅限本店使用仅限本店使用</view>
-                <view class="discount_color">2018.9.20 -2018-9.22</view>
-            </view>
-            <view class="line"></view>
-            <view class="discount_right flex font28">
-                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
-            </view>
-        </view>
-      </view>
-      <view class="discount_box">
-        <view class="discount_cont flex">
-            <view class="discount_center font28">
-                <view class="discount_color">¥<text>100</text>满500减100</view>
-                <view class="discount_color">仅限本店使用仅限本店使用</view>
-                <view class="discount_color">2018.9.20 -2018-9.22</view>
-            </view>
-            <view class="line"></view>
-            <view class="discount_right flex font28">
-                <view style="text-align: center;width:100%;color:#e65e24;">立即领取</view>
-            </view>
-        </view>
-      </view>
+          </view>
+        </block>
     </scroll-view>
-    <form bindsubmit="close" report-submit="true">
-        <button class="submit_info"  form-type="submit" style="line-height:80rpx;">确    认</button>
-    </form>
+
+    <button class="submit_info"  form-type="submit" style="line-height:80rpx;" bindtap="couponShow">确    认</button>
+
 </view>

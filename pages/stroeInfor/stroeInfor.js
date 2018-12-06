@@ -7,7 +7,15 @@ const token = new Token();
 Page({
   data: {
     disabled: true,
-
+    isLoadAll:false,
+    isFirstLoadAllStandard:['getMainData'],
+    submitData:{
+      name:'',
+      phone:'',
+      idCard:'',
+      passage1:''
+    },
+    buttonCanClick:false
   },
   //事件处理函数
   preventTouchMove: function(e) {
@@ -16,10 +24,9 @@ Page({
 
   onLoad(options) {
     const self = this;
-
-    self.setData({
-      web_currentWordNumber: 400
-    });
+    wx.showLoading();
+    wx.removeStorageSync('checkLoadAll');
+    
     self.getMainData()
   },
 
@@ -34,59 +41,23 @@ Page({
     console.log(self.data.submitData)
   },
 
-  currentWordNumber(e) {
-    const self = this;
-    var currentWordNumber = api.fillChange(e, self, 'submitData');
-    var value = e.detail.value;
-    var len = parseInt(value.length);
-    if (len > self.data.max) {
-      return;
-    }
-    var lens = parseInt(400 - len)
-    self.setData({
-      web_submitData: self.data.submitData,
-      web_currentWordNumber: lens,
-    });
-  },
 
-  reSetInfomation() {
-    const self = this;
-    self.data.submitData = {
-      content: '',
-      passage1: '',
-      mainImg: [],
-      title: '',
-      keywords: '',
-      phone: '',
-      passage_array: '',
-      product_no: '',
-      passage2: '',
-    };
-    self.setData({
-      web_submitData: self.data.submitData,
-    });
-  },
 
 
   submit() {
     const self = this;
-    var name = self.data.submitData.title;
-    var id_num = self.data.submitData.keywords;
-    var newObject = api.cloneForm(self.data.submitData);
-
-    delete newObject.mainImg;
-    delete newObject.passage2;
-    delete newObject.passage1;
-
-    const pass = api.checkComplete(newObject);
+    api.buttonCanClick(self)
+    var name = self.data.submitData.name;
+    var phone= self.data.submitData.phone;
+    const pass = api.checkComplete(self.data.submitData);
     if (pass) {
-      if (!id_num || !/^\d{6}(18|19|20)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|[xX])$/.test(id_num)) {
-        api.showToast('身份证格式错误', 'none')
+      if (phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone)) {
+        api.showToast('手机格式错误', 'none')
       } else {
         if (!/^[\u4E00-\u9FA5]+$/.test(name)) {
           api.showToast('姓名格式错误', 'none')
         } else {
-          self.messageAdd();
+          self.userInfoUpdate();
         }
       }
     } else {
@@ -99,22 +70,45 @@ Page({
   getMainData() {
     const self = this;
     const postData = {};
-    postData.searchItem = {
-      thirdapp_id: getApp().globalData.thirdapp_id,
-      id: self.data.id
-    };
+    postData.tokenFuncName='getProjectMerchantToken';
     const callback = (res) => {
       self.data.mainData = {};
       if (res.info.data.length > 0) {
         self.data.mainData = res.info.data[0];
-        self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+        self.data.submitData.phone = res.info.data[0].info.phone;
+        self.data.submitData.name = res.info.data[0].info.name; 
+        self.data.submitData.idCard = res.info.data[0].info.idCard;
+        self.data.submitData.passage1 = res.info.data[0].info.passage1; 
       };
-
       self.setData({
-        web_mainData: self.data.mainData,
+        web_submitData:self.data.submitData,
+        web_mainData: self.data.mainData
       });
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
     };
-    api.articleGet(postData, callback);
+    api.userGet(postData, callback);
+  },
+
+  userInfoUpdate(){
+    const self = this;
+    const postData = {};
+    postData.tokenFuncName='getProjectMerchantToken';
+    postData.data = {};
+    postData.data = api.cloneForm(self.data.submitData);
+    const callback = (data)=>{
+      if(data.solely_code==100000){
+        api.showToast('完善成功','none')
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1
+          });
+        },300); 
+      }else{
+        api.showToast('网络故障','none')
+      };
+      api.buttonCanClick(self,true);
+    };
+    api.userInfoUpdate(postData,callback);
   },
 
 

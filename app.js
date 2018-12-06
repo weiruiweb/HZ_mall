@@ -7,12 +7,12 @@ App({
   onLaunch: function () {
       // 展示本地存储能力
   var token = new Token();
-  token.verify();
+  //token.verify();
 
 },
 
   globalData: {
-    thirdapp_id:60,
+    thirdapp_id:19,
     address_id:'',
     coupon:{},
     paginate: {

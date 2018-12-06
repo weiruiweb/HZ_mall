@@ -9,20 +9,22 @@
 		<view class="need_right">
 			<view class="need_name flexs">
 				<view class="name_this font28">
-					商品名称：<text class="color9">你好好</text>
+					商品名称：<text class="color9">{{web_mainData.keywords}}</text>
 				</view>
 				<view class="need_time font28">
-					2018-5-9 发布
+					{{web_mainData.create_time}}发布
 				</view>
 			</view>
-			<view class="font28">商品数量：<text class="color9">45</text></view>
-			<view class="font28">品质：<text class="color9">品质品质品质品质</text></view>
+			<view class="font28">商品数量：<text class="color9">{{web_mainData.score}}</text></view>
+			<view class="font28" wx:if="{{web_mainData.class==1}}">品质：<text class="color9" >精选品质</text></view>
+			<view class="font28" wx:if="{{web_mainData.class==2}}">品质：<text class="color9" >一般品质</text></view>
+			<view class="font28" wx:if="{{web_mainData.class==3}}">品质：<text class="color9">还行品质</text></view>
 			<view class="need_name flexs">
 				<view class="name_this font28" style="width:25%;">
 					具体要求:
 				</view>
 				<view class="need_time font28 color9" style="width:75%;">
-					具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求具体要求
+					{{web_mainData.content}}
 				</view>
 			</view>
 		</view>
@@ -33,44 +35,52 @@
 		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
 			<view class="tlt_cont">选择服务商</view>
 		</view>
-		<view class="need w710 flex">
-			<view class="need_left1">
-				<view class="user_img">
-	              <open-data type="userAvatarUrl"></open-data>
-	            </view>
+		<block wx:for="{{web_storeData}}" wx:key="id">
+			<view class="need w710 flex">
+				<view class="need_left1">
+					<view class="user_img">
+		              <open-data type="userAvatarUrl"></open-data>
+		            </view>
+				</view>
+				<view class="need_right1">
+					<view class="font28 color3">{{item.userInfo[0].passage1}}</view>
+					<view class="font28 color6">{{item.userInfo[0].name}}</view>
+				</view>
+				<view class="need_right2">
+					<view class="font28 color3">电话:{{item.userInfo[0].phone}}</view>
+					<view class="font28 color6">报价<text class="color">{{item.score}}</text>/件</view>
+				</view>
+				<view class="need_right3" bindtap="select"  data-id="{{item.id}}" data-index="{{item.index}}" wx:if="{{item.behavior==1}}">
+					<image src="{{web_selectId==item.id?'/images/select1_a.jpg':'/images/select1.jpg'}}"></image>
+				</view>
 			</view>
-			<view class="need_right1">
-				<view class="font28 color3">店铺名称</view>
-				<view class="font28 color6">张先生</view>
-			</view>
-			<view class="need_right2">
-				<view class="font28 color3">电话:15288656551</view>
-				<view class="font28 color6">报价<text class="color">400</text>/件</view>
-			</view>
-			<view class="need_right3">
-				<image src="/images/select1.jpg"></image>
-			</view>
-		</view>
-		<view class="need w710 flex">
-			<view class="need_left1">
-				<view class="user_img">
-	              <open-data type="userAvatarUrl"></open-data>
-	            </view>
-			</view>
-			<view class="need_right1">
-				<view class="font28 color3">店铺名称</view>
-				<view class="font28 color6">张先生</view>
-			</view>
-			<view class="need_right2">
-				<view class="font28 color3">电话:15288656551</view>
-				<view class="font28 color6">报价<text class="color">400</text>/件</view>
-			</view>
-			<view class="need_right3">
-				<image src="/images/select1.jpg"></image>
-			</view>
-		</view>
+		</block>
 	</view>
 </view>
-<form bindsubmit="submit" report-submit="true">
+<view class="w710" wx:if="{{web_mainData.behavior==2}}">
+	<view style="border-radius: 20rpx;width:100%;">
+		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
+			<view class="tlt_cont">选中服务商</view>
+		</view>
+		<block wx:for="{{web_storeData}}" wx:key="id">
+			<view class="need w710 flex" wx:if="{{item.behavior==2}}">
+				<view class="need_left1">
+					<view class="user_img">
+		              <open-data type="userAvatarUrl"></open-data>
+		            </view>
+				</view>
+				<view class="need_right1">
+					<view class="font28 color3">{{item.userInfo[0].passage1}}</view>
+					<view class="font28 color6">{{item.userInfo[0].name}}</view>
+				</view>
+				<view class="need_right2">
+					<view class="font28 color3">电话:{{item.userInfo[0].phone}}</view>
+					<view class="font28 color6">报价<text class="color">{{item.score}}</text>/件</view>
+				</view>
+			</view>
+		</block>
+	</view>
+</view>
+<form bindsubmit="submit" report-submit="true" wx:if="{{web_mainData.behavior==1}}">
   <button form-type="submit" class="submit_info" style="width:94%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;">提交</button>
 </form>

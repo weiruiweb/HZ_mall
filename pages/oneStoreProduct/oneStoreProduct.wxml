@@ -19,10 +19,14 @@
                             {{item.description}}
                         </view>
                     </view>
-                    
+                    <view class="product_tlt flex">
+                        <block wx:for="{{item.passage1}}"  wx:for-item="c_item" wx:key="c_item">
+                            <view class="tlt_item font24 color avoidOverflow">{{c_item}}</view>
+                        </block>
+                    </view>
                     <view class="font28 color6 flexRowBetween">
                         <view class="product_name font32 color">¥{{item.price}}</view>
-                        <view class="font24 color9">已售<text>{{item.sale_count}}</text>件</view>
+                        <view class="font24 color9">已售<text>{{item.view_count}}</text>件</view>
                     </view>
                 </view>
             </view>

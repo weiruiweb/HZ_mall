@@ -11,7 +11,7 @@
       姓名:
     </view>
     <view class="infor_center">
-      <input  placeholder="华路卓"></input>
+      <input  placeholder="请输入姓名" value="{{web_submitData.name}}"  data-key="name" bindblur="changeBind"></input>
     </view>
     <view class="infor_right">
        <image src="/images/penceil.jpg"></image>
@@ -22,7 +22,7 @@
       电话:
     </view>
     <view class="infor_center">
-      <input placeholder="女" ></input>
+      <input placeholder="请输入电话" value="{{web_submitData.phone}}"  data-key="phone" bindblur="changeBind"></input>
     </view>
     <view class="infor_right">
        <image src="/images/penceil.jpg"></image>
@@ -33,7 +33,7 @@
       店铺名称:
     </view>
     <view class="infor_center">
-      <input type="password"  placeholder="123456" ></input>
+      <input   placeholder="请输入店铺名称" value="{{web_submitData.idCard}}"  data-key="idCard" bindblur="changeBind"></input>
     </view>
     <view class="infor_right">
        <image src="/images/penceil.jpg"></image>
@@ -44,11 +44,11 @@
       店铺介绍:
     </view>
     <view class="infor_center">
-      <input placeholder="188888888888"></input>
+      <input placeholder="请输入店铺介绍" value="{{web_submitData.passage1}}"  data-key="passage1" bindblur="changeBind"></input>
     </view>
     <view class="infor_right">
        <image src="/images/penceil.jpg"></image>
     </view>
   </view>
 </view>
-<view class="submit_info"  bindtap="intoPathRedi" data-path="/pages/user/user"> 保存 </view>
+<view class="submit_info"  bindtap="{{web_buttonCanClick?'submit':''}}" > 保存 </view>

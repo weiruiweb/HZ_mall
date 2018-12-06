@@ -1,37 +1,115 @@
 import {Api} from '../../utils/api.js';
-var api = new Api();
+const api = new Api();
 const app = getApp();
 import {Token} from '../../utils/token.js';
 const token = new Token();
 
 Page({
   data: {
-    img1:0,
-    img2:1,
-    img3:0,
-    img4:0,
+    num:0,
+    mainData:[],
+    searchItem:{
+      
+    },
+    isFirstLoadAllStandard:['getMainData','getCouponData'],
+    isLoadAll:false,
   },
-  //事件处理函数
-  onLoad(options) {
+  
+  onLoad() {
     const self = this;
-    console.log(self.data.img2);
-  },
-  intoPath(e){
-    const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
+    wx.showLoading();
+    wx.removeStorageSync('checkLoadAll');
+    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    self.getCouponData()
   },
 
-  intoPathRedi(e){
+  getCouponData(){
     const self = this;
+    const postData = {};
+    postData.searchItem = {
+      thirdapp_id:getApp().globalData.thirdapp_id,
+      type:3,
+      title:'现金券'
+    };
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.couponData = res.info.data[0]
+      }
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getCouponData',self);
+      self.setData({
+        web_couponData:self.data.couponData,
+      });
+      self.getMainData()
+      console.log(899,res.info.data[0])
+    };
+    api.productGet(postData,callback);
+  },
+
+  getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);
+    }
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.tokenFuncName='getProjectToken';
+    postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.thirdapp_id = getApp().globalData.thirdapp_id;
+    postData.searchItem.type = ['in',[3,4]];
+    postData.searchItem.user_no = wx.getStorageSync('info').user_no;
+    postData.searchItem.passage1 = ['NOT IN',self.data.couponData.id]
+    postData.getAfter = {
+      merchant:{
+        tableName:'UserInfo',
+        middleKey:'passage1',
+        key:'user_no',
+        searchItem:{
+          status:1
+        },
+        condition:'='
+      }
+    };
+    postData.order = {
+      passage1:'desc'
+    }
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.mainData.push.apply(self.data.mainData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','none');
+      }
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
+
+      self.setData({
+        web_mainData:self.data.mainData,
+      });     
+
+    };
+    api.orderGet(postData,callback);
+  },
+
+
+
+  choose(e){
+    const self = this;
+    var id = api.getDataSet(e,'id');
+    wx.setStorageSync('couponId',id);
     wx.navigateBack({
       delta:1
     })
   },
 
-  intoPathRedirect(e){
+  
+
+
+  onReachBottom: function () {
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'redi');
-  }, 
+    if(!self.data.isLoadAll){
+      self.data.paginate.currentPage++;
+      self.getMainData();
+    };
+  },
 })
 
   

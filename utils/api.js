@@ -15,7 +15,8 @@ class Api extends Base{
             'package': param.package,
             'signType': param.signType,
             'paySign': param.paySign,
-            success: function () {
+            success: function (res) {
+                console.log(res);
                 wx.showToast({
                     title: '支付成功',
                     icon: 'success',
@@ -25,7 +26,8 @@ class Api extends Base{
                   
                 callback && callback(1);
             },
-            fail: function () {
+            fail: function (res) {
+                console.log(res);
                 wx.showToast({
                     title: '支付失败',
                     icon: 'success',
@@ -35,7 +37,6 @@ class Api extends Base{
                 callback && callback(0);
             }
         });
-
     }
   
 
@@ -44,6 +45,7 @@ class Api extends Base{
         var allParams ={
             url:'Common/Label/get',
             type:'post',
+            noToken:true,
             data:param,
             sCallback: function(data) {
                 callback && callback(data);
@@ -62,6 +64,66 @@ class Api extends Base{
             }
         };
         this.request(allParams);
+    }
+
+    skuGet(param,callback){
+        var allParams ={
+            url:'Common/Sku/get',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+    orderItemGet(param,callback){
+        var allParams ={
+            url:'Common/OrderItem/Get',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);
+    } 
+
+    skuAdd(param,callback){
+        var allParams ={
+            url:'Common/Sku/add',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+    skuDelete(param,callback){
+        var allParams ={
+            url:'Common/Sku/delete',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    }
+
+    skuUpdate(param,callback){
+        var allParams ={
+            url:'Common/Sku/update',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
     }
 
     logGet(param,callback){
@@ -436,6 +498,7 @@ class Api extends Base{
             url:'Common/Product/get',
             type:'post',
             data:param,
+            noToken:true,
             sCallback: function(data) {
                 callback && callback(data);
             }
@@ -499,6 +562,7 @@ class Api extends Base{
             url:'Common/Sku/get',
             type:'post',
             data:param,
+            noToken:true,
             sCallback: function(data) {
                 callback && callback(data);
             }
@@ -539,6 +603,7 @@ class Api extends Base{
             url:'Common/Article/get',
             type:'post',
             data:param,
+            noToken:true,
             sCallback: function(data) {
                 callback && callback(data);
             }

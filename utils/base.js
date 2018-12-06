@@ -1,4 +1,3 @@
-
 /**
  * Created by jimmy-jiang on 2016/11/21.
  */
@@ -12,10 +11,25 @@ class Base{
     //http 请求类, 当noRefech为true时，不做未授权重试机制
     request(params) {
         var that = this;
-        var baseRestUrl = 'https://liubin.yisuiyanghuoguo.com/liubin/public/index.php/api/v1/';
+        getApp().globalData.buttonClick = true;
+        var baseRestUrl = 'https://api.solelycloud.com/api/public/index.php/api/v1/';
         var url=baseRestUrl + params.url;
-        
-        
+        const callback = (res)=>{
+            that.request(params);
+        };
+
+        if(params.data.tokenFuncName){
+            console.log('params.data.token');
+            if(params.data.refreshToken){
+                token[params.data.tokenFuncName](callback,{refreshToken:true});
+            }else{
+                params.data.token = token[params.data.tokenFuncName](callback);
+            };
+            if(!params.data.token){
+                return;
+            };
+            console.log('params.data.token',params.data.token);
+        };
         
         wx.request({
             url: url,
@@ -30,20 +44,11 @@ class Base{
                 // 异常不要返回到回调中，就在request中处理，记录日志并showToast一个统一的错误即可
                 var code = res.data.solely_code;
                 if (res.data.solely_code == '200000') {
-                    const callback = (data)=>{
-                        that.request(data);
-                    };
-                    if(wx.getStorageSync('threeToken')&&params.data.token == wx.getStorageSync('threeToken')){
-                        that.logOff();
-                    }else{
-                       token.getUserInfo(params,callback); 
-                    };
-                    
-                    
-                    
+                    token[params.data.tokenFuncName](callback,{refreshToken:true});
                 } else {
                     params.sCallback && params.sCallback(res.data);
-                }
+                };
+                getApp().globalData.buttonClick = false;
             },
             fail: function (err) {
                 console.log(err)
@@ -56,6 +61,7 @@ class Base{
                     duration:2000,
                     mask:true,
                 });
+                getApp().globalData.buttonClick = false;
             }
         });
 
@@ -79,6 +85,16 @@ class Base{
         return event.currentTarget.dataset[key];
     };
 
+    checkArrayEqual(array1,array2){
+        
+        if(array1.sort().toString() == array2.sort().toString()){
+            return true;
+        }else{
+            return false;
+        }
+        
+    };
+
 
     /*wxParse插件返回函数*/
     wxParseReturn(data){
@@ -96,9 +112,31 @@ class Base{
             if(pform[key]){
                 form[key] = pform[key];
             }
-            
         };   
         return form;           
+    };
+
+    buttonCanClick(self,type){
+        if(type){
+            self.data.buttonCanClick = type;
+            self.setData({
+                web_buttonCanClick:self.data.buttonCanClick
+            });
+            if(type){
+                wx.hideLoading();
+            };
+            return type;
+        }else if(self.data.buttonCanClick){
+            self.data.buttonCanClick = false;
+            self.setData({
+                web_buttonCanClick:self.data.buttonCanClick
+            });
+            wx.showLoading();
+            return self.data.buttonCanClick;
+        }else{
+            wx.showLoading();
+            return false;
+        };
     };
 
     dealRes(res){
@@ -155,15 +193,95 @@ class Base{
             //result.push(key);
             if(type=='push'){
                 result.push(obj[key]);
-            }
-
+            };
             if(type=='unshift'){
                 result.unshift(obj[key]);
-            }
-            
-            
-        }
+            };
+        };
         return result;
+    };
+
+
+    getStorageArray(storageName,key,value){
+        const self = this;
+        if(wx.getStorageSync(storageName)){
+            var array = JSON.parse(wx.getStorageSync(storageName));
+            if(key&&value&&array){
+                var index = self.findItemInArray(array,key,value)[0];
+                return array[index];
+            }else if(array){
+                return array;
+            }else{
+                return false;
+            };
+        }else{
+            return [];
+        };
+    };
+
+    setStorageArray(storageName,item,key,limit,type='unshift'){
+
+        const self = this;
+        if(wx.getStorageSync(storageName)){
+            var array = JSON.parse(wx.getStorageSync(storageName));
+            if(array.length<limit){
+                self.setItemInArray(array,item,key,type);
+            }else{
+                if(type=='unshift'){
+                    array.splice(array.length-1,1);
+                }else{
+                    array.splice(0,1);
+                };
+                self.setItemInArray(array,item,key,type);
+            };
+        }else{
+            var array = [];
+            array[type](item);
+        };
+        array = JSON.stringify(array);
+        wx.setStorageSync(storageName,array);
+        return true;
+
+    };
+
+    delStorageArray(storageName,item,key){
+
+        const self = this;
+        var array = JSON.parse(wx.getStorageSync(storageName));
+        var index = self.findItemInArray(array,key,item[key])[0];
+        array.splice(index,1);
+        array = JSON.stringify(array);
+        wx.setStorageSync(storageName,array);
+        return true;
+
+    };
+
+
+
+    findItemInArray(array,fieldName,field){
+
+        for(var i=0;i<array.length;i++){
+            if(array[i][fieldName] == field){
+                return [i,array[i]];
+            }
+        };
+        return false;
+
+    };
+
+    setItemInArray(array,item,fieldName,type='push'){
+        var findI = -1;
+        for(var i=0;i<array.length;i++){
+            if(array[i][fieldName] == item[fieldName]){
+                findI = i;
+            };
+        };
+        if(findI>=0){
+            array[findI] = item;
+        }else{
+            array[type](item);
+        };
+        return array;
     };
 
     footOne(res,name,limit,objName){
@@ -186,7 +304,6 @@ class Base{
               var history = {};
               for(var i=0;i<historyArray.length;i++){
                 history[historyArray[i][name]] = historyArray[i];
-                
               };
             }
             wx.setStorageSync(objName,history);
@@ -249,6 +366,45 @@ class Base{
         }
     };
 
+    skuChoose(skuData,choosed_sku_item){
+        const self = this;
+
+        var can_choose_sku_item = [];
+        var choosed_skuData = {};
+
+        for(var i=0;i<skuData.length;i++){ 
+          if(JSON.stringify(skuData[i].sku_item.sort())==JSON.stringify(choosed_sku_item.sort())){
+            choosed_skuData = self.cloneForm(skuData[i]);
+            can_choose_sku_item = choosed_sku_item;
+            break;
+          }else{
+            if(choosed_sku_item.length>0){
+                for(var c_i=0;c_i<choosed_sku_item.length;c_i++){ 
+                    if(skuData[i].sku_item.indexOf(choosed_sku_item[c_i])!=-1){
+                        can_choose_sku_item.push.apply(can_choose_sku_item,skuData[i].sku_item);
+                    };
+                };
+            }else{
+                can_choose_sku_item.push.apply(can_choose_sku_item,skuData[i].sku_item);
+            };
+          };   
+        };
+        return {
+            choosed_skuData:choosed_skuData,
+            can_choose_sku_item:can_choose_sku_item
+        };
+    };
+
+    intersectionInArray(array,array1){
+        var newArray = [];
+        for(var i=0;i<array.length;i++){ 
+            if(array1.indexOf(array[i])!=-1){
+                newArray.push(array[i])
+            };   
+        };
+        return newArray;
+    };
+
 
     clearPageIndex(self){
         self.data.paginate.currentPage = 1;
@@ -278,37 +434,72 @@ class Base{
 
     };
 
+    getcurrentPage(){
+        var pages = getCurrentPages();
+        var currentPage = pages[pages.length-1];
+        return currentPage;
+    };
 
-    showToast(title,type,duration,func){
+    checkLoadAll(array,item,self){
+
+        var path = this.getcurrentPage().route
+        if(wx.getStorageSync('checkLoadAll')&&wx.getStorageSync('checkLoadAll').path==path){
+            var testArray = wx.getStorageSync('checkLoadAll').testArray;
+        }else{
+            var testArray = [];
+        };
+        testArray.push(item);
+        if(this.checkArrayEqual(array,testArray)){
+            wx.hideLoading();
+            wx.removeStorageSync('checkLoadAll');
+            if(self){
+                self.data.buttonCanClick = true;
+                self.setData({
+                    web_buttonCanClick:self.data.buttonCanClick
+                });
+            };
+            return true;
+        }else{
+            wx.setStorageSync('checkLoadAll',{path:path,testArray:testArray});
+            return false
+        };
+        
+    };
+
+
+    showToast(title,type,func){
         wx.showToast({
             title:title,
             icon:type,
-            duration:duration?duration:1000,
+            duration:1000,
             mask:true,
             complete:func
         })
     };
 
-    pathTo(path,type){
-
-        if(type=='nav'){
-            wx.navigateTo({
-                url:path
-            });
-        }else if(type=='tab'){
-            wx.switchTab({
-                url:path
-            });
-        }else if(type=='redi'){
-            wx.redirectTo({
-                url:path
-            });
-        }else if(type=='rela'){
-            wx.reLaunch({
-                url:path
-            });
-        }
+    pathTo(path,type,time=0){
+        setTimeout(function(){
+            if(type=='nav'){
+                wx.navigateTo({
+                    url:path
+                });
+            }else if(type=='tab'){
+                wx.switchTab({
+                    url:path
+                });
+            }else if(type=='redi'){
+                wx.redirectTo({
+                    url:path
+                });
+            }else if(type=='rela'){
+                wx.reLaunch({
+                    url:path
+                });
+            }
+        },time);
     };
+
+    
 
     arrayByItem(field,fieldName,array){
 
@@ -319,6 +510,16 @@ class Base{
         }
     };
 
+    removeItemFormArr(arr,item){
+        var newarr = [];
+        for(var i=0;i<arr.length;i++){
+            if(arr[i] != item){
+                newarr.push(arr[i]);
+            }
+        }
+        return newarr;
+    };
+
     getAuthSetting(callback){
         wx.getSetting({
             success: setting => {
@@ -326,7 +527,6 @@ class Base{
                 wx.hideLoading();
                 this.showToast('授权请点击同意','fail');
               }else{
-                token.getUserInfo();
                 wx.getUserInfo({
                     success: function(user) {
                         callback&&callback(user.userInfo,setting);  
