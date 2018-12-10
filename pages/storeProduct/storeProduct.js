@@ -69,7 +69,7 @@ Page({
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.setData({
-        web_itemData:self.data.itemData,
+
         web_mainData:self.data.mainData,
       });   
       api.buttonCanClick(self,true);

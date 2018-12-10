@@ -14,10 +14,7 @@ Page({
     searchItem:{},
     isShow:false,
     buttonCanClick:false,
-     sort:{
-      sortby:'',
-      sort:''
-    },
+    
   },
 
   
@@ -123,7 +120,6 @@ Page({
     postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
     postData.searchItem.user_no = self.data.user_no;
     postData.searchItem.type=['in',[3,4]];
-    postData.order = api.cloneForm(self.data.order);
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.couponData.push.apply(self.data.couponData,res.info.data);
@@ -174,21 +170,30 @@ Page({
     api.productGet(postData,callback);
   },
 
+
+
   addCouponOrder(e){
     const self = this;
     api.buttonCanClick(self);
-    var end_time = api.getDataSet(e,'end_time');
     var id = api.getDataSet(e,'id');
+    var type = api.getDataSet(e,'type');
+    var duration = api.getDataSet(e,'duration');
+    var discount = api.getDataSet(e,'discount');
+    var standard = api.getDataSet(e,'standard');
+    console.log('duration',duration);
+    var limit = api.getDataSet(e,'limit');
     const postData = {
-      tokenFuncName:'getProjectToken',
+      tokenFuncName:'getMallToken',
       product:[
         {id:id,count:1}
       ],
-    
-      type:3,
+      pay:{score:0},
+      type:type,
       data:{
-        passage1:self.data.user_no,
-        end_time:end_time
+        end_time:new Date().getTime() + duration,
+        limit:limit,
+        discount:discount,
+        standard:standard,
       }
     };
     const callback = (res)=>{
@@ -197,9 +202,10 @@ Page({
           self.getCouponData(true)
         });   
       }; 
-      
+      api.buttonCanClick(self,true);
     };
     api.addOrder(postData,callback);
+
   },
 
   menuClick: function (e) {

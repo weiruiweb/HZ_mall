@@ -84,7 +84,7 @@
                 </view>
                 <view class="line"></view>
                 <view class="discount_right flex font28">
-                    <view style="text-align: center;width:100%;color:#e65e24;" bindtap="{{web_buttonCanClick?'addCouponOrder':''}}" data-id="{{item.id}}" data-end_time="{{item.end_time}}">立即领取</view>
+                    <view style="text-align: center;width:100%;color:#e65e24;" bindtap="{{web_buttonCanClick?'addCouponOrder':''}}"  data-id="{{item.id}}" data-type="{{item.type}}" data-limit="{{item.use_limit}}" data-deadline="{{item.deadline}}" data-discount="{{item.discount}}" data-standard="{{item.standard}}">立即领取</view>
                 </view>
             </view>
           </view>

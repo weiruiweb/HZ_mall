@@ -29,46 +29,32 @@
 		</view>
 	</view>	
 </view>
-<view class="group">
+<view class="group" >
 	<view class="w710 detail_text flex" style="height:78rpx;line-height: 78rpx;border-bottom:solid 1px #e0e0e0;">
 		<view class="font24 color6" style="width:90%">
-			48人在拼单,可直接参与
+			{{web_orderData.length}}人在拼单,可直接参与
 		</view>
 		<view class="next_page">
 			<image src="/images/next_page.jpg"></image>
 		</view>
 	</view>
 	<view class="w710">
-		<view class="group_one flex">
-			<view class="group_left">
-				<view class="user_img">
-                  <open-data type="userAvatarUrl"></open-data>
-                </view>
+		<block wx:for="{{web_orderData}}" wx:key="id">
+			<view class="group_one flex" >
+				<view class="group_left">
+					<view class="user_img">
+	                  <image class="user_img" src="{{item.user[0].headImgUrl}}"></image>
+	                </view>
+				</view>
+				<view class="group_name font28 color6" style="width:25%">{{item.user[0].nickname}}</view>
+				<view class="group_number" style="width:50%">
+					<view class="font26 color3" >还未成团，点击即可参与</view>
+				</view>
+				<view class="group_btn"  bindtap="groupData" data-id="{{item.id}}" data-group_no="{{item.group_no}}" style="width:25%">
+					<view class="submit_info color1" >去拼单</view>
+				</view>
 			</view>
-			<view class="group_name font28 color6">尚方宝剑</view>
-			<view class="group_number">
-				<view class="font26 color3">还差<text class="color">2</text>人拼成</view>
-				<view class="font26 color3">剩余<text class="color6">23:57:58:00</text></view>
-			</view>
-			<view class="group_btn"  bindtap="group">
-				<view class="submit_info color1">去拼单</view>
-			</view>
-		</view>
-		<view class="group_one flex">
-			<view class="group_left">
-				<view class="user_img">
-                  <open-data type="userAvatarUrl"></open-data>
-                </view>
-			</view>
-			<view class="group_name font28 color6">尚方宝剑</view>
-			<view class="group_number">
-				<view class="font26 color3">还差<text class="color">2</text>人拼成</view>
-				<view class="font26 color3">剩余<text class="color6">23:57:58:00</text></view>
-			</view>
-			<view class="group_btn"  bindtap="group">
-				<view class="submit_info color1">去拼单</view>
-			</view>
-		</view>
+		</block>
 	</view>
 </view>
 <view class="comment">
@@ -149,13 +135,13 @@
 
 	</view>
 	<view class="buy_btn flex">
-		<view class="btn_left color1 flex" bindtap="isShow" bindtap="selectModel" data-type="buy">
+		<view class="btn_left color1 flex" bindtap="selectModel" data-type="buy">
 			<view style="width:100%;text-align: center;">
 				<view class="font24">¥135</view>
 				<view class="font28">单独购买</view>
 			</view>
 		</view>
-		<view class="btn_right flex" bindtap="isShow1">
+		<view class="btn_right flex" bindtap="selectModel" data-type="groupBuy">
 			<view style="width:100%;text-align: center;">
 				<view class="font24">¥135</view>
 				<view class="font28">发起拼单</view>
@@ -224,6 +210,6 @@
 		</view>
 	</view>
 
-		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':'addCart'}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
+		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'addOrder':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
 
 </view>
