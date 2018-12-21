@@ -27,21 +27,23 @@
     </view>
 </view>
 <view class="product">
-    <block wx:for="{{web_mainData.products}}" wx:key="id">
+    <block wx:for="{{web_mainData}}">
         <view class="product_box w710 flexRowBetween">
-            <view class="product_left">
-                <image src="{{item.snap_product.mainImg[0].url}}"></image>
-            </view>
-            <view class="product_right">
-                <view class="product_detail">
-                    <view class="font32 color3 product_top">{{item.snap_product.title}}</view>
-                    <view class="font24 color9 product_top">{{item.snap_product.description}}</view>
-                    <view class="product_top flex">
-                        <view class="font30 color6 product_number">X{{item.count}}</view>
-                        <view class="font30 product_price color">¥{{item.snap_product.price}}</view>
+            <block wx:for="{{item.products}}" wx:key="id" wx:for-item="c_item">
+                <view class="product_left">
+                    <image src="{{c_item.snap_product.mainImg[0].url}}"></image>
+                </view>
+                <view class="product_right">
+                    <view class="product_detail">
+                        <view class="font32 color3 product_top">{{c_item.snap_product.title}}</view>
+                        <view class="font24 color9 product_top">{{c_item.snap_product.description}}</view>
+                        <view class="product_top flex">
+                            <view class="font30 color6 product_number">X{{c_item.count}}</view>
+                            <view class="font30 product_price color">¥{{c_item.snap_product.price}}</view>
+                        </view>
                     </view>
                 </view>
-            </view>
+            </block>
         </view>
     </block>
 </view>
@@ -71,13 +73,8 @@
 </block>
 
 
-<view class="w710 discount flexRowBetween  bg1" style="height:78rpx">
-    <view class="font28 color6" style="width:25%;">分享商品</view>
-    <view class="next_page" style="width:5%;">
-        <image src="/images/next_page.jpg"></image>
-    </view>
-</view>
+
 <view class="confirm_btn flex font30">
-   <view class="confirm_left color">微信支付: ¥{{web_pay.wxPay}}</view> 
-   <view class="confirm_right color1" bindtap="{{web_buttonCanClick?'pay':''}}">提交订单</view> 
+   <view class="confirm_left color">微信支付: ¥{{web_pay.wxPay&&web_pay.wxPay.price||0}}</view> 
+   <view class="confirm_right color1" bindtap="{{web_buttonCanClick?'pay':''}}">立即支付</view> 
 </view>

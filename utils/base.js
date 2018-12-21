@@ -12,7 +12,7 @@ class Base{
     request(params) {
         var that = this;
         getApp().globalData.buttonClick = true;
-        var baseRestUrl = 'https://api.solelycloud.com/api/public/index.php/api/v1/';
+        var baseRestUrl = 'https://www.huazhensc.cn/api/public/index.php/api/v1/';
         var url=baseRestUrl + params.url;
         const callback = (res)=>{
             that.request(params);
@@ -269,6 +269,16 @@ class Base{
 
     };
 
+    addItemInArray(array,fieldName){
+        var count = 0;
+        for(var i=0;i<array.length;i++){
+            if(array[i][fieldName]){
+                count += parseFloat(array[i][fieldName])
+            };
+        };
+        return count.toFixed(2);
+    };
+
     setItemInArray(array,item,fieldName,type='push'){
         var findI = -1;
         for(var i=0;i<array.length;i++){
@@ -467,11 +477,11 @@ class Base{
     };
 
 
-    showToast(title,type,func){
+    showToast(title,type,duration=1000,func){
         wx.showToast({
             title:title,
             icon:type,
-            duration:1000,
+            duration:duration,
             mask:true,
             complete:func
         })
@@ -508,6 +518,19 @@ class Base{
                 return array[i];
             }
         }
+    };
+
+    findItemsInArray(array,fieldName,field){
+        var array = [];
+        for(var i=0;i<array.length;i++){
+            if(array[i][fieldName] == field){
+                array.push({
+                    index:i,
+                    data:array[i]
+                });
+            }
+        };
+        return array;
     };
 
     removeItemFormArr(arr,item){

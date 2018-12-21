@@ -7,7 +7,6 @@ const token = new Token();
 Page({
   data: {
     disabled: true,
-    isLoadAll:false,
     isFirstLoadAllStandard:['getMainData'],
     submitData:{
       name:'',
@@ -15,7 +14,7 @@ Page({
       idCard:'',
       passage1:''
     },
-    buttonCanClick:false
+
   },
   //事件处理函数
   preventTouchMove: function(e) {
@@ -24,8 +23,7 @@ Page({
 
   onLoad(options) {
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     
     self.getMainData()
   },
@@ -62,6 +60,7 @@ Page({
       }
     } else {
       api.showToast('请补全信息', 'none');
+      api.buttonCanClick(self,true);
     };
   },
 

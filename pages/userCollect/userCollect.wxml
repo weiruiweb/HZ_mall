@@ -20,7 +20,7 @@
                     </view>
                 </view>
             </view>
-            <view class="sort_right flex">
+            <view class="sort_right flex" bindtap="intoPath" data-path="/pages/store1/store1?user_no={{item.user_no}}">
                 <view class="submit_info bg font24">进入店铺</view>
             </view>
         </view>

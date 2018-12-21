@@ -6,7 +6,6 @@ Page({
   data: {
     storeData:[],
     mainData:[],
-    isLoadAll:false,
     isFirstLoadAllStandard:['getMainData','getStoreData','getMerchantData'],
     submitData:{
      
@@ -19,8 +18,7 @@ Page({
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.data.id=options.id;
     self.getMainData();
   },
@@ -138,11 +136,12 @@ Page({
     const pass = api.checkComplete(self.data.submitData);
     if(pass){
       const callback = (user,res) =>{ 
-        self.messageAdd(); 
+        self.messageUpdate(); 
       };
       api.getAuthSetting(callback); 
     }else{
       api.showToast('请补全信息','none');
+      api.buttonCanClick(self,true);
     };
   },
 
@@ -185,14 +184,18 @@ Page({
           for (var i = 0; i < self.data.storeData.length; i++) {
             if(self.data.storeData[i].behavior==2){
               self.data.storeDataSelect.push(self.data.storeData[i]) 
+            };
+            if(self.data.storeData[i].user[0].user_no==wx.getStorageSync('threeInfo').user_no){
+              self.data.submitData.score = self.data.storeData[i].score
             }
           }
       }
 
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getStoreData',self);
-      console.log('getStoreData',self.data.storeDataSelect);
+      console.log('storeDataSelect',self.data.storeDataSelect);
       console.log('getStoreData',self.data.storeData);
       self.setData({
+        web_submitData:self.data.submitData,
         web_storeDataSelect:self.data.storeDataSelect,
         web_storeData:self.data.storeData,
       });

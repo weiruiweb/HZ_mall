@@ -16,9 +16,9 @@ Page({
  
   onLoad(options) {
     const self = this;
+    api.commonInit(self);
     self.data.id = options.id;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    
     self.getMainData();
 
   },
@@ -109,21 +109,23 @@ Page({
       product:[
         {id:self.data.mainData.id,count:1}
       ],
-      pay:{wxPay:self.data.mainData.price,wxPayStatus:0},
       type:1,
+      pay:{
+        wxPay:{
+          price:self.data.mainData.price
+        }
+      }
     };
     const callback = (res)=>{
       if(res&&res.solely_code==100000){
         const payCallback=(payData)=>{
           if(payData==1){
             if(self.data.mainData.stock==1){
-              api.showToast('支付成功','none',function(self){
-                  self.chooseReward()  
-              });
+              api.showToast('支付成功','none')
+              self.chooseReward()  
             }else{
-              api.showToast('支付成功','none',function(self){
-                self.getMainData()
-              });
+              api.showToast('支付成功','none')
+              self.getMainData()
             };
             
           }else{
@@ -131,7 +133,9 @@ Page({
           }   
         };
         api.realPay(res.info,payCallback);  
-      }; 
+      }else{
+        api.showToast(res.msg,'none')
+      }
       api.buttonCanClick(self,true);
     };
     api.addOrder(postData,callback);  
@@ -169,9 +173,11 @@ Page({
     const callback = (res)=>{
       if(res.solely_code==100000){
         api.showToast('领取成功','none')
+
       }else{
         api.showToast('领取失败','none')
       }
+      self.getMainData();
     };
     api.userInfoUpdate(postData,callback);
   },

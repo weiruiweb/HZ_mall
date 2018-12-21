@@ -7,7 +7,7 @@ Page({
   data: {
     
     mainData:[],
-    isLoadAll:false,
+  
     isFirstLoadAllStandard:['getMainData'],
     sForm:{
       item:''
@@ -15,6 +15,7 @@ Page({
     searchItem:{
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2, 
+      behavior:1
     }
   }, 
 
@@ -22,9 +23,7 @@ Page({
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getMainData();
   },
 
@@ -93,7 +92,7 @@ Page({
 
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getLabelData();
     };

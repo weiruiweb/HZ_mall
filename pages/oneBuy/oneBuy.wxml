@@ -15,7 +15,7 @@
                             <view class="progress font24 color avoidOverflow">
                                 <progress percent="60" color="red"  stroke-width="12"/>
                             </view>
-                            <view class="font24 color6 avoidOverflow residue">剩余<text class="color">20</text>个名额</view>
+                            <view class="font24 color6 avoidOverflow residue">剩余<text class="color">{{item.limit-item.sale_count}}</text>个名额</view>
                         </view>
                         <view class="font28 color6 flexRowBetween">
                             <view class="product_name font32 color">¥{{item.price}}</view>

@@ -12,17 +12,16 @@ Page({
       type:1,
     },
     isFirstLoadAllStandard:['getMainData'],
-    isLoadAll:false,
-    buttonCanClick:false,
+
   },
   //事件处理函数
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.data.id = options.id;
+    self.data.orderItem_id = options.orderItem_id;
     console.log(self.data.id);
     self.getMainData()
   },
@@ -42,7 +41,12 @@ Page({
     const callback = (res)=>{
       if(res.solely_code==100000){
         if(res.info.data.length>0){
-          self.data.mainData = res.info.data[0]
+          for (var i = 0; i < res.info.data[0].products.length; i++) {
+            if(res.info.data[0].products[i].id==self.data.orderItem_id){
+              self.data.mainData = res.info.data[0].products[i].snap_product;
+              break;
+            };
+          };
         }else{
           api.showToast('数据错误','none');
         };
@@ -55,28 +59,39 @@ Page({
       };
 
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
-      console.log('getMainData',self.data.mainData.products[0].snap_product.product.id)
     };
     api.orderGet(postData,callback);
   },
 
-
   messageAdd(){
     const self = this;
-    wx.showLoading();
+    
     const postData = {};
-    postData.token = wx.getStorageSync('token');
+    postData.tokenFuncName = 'getProjectToken';
     postData.data = api.cloneForm(self.data.submitData);
-    postData.data.relation_id = self.data.mainData.products[0].snap_product.product.id;
+    postData.data.relation_id = self.data.mainData.id;
+    postData.data.relation_table = 'sku';
     console.log(postData)
+    postData.saveAfter = [{
+      tableName:'OrderItem',
+      FuncName:'update',
+      searchItem:{
+        id:self.data.orderItem_id
+      },
+      data:{
+        isremark:1,
+        user_no:wx.getStorageSync('mall_info').user_no,
+        thirdapp_id:getApp().globalData.mall_thirdapp_id
+      }
+    }]
     const callback = (data)=>{  
       if(data.solely_code == 100000){
         api.showToast('评价成功','none');
         setTimeout(function(){
-        wx.navigateBack({
-          delta:1
-        })
-      }, 1000)
+          wx.navigateBack({
+            delta:1
+          })
+        }, 1000)
       }else{
         api.showToast('评价失败','none');
       };
@@ -84,7 +99,6 @@ Page({
     };
     api.messageAdd(postData,callback);  
   },
-
 
   submit(){
     const self = this;
@@ -94,6 +108,7 @@ Page({
         self.messageAdd(); 
     }else{
       api.showToast('请补全信息','none');
+      api.buttonCanClick(self,true);
     };
   },
 

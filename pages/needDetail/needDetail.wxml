@@ -9,10 +9,10 @@
 		<view class="need_right">
 			<view class="need_name flexs">
 				<view class="name_this font28">
-					商品名称：<text class="color9">{{web_mainData.userMessage[0].keywords}}</text>
+					商品名称：<text class="color9">{{web_mainData.keywords}}</text>
 				</view>
 				<view class="need_time font28">
-					{{web_mainData.userMessage[0].create_time}} 发布
+					{{web_mainData.create_time}} 发布
 				</view>
 			</view>
 			<view class="font28">商品数量：<text class="color9">{{web_mainData.score}}</text></view>
@@ -86,7 +86,7 @@
 					<input placeholder="请输入电话" value="{{web_merchantData.info.phone}}"></input>
 				</view>
 			
-				  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:30rpx auto;" bindtap="submit">提交</button>
+				  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:30rpx auto;" bindtap="{{web_buttonCanClick?'submit':''}}">提交</button>
 		
 			</view>
 		</view>

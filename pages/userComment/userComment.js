@@ -12,16 +12,13 @@ Page({
    isFirstLoadAllStandard:['getMainData'],
    searchItem:{
     },
-    buttonCanClick:false,
-    isLoadAll:false
+    messageData:[]
   },
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getMainData()
   },
 

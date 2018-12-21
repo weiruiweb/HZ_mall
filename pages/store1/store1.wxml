@@ -2,7 +2,7 @@
 <wxs module="func" src="../../utils/func.wxs" />
 <view class="store">
     <view class="user_img">
-      <open-data type="userAvatarUrl"></open-data>
+      <image src="{{web_userData.mainImg[0].url}}" class="user_img"></image>
     </view>
     <view class="font30">{{web_userData.info.passage1}}</view>
     <view class="font24 color9">已拼：{{web_userData.product.saleNum}}件</view>
@@ -11,7 +11,7 @@
             <image src="/images/consule.png"></image> 客服
         </view>
         <view class="font30 color6 flex" style="margin:0 50rpx;" bindtap="{{web_buttonCanClick?'collect':''}}">
-            <image src="{{url}}"></image> 收藏
+            <image src="{{web_isInCollectData?'/images/heart.png':'/images/collect.png'}}"></image> 收藏
         </view>
     </view>
 </view>
@@ -28,10 +28,29 @@
     </view>
 </view>
 <view class="flexRowBetween font30 bg1" style="padding-bottom:30rpx;">
-    <view class="sort_item">新品推荐</view>
-    <view class="sort_item">分类</view>
-    <view class="sort_item">价格</view>
-    <view class="sort_item flexCenter">
+    <view class="sort_item flexCenter" bindtap="{{web_buttonCanClick?'changeOrder':''}}" style="{{web_order.create_time?'color:#e83632':''}}" data-key="create_time">
+        <text>新品推荐</text>
+        <image src="/images/up.png"></image>
+    </view>
+    <view class="sort_item">
+        <picker bindchange="lebelChange" value="{{index}}"  range="{{web_labelData}}" range-key ="title" style="width:100%;">
+          <view class="picker flex">
+            <view class="input_before1 font28 flex" style="width:22%;">
+              分类:
+            </view>
+            <view class="things_right flexRowBetween font28" style="width:50%;">
+              <view class="thing1  flexRowBetween">
+                  <view class="font28"  style="text-align: center;width:100%;">{{web_labelData[web_index].title}}</view>
+              </view>
+            </view>
+          </view>
+        </picker>
+    </view>
+    <view class="sort_item flexCenter" bindtap="{{web_buttonCanClick?'changeOrder':''}}" style="{{web_order.price?'color:#e83632':''}}" data-key="price">
+        <text>价格</text>
+        <image src="/images/up.png"></image>
+    </view>
+    <view class="sort_item flexCenter" bindtap="{{web_buttonCanClick?'changeOrder':''}}" style="{{web_order.sale_count?'color:#e83632':''}}" data-key="sale_count">
         <text>销量</text>
         <image src="/images/up.png"></image>
     </view>
@@ -50,11 +69,6 @@
                     <view class="product_des font26 color9 avoidOverflow">
                         {{item.description}}
                     </view>
-                </view>
-                <view class="product_tlt flex">
-                    <block wx:for="{{item.passage1}}"  wx:for-item="c_item" wx:key="c_item">
-                        <view class="tlt_item font24 color avoidOverflow">{{c_item}}</view>
-                    </block>
                 </view>
                 <view class="font28 color6 flexRowBetween">
                     <view class="product_name font32 color">¥{{item.price}}</view>
@@ -84,7 +98,7 @@
                 </view>
                 <view class="line"></view>
                 <view class="discount_right flex font28">
-                    <view style="text-align: center;width:100%;color:#e65e24;" bindtap="{{web_buttonCanClick?'addCouponOrder':''}}"  data-id="{{item.id}}" data-type="{{item.type}}" data-limit="{{item.use_limit}}" data-deadline="{{item.deadline}}" data-discount="{{item.discount}}" data-standard="{{item.standard}}">立即领取</view>
+                    <view style="text-align: center;width:100%;color:#e65e24;" bindtap="{{web_buttonCanClick?'addCouponOrder':''}}"  data-id="{{item.id}}" data-type="{{item.type}}" data-limit="{{item.use_limit}}" data-deadline="{{item.deadline}}" data-discount="{{item.discount}}" data-standard="{{item.standard}}" data-user_no="{{item.user_no}}">立即领取</view>
                 </view>
             </view>
           </view>

@@ -58,35 +58,23 @@
         </view> 
     </view>     
 </view>
+
 <view class="credit_cont">
-    <view class="credit_list">
-        <view class="credit_item">
-            <view class="credit_left">
-                <view class="credit_reson font28">
-                    签到一天领取1积分
+    <block wx:for="{{web_mainData}}" wx:key="id">
+        <view class="credit_list">
+            <view class="credit_item">
+                <view class="credit_left">
+                    <view class="credit_reson font28">
+                        {{item.trade_info}}
+                    </view>
+                    <view class="credit_dates font24 color9">
+                        {{item.create_time}}
+                    </view>
                 </view>
-                <view class="credit_dates font24 color9">
-                    0000-0-0
+                <view class="credit_right font28 {{item.count>0?'color':''}}">
+                    {{item.count}}
                 </view>
-            </view>
-            <view class="credit_right font28">
-                -700
             </view>
         </view>
-    </view>
-    <view class="credit_list">
-        <view class="credit_item">
-            <view class="credit_left">
-                <view class="credit_reson font28">
-                    签到一天领取1积分
-                </view>
-                <view class="credit_dates font24 color9">
-                    0000-0-0
-                </view>
-            </view>
-            <view class="credit_right font28 color">
-                +70
-            </view>
-        </view>
-    </view>
+    </block>
 </view>

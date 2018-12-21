@@ -40,9 +40,9 @@
 			<view class="handle">
 				<view class="handle_order">
 					<view class="flexRowBetween">
-						<view class="handle_orders delete_order">关闭需求</view>
+						<view class="handle_orders delete_order" wx:if="{{item.behavior=='1'}}" data-id="{{item.id}}" bindtap="updateNeed">关闭需求</view>
 
-						<view class="handle_orders delete_order">删除需求</view>
+						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="deleteNeed">删除需求</view>
 
 					</view>
 				</view>

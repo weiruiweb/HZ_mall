@@ -1,18 +1,18 @@
 <!--manageAddress.wxml-->
 <view class="order_sort flexRowBetween">
-	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="menuClick">
+	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		全部
 	</view>
-	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="menuClick">
+	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		待付款
 	</view>
-	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="menuClick">
+	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		待收货
 	</view>
-	<view class="order_item {{num ==3?'order_this':''}}" data-num="3" bindtap="menuClick">
+	<view class="order_item {{num ==3?'order_this':''}}" data-num="3" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		已完成
 	</view>
-	<view class="order_item {{num ==4?'order_this':''}}" data-num="4" bindtap="menuClick">
+	<view class="order_item {{num ==4?'order_this':''}}" data-num="4" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		已取消
 	</view>
 </view>
@@ -27,11 +27,25 @@
 					<text >交易时间:</text>
 					<text>{{item.create_time}}</text>
 				</view>
-		        <view class="tlt_left">交易时间:{{item.create_time}}</view>
-	            <view class="tlt_right color" wx:if="{{item.pay_status == '1'&&item.transport_status =='0'}}">待商家发货</view>
-	            <view class="tlt_right color"  wx:if="{{item.pay_status == '0'}}">等待买家付款</view>
-	            <view class="tlt_right color" wx:if="{{item.order_step=='3'}}">已完成</view>
-	            <view class="tlt_right color" wx:if="{{item.pay_status == '1'&&item.order_step=='0'&&item.transport_status =='1'}}">物流配送中</view>
+		  		<view class="tlt_right color"  wx:if="{{item.pay_status == '1'&&item.transport_status =='0'&&item.order_step =='0'}}">
+	            等待卖家发货
+		        </view>
+		        <view class="tlt_right color"  wx:if="{{item.pay_status == '1'&&item.order_step =='1'}}">
+	            已申请退款
+		        </view>
+		        <view class="tlt_right color"  wx:if="{{item.pay_status == '1'&&item.order_step =='2'}}">
+	            商家已同意退款
+		        </view>
+		        <view class="tlt_right color"  wx:if="{{item.pay_status == '0'}}">
+		           等待买家付款
+	          	</view>
+	          	<view class="tlt_right color"  wx:if="{{item.order_step=='3'}}">
+	            已完成
+	          	</view>
+	          	<view class="tlt_right color"  wx:if="{{item.pay_status == '1'&&item.order_step=='0'&&item.transport_status =='1'}}">
+	            物流配送中
+	          	</view>
+	       
 			</view>
 			<block wx:for="{{web_mainData[index].products}}" wx:for-item="c_item" wx:key="id">
 				<view class="same_stroe">
@@ -49,19 +63,28 @@
 						</view>
 					</view>
 				</view>
+				<view class="handle_orders comment_order" bindtap="intoPath" data-path="/pages/userOrderComment/userOrderComment?id={{item.id}}&orderItem_id={{c_item.id}}" wx:if="{{c_item.isremark!='1'}}">去评价</view>
 			</block>
 
 			<view class="handle">
 				<view class="handle_order">
 					<view class="flexRowBetween">
-						<view class="handle_orders delete_order" data-id="{{item.id}}" data-price="{{item.price}}" bindtap="pay" wx:if="{{item.pay_status == '0'&&item.order_step=='0'}}">去支付</view> 
 
-						<view class="handle_orders delete_order" data-id="{{item.id}}" data-price="{{item.price}}" bindtap="pay" wx:if="{{item.pay_status == '0'&&item.order_step=='2'}}">再次购买</view> 
+						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="pay" wx:if="{{item.pay_status == '0'}}">去支付</view>  
 
-						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap='deleteOrder' wx:if="{{item.pay_status == '0'||item.pay_status == '1'&&item.order_step == '2'}}">删除订单</view>
+            			<view class="handle_orders delete_order"  wx:if="{{item.group_no&&item.group_no!='null'&&item.pay_status=='1'&&item.order_step=='5'}}">已成团</view>
+            		
+            			<view class="handle_orders delete_order"  wx:if="{{item.group_no&&item.group_no!='null'&&item.pay_status=='1'&&item.order_step=='4'}}">未成团</view>  
 
-						<view class="handle_orders delete_order" bindtap="intoPath" data-path="/pages/user_order_comment/user_order_comment?id={{item.id}}" wx:if="{{item.pay_status == '1'&&item.transport_status=='2'&&item.order_step == '0'}}">去评价</view>
+						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="{{web_buttonCanClick?'deleteOrder':''}}" wx:if="{{item.pay_status == '0'}}">删除订单</view>
 
+			
+
+						
+
+						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="{{web_buttonCanClick?'refuedOrder':''}}" wx:if="{{item.pay_status == '1'}}">申请退款</view>
+
+						<view class="handle_orders comment_order" bindtap="{{web_buttonCanClick?'orderUpdate':''}}"  wx:if="{{item.pay_status == '1'&&item.transport_status == '1'&&item.order_step == '0'}}" data-id="{{item.id}}">确认收货</view>
 					
 
 					</view>

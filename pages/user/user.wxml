@@ -29,7 +29,7 @@
             <view class="thread"></view>
             <view>
                 <view class="sort_icon font32 color3">
-                    {{web_userData.score?web_userData.score:'网络故障'}}
+                    {{web_userData.score?web_userData.score:'0.00'}}
                 </view>
                 <view class="sort_txt">
                    现金券
@@ -129,7 +129,7 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <view class="user_infor flexRowBetween w710" bindtap="userComment">
+    <button class="user_infor flexRowBetween w710" open-type="contact">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon8.png"></image>
             <text>官方客服</text>
@@ -137,7 +137,7 @@
         <view class="next_page">
             <image src="/images/next_page.jpg"></image>
         </view>
-    </view>
+    </button>
     <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userStore/userStore">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon9.png"></image>

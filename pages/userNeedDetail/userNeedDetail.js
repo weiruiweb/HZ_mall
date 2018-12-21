@@ -7,20 +7,18 @@ Page({
     idData:[],
     storeData:[],
     mainData:[],
-    isLoadAll:false,
+   
     isFirstLoadAllStandard:['getMainData','getStoreData'],
     submitData:{
       behavior:2
     },
-    buttonCanClick:false
   }, 
 
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.data.id=options.id;
     self.getMainData();
   },
@@ -83,7 +81,7 @@ Page({
         tableName:'Message',
         FuncName:'update',
         searchItem:{
-          id:self.data.noSelectId,
+          id:['in',self.data.noSelectId],
           user_type:1
         },
         data:{

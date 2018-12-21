@@ -9,43 +9,59 @@ Page({
   data: {
     productData:[],
     couponData:[],
-    isFirstLoadAllStandard:['getMainData','getCouponData','getProductData'],
+    isFirstLoadAllStandard:['getMainData','getCouponData'],
     userData:[],
     searchItem:{},
     isShow:false,
-    buttonCanClick:false,
-    
+    order:{
+      create_time:'asc'
+    },
+    labelData:[]
   },
 
   
   onLoad(options){
     const self = this;
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.data.user_no = options.user_no;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-  
+    var collectStore = api.getStorageArray('collectStore');
+    self.data.isInCollectData = api.findItemInArray(collectStore,'user_no',self.data.user_no);
+    console.log(api.findItemInArray(collectStore,'user_no',self.data.user_no))
+    self.setData({
+      web_order:self.data.order,
+      web_isInCollectData:self.data.isInCollectData,    
+    });
+    self.getLabelData();
+    self.getUserData();
   },
 
   onShow(){
     const self = this;
-    self.getUserData();
+    
   },
+
+ 
 
   collect(){
     const self = this;  
     const id = self.data.userData.id;
-    if(wx.getStorageSync('collectStore')&&wx.getStorageSync('collectStore')[id]){
-      api.deleteFootOne(id,'collectStore');
-      self.setData({
-        url: '/images/collect.png',
-      });
-    }else{
-      api.footOne(self.data.userData,'id',100,'collectStore');  
-      self.setData({
-        url: '/images/heart.png',
-      });
+    if(getApp().globalData.buttonClick){
+      api.showToast('数据有误请稍等','none');
+      setTimeout(function(){
+        wx.showLoading();
+      },800)   
+      return;
     };
+    if(self.data.isInCollectData){
+      api.delStorageArray('collectStore',self.data.userData,'id'); 
+    }else{
+      api.setStorageArray('collectStore',self.data.userData,'id',999);
+    };
+    var collectStore = api.getStorageArray('collectStore');
+    self.data.isInCollectData = api.findItemInArray(collectStore,'id',id);
+    self.setData({
+      web_isInCollectData:self.data.isInCollectData,
+    }); 
   },
 
   getUserData(){
@@ -90,15 +106,6 @@ Page({
         self.setData({
           web_userData:self.data.userData,
         });
-        if(wx.getStorageSync('collectStore')[self.data.userData.id]){
-          self.setData({
-            url: '/images/heart.png',
-          });
-        }else{
-          self.setData({
-            url: '/images/collect.png',
-          });
-        };  
       }else{
         api.showToast('网络故障','none')
       } 
@@ -125,7 +132,6 @@ Page({
         self.data.couponData.push.apply(self.data.couponData,res.info.data);
       }else{
         self.data.isLoadAll = true;
-        api.showToast('没有更多了','none');
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getCouponData',self);
       self.setData({
@@ -147,29 +153,66 @@ Page({
     postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
     postData.searchItem.user_no = self.data.user_no;
-    postData.searchItem.type=['in',1];
-    postData.order = {
-      listorder:'desc'
-    };
+    postData.order = api.cloneForm(self.data.order);
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.productData.push.apply(self.data.productData,res.info.data);
-        for (var i = 0; i <  self.data.productData.length; i++) {
-           self.data.productData[i].passage1 = self.data.productData[i].passage1.split(',');
-           console.log(self.data.productData[i].passage1)
-        };
       }else{
         self.data.isLoadAll = true;
         api.showToast('没有更多了','none');
       };
-      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getProductData',self);
+      api.buttonCanClick(self,true)
       self.setData({
         web_productData:self.data.productData,
       });  
     };
-    api.productGet(postData,callback);
+    api.skuGet(postData,callback);
   },
 
+
+  getLabelData(){
+    const self =this;
+    const postData={};
+    postData.searchItem = {
+      thirdapp_id:getApp().globalData.solely_thirdapp_id
+    };
+    postData.getBefore = {
+      label:{
+        tableName:'label',
+        searchItem:{
+          title:['=',['商品分类']],
+        },
+        middleKey:'parentid',
+        key:'id',
+        condition:'in',
+      },
+    }
+    const callback =(res)=>{
+      if(res.info.data.length>0){
+        self.data.labelData.push.apply(self.data.labelData,res.info.data)
+      };
+      console.log('self.data.labelData',self.data.labelData)
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getPositonData',self);
+      self.setData({
+
+        web_labelData:self.data.labelData,
+      });
+    };
+    api.labelGet(postData,callback);
+  },
+
+  lebelChange(e) {
+    const self = this;
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log(self.data.labelData[e.detail.value].id)
+    self.data.searchItem.category_id = self.data.labelData[e.detail.value].id;
+
+    self.setData({
+      web_index:e.detail.value,
+    })
+    self.data.productData = [];
+    self.getProductData(true)
+  },
 
 
   addCouponOrder(e){
@@ -180,10 +223,11 @@ Page({
     var duration = api.getDataSet(e,'duration');
     var discount = api.getDataSet(e,'discount');
     var standard = api.getDataSet(e,'standard');
+    var user_no = api.getDataSet(e,'user_no');
     console.log('duration',duration);
     var limit = api.getDataSet(e,'limit');
     const postData = {
-      tokenFuncName:'getMallToken',
+      tokenFuncName:'getProjectToken',
       product:[
         {id:id,count:1}
       ],
@@ -194,14 +238,17 @@ Page({
         limit:limit,
         discount:discount,
         standard:standard,
+        passage1:user_no
       }
     };
     const callback = (res)=>{
       if(res&&res.solely_code==100000){
-        api.showToast('领取成功！','none',function(){
+        api.showToast('领取成功！','none',1000,function(){
           self.getCouponData(true)
         });   
-      }; 
+      }else{
+        api.showToast(res.msg,'none')
+      }
       api.buttonCanClick(self,true);
     };
     api.addOrder(postData,callback);
@@ -213,6 +260,20 @@ Page({
     api.buttonCanClick(self);
     const num = e.currentTarget.dataset.num;
     self.changeSearch(num);
+  },
+
+  changeOrder(e){
+    const self = this;
+    api.buttonCanClick(self);
+    const key = api.getDataSet(e,'key');
+    self.data.order = {
+      [key]:self.data.order[key]=='asc'?'desc':'asc'
+    };
+    self.setData({
+      web_order:self.data.order
+    });
+    self.data.productData = [];
+    self.getProductData(true);
   },
 
 
@@ -231,6 +292,10 @@ Page({
 
   phoneCall() {
     const self = this;
+    if(!self.data.userData.info.phone){
+      api.showToast('商家未设置客服','none');
+      return
+    };
     wx.makePhoneCall({
       phoneNumber: self.data.userData.info.phone,
     })
@@ -246,7 +311,7 @@ Page({
 
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getProductData();
     };

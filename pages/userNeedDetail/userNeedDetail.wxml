@@ -33,7 +33,7 @@
 <view class="w710">
 	<view style="border-radius: 20rpx;width:100%;">
 		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
-			<view class="tlt_cont">选择服务商</view>
+			<view class="tlt_cont">参与服务商</view>
 		</view>
 		<block wx:for="{{web_storeData}}" wx:key="id">
 			<view class="need w710 flex">

@@ -5,9 +5,7 @@ Page({
   data: {
     num:0,
     mainData:[],
-    isLoadAll:false,
     isFirstLoadAllStandard:['getMainData'],
-    buttonCanClick:false,
     searchItem:{
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2, 
@@ -18,12 +16,11 @@ Page({
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
+    api.commonInit(self);
     self.setData({
       web_num:self.data.num
     });
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    
     self.getMainData();
   },
 
@@ -63,7 +60,7 @@ Page({
 
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };
@@ -95,6 +92,35 @@ Page({
       self.data.searchItem.behavior = ['in',[3]]
     }
     self.getMainData(true);
+  },
+
+  deleteNeed(e){
+    const self = this;
+    const postData = {};
+    postData.tokenFuncName='getProjectToken';
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    const callback  = res=>{
+      api.dealRes(res);
+      self.getMainData(true);
+    };
+    api.messageDelete(postData,callback);
+  },
+
+  updateNeed(e){
+    const self = this;
+    const postData = {};
+    postData.tokenFuncName='getProjectToken';
+    postData.data ={
+      behavior:3
+    };
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    const callback  = res=>{
+      api.dealRes(res);
+      self.getMainData(true);
+    };
+    api.messageUpdate(postData,callback);
   },
 
 

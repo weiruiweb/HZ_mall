@@ -13,7 +13,8 @@ Page({
     endTime:'',
     searchItem:{
       type:3,
-      status:1
+      status:1,
+      count:['<>',0]
     },
    isFirstLoadAllStandard:['getUserInfoData','getMainData'],
   },
@@ -21,9 +22,7 @@ Page({
   
   onLoad(){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getMainData();
     self.getUserInfoData()
   },
@@ -86,7 +85,7 @@ Page({
 
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

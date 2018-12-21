@@ -69,9 +69,6 @@
                 <image src="/images/index_icon9.png"></image>
                 <text class="font30 color6">优惠折扣</text>
             </view>
-            <view class="discount_left discount_right font26 color6"  bindtap="intoPath" data-path="/pages/storeProduct/storeProduct">
-                更多 >>
-            </view>
         </view>
         <view class="discount_product flexRowBetween">
             <block wx:for="{{web_productData}}" wx:key="id">
@@ -150,6 +147,7 @@
 </view>
 
 <view class="mask" wx:if="{{is_show}}" catchtouchmove="true" bindtap="mask">
+
 </view>
 <view class="discount1" wx:if="{{is_show}}" catchtouchmove="true">
   <view class="discount1_cont" >
@@ -159,7 +157,7 @@
             {{web_couponData.discount}}<text class="font28 color1">元</text>
         </view>
        <view class="discount1_btn">     
-            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;" data-id="{{web_couponData.id}}" bindtap="{{web_buttonCanClick?'submit':''}}">点击领取</button>   
+            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;" open-type="getUserInfo" data-id="{{web_couponData.id}}" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">点击领取</button>   
        </view>
     </view>
     <view class="close" bindtap="close">

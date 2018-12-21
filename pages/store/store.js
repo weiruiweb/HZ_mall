@@ -17,9 +17,7 @@ Page({
   
   onLoad(options){
     const self = this;
-
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');  
+    api.commonInit(self);
   },
 
   onShow(){

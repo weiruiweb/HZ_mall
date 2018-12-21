@@ -8,7 +8,6 @@ Page({
     messageData:[],
     storeData:[],
     mainData:[],
-    isLoadAll:false,
     isFirstLoadAllStandard:['getMainData','getStoreData','getMerchantData'],
     submitData:{
      
@@ -20,8 +19,7 @@ Page({
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.data.id=options.id;
     self.getMainData();
   },
@@ -149,6 +147,7 @@ Page({
       };
       self.data.storeData=[];
       self.getStoreData();
+      self.checkMessage();
       api.buttonCanClick(self,true);
     };
     api.messageAdd(postData,callback);  
@@ -166,6 +165,7 @@ Page({
       api.getAuthSetting(callback); 
     }else{
       api.showToast('请补全信息','none');
+      api.buttonCanClick(self,true);
     };
   },
 

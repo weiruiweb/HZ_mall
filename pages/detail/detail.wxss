@@ -340,10 +340,36 @@ page{
 	position: absolute;
 	top:-90rpx;
 }
+
 .choose_pro image{
-	width:198rpx;
-	height:198rpx;
+	width:160rpx;
+	height:135rpx;
 }
+.close{
+	width:10%;
+	height:100%;
+	text-align:right;
+	position:absolute;
+	right:-16rpx;
+	top:-30rpx;
+}
+.close image{
+	width:34rpx;
+	height:34rpx;
+}
+.pro_name{
+	font-size:28rpx;
+	color:#333;
+}
+.pro_type{
+	font-size:22rpx;
+	color:#999;
+}
+.price_choose{
+	font-size:28rpx;
+	color:#21c3d4;
+}
+.product_txt{width:65%;}
 .close1{
 	width:10%;
 	text-align:right;

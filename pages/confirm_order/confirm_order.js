@@ -22,39 +22,39 @@ Page({
       passage1:''
     },
     searchItemTwo:{
-      thirdapp_id:getApp().globalData.thirdapp_id,
-      user_no:wx.getStorageSync('info').user_no
+      thirdapp_id:getApp().globalData.mall_thirdapp_id,
+      user_no:wx.getStorageSync('info').user_no,
+      type:['in',[3,4]]
     },
-    isLoadAll:false,
-    buttonCanClick:false,
+   
     order_id:'',
-    isFirstLoadAllStandard:['getOrderData','getMainData'],
+    isFirstLoadAllStandard:['getMainData'],
     pay:{
       coupon:[]
     }
     
   },
 
-  onLoad(options) {
+ 
+
+ onLoad(options) {
 
     const self = this;
+    api.commonInit(self);
     if(options.order_id){
       self.data.order_id = options.order_id;
+      self.data.order_array = options.order_id.split(',');
     }else{
       api.showToast('数据传递有误','error');
     };
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     getApp().globalData.address_id = '';
-    self.getOrderData();
     self.getMainData();
-
   },
 
  
 
   onShow(){
+
     const self = this;
     self.data.searchItem = {};
     if(getApp().globalData.address_id){
@@ -62,49 +62,23 @@ Page({
     }else{
       self.data.searchItem.isdefault = 1;
     };
+    for (var i = 0; i < self.data.mainData.length; i++) {
+      self.data.idData.push(self.data.mainData[i].id)
+    };
+    console.log(self.data.idData)
     self.getAddressData();
+    self.getCouponData(true)
+
+  },
+
+  onUnload(){
+    const self = this;
+    wx.removeStorageSync('payPro');
   },
 
 
-
-  getOrderData(isNew){
-    const self = this;
-    if(isNew){
-      api.clearPageIndex(self);
-    }
-    const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
-    postData.tokenFuncName = 'getProjectToken';
-    postData.searchItem = {
-      thirdapp_id:getApp().globalData.thirdapp_id,
-      user_no:wx.getStorageSync('info').user_no,
-      type:['in',[3,4]],
-    };
-    postData.order = {
-      create_time:'desc'
-    };
-    const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.orderData.push.apply(self.data.orderData,res.info.data);
-      }else{
-        self.data.isLoadAll = true;
-        api.showToast('没有更多了','none');
-      };
-      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getOrderData',self);
-      self.setData({
-        buttonClicked:false,
-      });
-      console.log(self.data.orderData);
-      self.setData({
-        web_orderData:self.data.orderData,
-      });     
-    };
-    api.orderGet(postData,callback);
-  },  
-
-
-
   getMainData(isNew){
+
     const self = this;
     if(isNew){
       api.clearPageIndex(self);
@@ -113,11 +87,11 @@ Page({
     postData.paginate = api.cloneForm(self.data.paginate);
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = {
-      id:self.data.order_id
+      id:['in',self.data.order_array]
     };
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.mainData = res.info.data[0];
+        self.data.mainData = res.info.data;
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.setData({
@@ -126,6 +100,33 @@ Page({
       self.countPrice();
     };
     api.orderGet(postData,callback);
+
+  }, 
+
+
+
+  getCouponData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.tokenFuncName = 'getProjectToken';
+    postData.searchItem = api.cloneForm(self.data.searchItemTwo)
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        self.data.couponData.push.apply(self.data.couponData,res.info.data);
+      }else{
+        self.data.isLoadAll = true;
+      }
+      self.setData({
+        web_couponData:self.data.couponData,
+      });  
+      self.countPrice();
+    };
+    api.orderGet(postData,callback);
+
   },
 
   getAddressData(){
@@ -146,95 +147,84 @@ Page({
   },
 
 
- 
-
-  addOrder(e){
-    const self = this;
-    api.buttonCanClick(self);
-    if(!self.data.order_id){
-      self.data.buttonClicked = true;
-      const postData = {
-        tokenFuncName : 'getProjectToken',
-        sku:self.data.mainData,
-        pay:{
-          wxPay:self.data.totalPrice.toFixed(2),
-        },
-        type:1
-      };
-      console.log('addOrder',self.data.addressData)
-
-      if(self.data.addressData){
-        postData.snap_address = self.data.addressData;
-      };
-
-      const callback = (res)=>{
-        if(res&&res.solely_code==100000){
-           
-          self.data.order_id = res.info.id
-          self.pay(self.data.order_id);        
-        }; 
-            
-      };
-      api.addOrder(postData,callback);
-    }else{
-      self.pay(self.data.order_id)
-    };   
-    let formId = e.detail.formId;
-    // dealFormIds(formId, url);
-    console.log(999,formId)
-  },
 
 
 
   pay(order_id){
+
     const self = this;
-    api.buttonCanClick(self) 
-    var order_id = self.data.order_id;
     const postData = self.data.pay;
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = {
       id:self.data.order_id
     };
-    
+
     const callback = (res)=>{
-      wx.hideLoading();
       if(res.solely_code==100000){
-         const payCallback=(payData)=>{
-          if(payData==1){
-            api.showToast('支付失败','none')  
+        if(res.info){
+          const payCallback=(payData)=>{
+            if(payData==1){
+              const cc_callback=()=>{
+                api.pathTo('/pages/userOrder/userOrder','redi');
+              };
+              api.showToast('支付成功','none',1000,cc_callback);
+            };   
           };
-          api.buttonCanClick(self,true)    
+          api.realPay(res.info,payCallback); 
+        }else{
+          api.showToast('支付成功','none',1000,function(){
+            api.pathTo('/pages/userOrder/userOrder','redi');
+          }); 
         };
-        api.realPay(res.info,payCallback);   
       }else{
-        api.showToast('支付失败','none');
-        api.buttonCanClick(self,true) 
+        api.showToast(res.msg,'none');
       };
+      api.buttonCanClick(self,true);
+
     };
     api.pay(postData,callback);
+
   },
 
-  useCoupon(e){
-
+ useCoupon(e){
     const self = this;
     var id = api.getDataSet(e,'id');
-    var count = api.getDataSet(e,'count');
+    var findCoupon = api.findItemInArray(self.data.couponData,'id',id);
     var findItem = api.findItemInArray(self.data.pay.coupon,'id',id);
+    console.log('findCoupon',findCoupon)
+    if(findCoupon){
+      findCoupon = findCoupon[1];
+      var findSameCoupon = api.findItemsInArray(self.data.pay.coupon,'product_id',findCoupon.products[0].snap_product.id);
+    }else{
+      api.showToast('优惠券错误','error');
+      return;
+    };
     if(findItem){
       self.data.pay.coupon.splice(findItem[0],1);
     }else{
+      if((self.data.price-self.data.couponTotalPrice)<findCoupon.standard){
+        api.showToast('金额不达标','error');
+        return;
+      };
+      if(findCoupon.limit>0&&findSameCoupon.length>=findCoupon.limit){
+        api.showToast('叠加使用超限','error');
+        return;
+      };
+      if(findCoupon.type==3){
+        var couponPrice = findCoupon.discount;
+      }else if(findCoupon.type==4){
+        var couponPrice = findCoupon.discount*self.data.price;
+      };
+      if(parseFloat(couponPrice)+parseFloat(self.data.couponTotalPrice)>parseFloat(self.data.price)){
+        couponPrice = parseFloat(self.data.price).toFixed(2) - parseFloat(self.data.couponTotalPrice).toFixed(2);
+      };
       self.data.pay.coupon.push({
         id:id,
-        price:count
+        price:couponPrice,
+        product_id:findCoupon.products[0].snap_product.id
       });
     };
-    self.setData({
-      web_pay:self.data.pay
-    });
-    console.log('self.data.pay',self.data.pay); 
     self.countPrice();
-    
-
   },
 
 
@@ -259,6 +249,34 @@ Page({
     self.setData({
       web_couponPrice:couponPrice.toFixed(2),
       web_price:self.data.price,
+      web_pay:self.data.pay
+    });
+
+  },
+
+  countPrice(){
+
+    const self = this;
+    var totalPrice = 0;
+    var couponPrice = 0;
+    var productsArray = self.data.mainData.products;
+    self.data.couponTotalPrice = api.addItemInArray(self.data.pay.coupon,'price');
+    self.data.price = api.addItemInArray(self.data.mainData,'price');
+    console.log('self.data.price',self.data.price)
+    var wxPay = self.data.price - self.data.couponTotalPrice  ;
+    if(wxPay>0){
+      self.data.pay.wxPay = {
+        price:wxPay.toFixed(2),
+      };
+    }else{
+      delete self.data.pay.wxPay;
+    };
+    console.log('countPrice-wxPay',wxPay);
+    console.log('countPrice-price',self.data.price);
+    console.log('countPrice',self.data.pay);
+    self.setData({
+      web_couponPrice:parseFloat(self.data.couponTotalPrice).toFixed(2),
+      web_price:parseFloat(self.data.price).toFixed(2),
       web_pay:self.data.pay
     });
 

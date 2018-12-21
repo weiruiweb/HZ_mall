@@ -23,7 +23,7 @@ class Token {
             var params = {
                 token_name:'token',
                 info_name:'info',
-                thirdapp_id:19
+                thirdapp_id:2
             };
             this.getUserInfo(params,callback);
         }else{
@@ -107,7 +107,7 @@ class Token {
                 };
                 console.log(postData)
                 wx.request({
-                    url: 'https://api.solelycloud.com/api/public/index.php/api/v1/Base/ProgrameToken/get',
+                    url: 'https://www.huazhensc.cn/api/public/index.php/api/v1/Base/ProgrameToken/get',
                     method:'POST',
                     data:postData,
                     success:function(res){
@@ -146,7 +146,7 @@ class Token {
                 password:wx.getStorageSync('login').password,
             }
             wx.request({
-                url: 'https://api.solelycloud.com/api/public/index.php/api/v1/Func/Common/loginByUp',
+                url: 'https://www.huazhensc.cn/api/public/index.php/api/v1/Func/Common/loginByUp',
                 method:'POST',
                 data:postData,
                 success:function(res){

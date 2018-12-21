@@ -16,7 +16,7 @@
                 </view>
                 <view class="edit_number flexRowBetween">
                     <view class="minus" style="font-size:50rpx;line-height:36rpx;" data-index="{{index}}" data-type="-" bindtap="counter">-</view>
-                    <input class="number">{{item.count}}</input>
+                    <input class="number" data-index="{{index}}" type="number" bindinput="bindManual" value="{{item.count}}"></input>
                     <view class="add" data-index="{{index}}" data-type="+" bindtap="counter">+</view>
                 </view>
             </view>
@@ -25,7 +25,7 @@
 
     <view class="total" style="display:flex;">
         <view class="all_select" style="width:10%;text-align:center;;overflow:hidden;" bindtap="chooseAll">
-            <image src="{{web_isChooseAll?'/images/mall_select_active.jpg':'/images/select.png'}}"></image>
+            <image src="{{web_isChooseAll?'/images/select_a.png':'/images/select.png'}}"></image>
         </view>
         <view class="select_c"  style="width:10%;text-align:left;overflow:hidden;" >全选</view>
         <view class="del_shopping color" style="width:10%;text-align:left;overflow:hidden;" bindtap="delete">

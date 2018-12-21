@@ -14,20 +14,18 @@ Page({
    isFirstLoadAllStandard:['getMainData'],
    searchItem:{
     },
-    buttonCanClick:false,
-    isLoadAll:false
+
   },
 
 
   onLoad(options){
     const self = this;
+    api.commonInit(self);
     if(options.num){
       self.changeSearch(options.num)
-    };
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    self.getMainData()
+    }else{
+      self.getMainData()  
+    }   
   },
 
 
@@ -41,7 +39,7 @@ Page({
     postData.tokenFuncName='getProjectToken';
     postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = getApp().globalData.thirdapp_id;
-    postData.searchItem.type = ['in',[1,2]];
+    postData.searchItem.type = ['in',[1,5]];
     postData.searchItem.status = ['in',[0,1]]
     postData.order = {
       create_time:'desc'
@@ -87,7 +85,6 @@ Page({
     postData.token = wx.getStorageSync('token');
     postData.data ={
       transport_status:2,
-      order_step:3
     }
     postData.searchItem = {};
     postData.searchItem.id = api.getDataSet(e,'id');
@@ -99,34 +96,36 @@ Page({
   },
 
 
+  refuedOrder(e){
+    const self = this;
+    api.buttonCanClick(self)
+    const postData = {};
+    postData.tokenFuncName = 'getProjectToken';
+    postData.data ={
+      order_step:1
+    }
+    postData.searchItem = {};
+    postData.searchItem.id = api.getDataSet(e,'id');
+    const callback  = res=>{
+      if(res.solely_code==100000){
+        api.showToast('申请成功','none'); 
+      }else{
+        api.showToast(res.msg,'none')
+      };  
+      self.getMainData(true);
+    };
+    api.orderUpdate(postData,callback);
+  },
+
+
 
   pay(e){
     const self = this;
     var id = api.getDataSet(e,'id');
-    var price = api.getDataSet(e,'price')
-    const postData = {
-      token:wx.getStorageSync('token'),
-      searchItem:{
-        id:id
-      },
-      wxPay:price,
-      wxPayStatus:0
-    };
-    const callback = (res)=>{
-      if(res.solely_code==100000){
-       const payCallback=(payData)=>{
-        if(payData==1){
-          api.showToast('支付成功','none');
-          self.getMainData(true) 
-        };   
-
-      };
-      api.realPay(res.info,payCallback);
-      }
-        
-    };
-    api.pay(postData,callback);
+    
+    api.pathTo('/pages/confirm_order/confirm_order?order_id='+id,'nav'); 
   },
+
 
 
   menuClick: function (e) {
@@ -146,17 +145,17 @@ Page({
 
     }else if(num=='1'){
       self.data.searchItem.pay_status = '0';
-      self.data.searchItem.order_step = '0';
+      self.data.searchItem.order_step = ['in',[0,4,5]];
     }else if(num=='2'){
       self.data.searchItem.pay_status = '1';
       self.data.searchItem.transport_status = ['in',[0,1]];
-      self.data.searchItem.order_step = '0';
+      self.data.searchItem.order_step = ['in',[0,4,5]];
     }else if(num=='3'){
       self.data.searchItem.pay_status = '1';
       self.data.searchItem.transport_status = '2';
-      self.data.searchItem.order_step = '0';
+      self.data.searchItem.order_step = ['in',[0,5]]
     }else if(num=='4'){
-      self.data.searchItem.order_step = '2';
+      self.data.searchItem.order_step = ['in',[1,2]];
     }
     self.setData({
       web_mainData:[],
@@ -167,7 +166,7 @@ Page({
   
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

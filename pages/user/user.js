@@ -17,18 +17,17 @@ Page({
   
   onLoad(options){
     const self = this;
-
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');  
+    api.commonInit(self);
   },
 
   onShow(){
     const self = this;
     self.getUserInfoData();
-    self.data.mainData = api.jsonToArray(wx.getStorageSync('collectData'),'unshift');
+    self.data.mainData = api.getStorageArray('collectData');
+    self.data.storeData = api.getStorageArray('collectStore');
     console.log(self.data.mainData.length)
     self.setData({
-      web_collectData:self.data.mainData.length
+      web_collectData:self.data.mainData.length+self.data.storeData.length
     })
   },
 

@@ -12,19 +12,16 @@ Page({
     searchItem:{},
     num:0,
     isFirstLoadAllStandard:['getLabelData','getMainData'],
-    isLoadAll:false,
-    buttonCanClick:false
+
   },
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
+    api.commonInit(self);
     if(options.item){
       self.data.searchItem.title = ['LIKE',['%'+options.item+'%']]
     };
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
     self.getLabelData();
 
     self.setData({

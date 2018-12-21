@@ -68,6 +68,6 @@
 	</view>
 </view>
 <view style="width:100%;height:100rpx;"></view>
-<form bindsubmit="{{web_buttonCanClick?'submit':''}}" report-submit="true">
-  <button form-type="submit" class="submit_info" style="width:100%;height:88rpx;line-height:88rpx;margin:0rpx auto;border-radius:0;" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">提交</button>
-</form>
+
+ <button form-type="submit" class="submit_info" open-type="getUserInfo" style="width:100%;height:88rpx;line-height:88rpx;margin:0rpx auto;border-radius:0;" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">提交</button>
+

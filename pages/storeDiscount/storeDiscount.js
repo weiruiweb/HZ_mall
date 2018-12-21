@@ -14,16 +14,13 @@ Page({
     searchItem:{},
     num:0,
     isFirstLoadAllStandard:['getMainData'],
-    isLoadAll:false,
 
   },
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getMainData();
     self.setData({
       web_num:self.data.num
@@ -68,7 +65,7 @@ Page({
 
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

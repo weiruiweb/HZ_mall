@@ -17,8 +17,7 @@ Page({
 
   onLoad(){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+   api.commonInit(self);
     self.getArtData()
   },
 

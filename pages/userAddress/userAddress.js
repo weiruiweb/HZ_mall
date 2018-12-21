@@ -13,21 +13,12 @@ Page({
   data: {
 
     mainData:[],
-    isLoadAll:false,
-
+    isFirstLoadAllStandard:['getMainData']
   },
 
   onLoad(){
     const self = this;
-    wx.showLoading();
-    if(!wx.getStorageSync('token')){
-      var token = new Token();
-      token.getUserInfo();
-    };
-    self.setData({
-      fonts:app.globalData.font
-    });
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self)
   },
 
   onShow(){
@@ -52,7 +43,7 @@ Page({
         self.data.isLoadAll = true;
         api.showToast('没有更多了','fail');
       };
-      wx.hideLoading();
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.setData({
         web_mainData:self.data.mainData,
       });
@@ -123,7 +114,7 @@ Page({
   
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

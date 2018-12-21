@@ -9,7 +9,7 @@ Page({
    data: {
     num:0,
     mainData:[],
-    isLoadAll:false
+    isFirstLoadAllStandard:['getStoreData','getMainData']
   },
 
   /**
@@ -17,6 +17,7 @@ Page({
    */
   onLoad(options) {
     const self = this;
+    api.commonInit(self);
     self.setData({
       web_num:self.data.num
     });
@@ -26,19 +27,23 @@ Page({
 
   getMainData(){
     const self = this;
-    self.data.mainData = api.jsonToArray(wx.getStorageSync('collectData'),'unshift');
+    self.data.mainData = api.getStorageArray('collectData');
     self.setData({
       web_mainData:self.data.mainData,
     });
+    api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self)
     console.log(self.data.mainData)
   },
 
+
+ 
   getStoreData(){
     const self = this;
-    self.data.storeData = api.jsonToArray(wx.getStorageSync('collectStore'),'unshift');
+    self.data.storeData = api.getStorageArray('collectStore');
     self.setData({
       web_storeData:self.data.storeData,
     });
+    api.checkLoadAll(self.data.isFirstLoadAllStandard,'getStoreData',self)
     console.log(self.data.storeData)
   },
 

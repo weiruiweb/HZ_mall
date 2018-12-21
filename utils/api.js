@@ -54,6 +54,17 @@ class Api extends Base{
         this.request(allParams);
     }
 
+    commonInit(self){
+        wx.showLoading();
+        self.data.buttonCanClick = false;
+        self.data.paginate = this.cloneForm(getApp().globalData.paginate);
+        self.data.isLoadAll = false;
+        self.setData({
+          fonts:getApp().globalData.font,
+        });
+        wx.removeStorageSync('checkLoadAll');
+    }
+
     upload(param,callback){
         var allParams ={
             url:'Base/FtpImage/upload',

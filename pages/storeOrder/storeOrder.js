@@ -13,15 +13,13 @@ Page({
    isFirstLoadAllStandard:['getMainData'],
    searchItem:{
   },
-    buttonCanClick:false
+
   },
 
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getMainData()
   },
 
@@ -37,8 +35,9 @@ Page({
     postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = getApp().globalData.thirdapp_id;
     postData.searchItem.passage1 = wx.getStorageSync('threeInfo').user_no;
-    postData.searchItem.type = ['in',[1,2]];
-    postData.searchItem.status = ['in',[0,1]]
+    postData.searchItem.type = ['in',[1,5]];
+    postData.searchItem.status = ['in',[0,1]];
+    postData.searchItem.user_type = 0;
     postData.order = {
       create_time:'desc'
     }
@@ -87,9 +86,6 @@ Page({
   menuClick: function (e) {
     const self = this;
     api.buttonCanClick(self);
-    self.setData({
-      buttonClicked:true
-    });
     const num = e.currentTarget.dataset.num;
     self.changeSearch(num);
   },
@@ -102,13 +98,13 @@ Page({
     self.data.searchItem = {}
     if(num=='0'){
       self.data.searchItem.pay_status = '0';
-      self.data.searchItem.order_step = '0';
+      self.data.searchItem.order_step = ['in',[0,4,5]];
     }else if(num=='1'){
       self.data.searchItem.pay_status = '1';
-      self.data.searchItem.order_step = '0';
-    }else if(num=='2'){
-   
-      self.data.searchItem.order_step = '2';
+      self.data.searchItem.order_step = ['in',[0,4,5]];
+    }else if(num=='2'){  
+      
+      self.data.searchItem.order_step = ['in',[0,1,4,5]];
     }
     self.setData({
       web_mainData:[],
@@ -119,7 +115,7 @@ Page({
   
   onReachBottom() {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

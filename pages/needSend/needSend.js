@@ -20,8 +20,7 @@ Page({
       type:2,
       behavior:1
     },
-    isLoadAll:false,
-    buttonCanClick:false,
+ 
     isFirstLoadAllStandard:['getLabelData'],
   }, 
 
@@ -29,8 +28,7 @@ Page({
 
   onLoad(options){
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.setData({
       web_submitData:self.data.submitData
     });
@@ -61,13 +59,12 @@ Page({
     };
     const callback = (res)=>{
       if(res.info.data.length>0){
-  
-          self.data.labelData.push.apply(self.data.labelData,res.info.data)
-
+        self.data.labelData.push.apply(self.data.labelData,res.info.data)
       }else{
         api.showToast('没有更多了','none');
       }
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getLabelData',self);
+      console.log('self.data.buttonCanClick',self.data.buttonCanClick)
       console.log(self.data.labelData)
       self.setData({
         web_labelData:self.data.labelData,
@@ -102,7 +99,6 @@ Page({
 
   messageAdd(){
     const self = this;
-    wx.showLoading();
     const postData = {};
     postData.tokenFuncName='getProjectToken';
     postData.data = api.cloneForm(self.data.submitData);
@@ -122,7 +118,6 @@ Page({
         self.setData({
           web_submitData:self.data.submitData
         });
-        api.buttonCanClick(self,true);
       }else{
         api.showToast('发布失败','none');
       };
@@ -143,6 +138,7 @@ Page({
       api.getAuthSetting(callback); 
     }else{
       api.showToast('请补全信息','none');
+      api.buttonCanClick(self,true);
     };
   },
 

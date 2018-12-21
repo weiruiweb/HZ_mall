@@ -30,11 +30,11 @@
 	</view>
 
 <view wx:if="{{web_isOther}}">很遗憾，您未中奖</view>
-<view wx:if="{{web_isMe}}">
-恭喜你，中奖了，请填写领奖信息
-电话：<input value="{{web_submitData.phone}}"  data-key="phone" bindblur="changeBind"></input>
-姓名：<input value="{{web_submitData.name}}"  data-key="name" bindblur="changeBind"></input>
-<button  bindtap="{{web_buttonCanClick?'submit':''}}">提交</button>
+<view wx:if="{{web_isMe}}" >
+恭喜你，中奖了，<view wx:if="{{!web_mainData.passage2}}">请填写领奖信息
+电话：<input value="{{web_submitData.phone}}"  data-key="phone" bindblur="changeBind" ></input>
+>姓名：<input value="{{web_submitData.name}}"  data-key="name" bindblur="changeBind" ></input>
+<button  bindtap="{{web_buttonCanClick?'submit':''}}" wx:if="{{!web_mainData.passage2}}">提交</button></view>
 </view>
 <view style="width:100%;height:20rpx;background:#f2f2f2;"></view>
 <view class="detail">

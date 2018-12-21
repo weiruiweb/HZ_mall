@@ -1,15 +1,15 @@
 <!--manageAddress.wxml-->
 <view class="order_sort flexRowBetween">
-	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="menuClick">
+	<view class="order_item {{num ==0?'order_this':''}}" data-num="0" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		全部
 	</view>
-	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="menuClick">
+	<view class="order_item {{num ==1?'order_this':''}}" data-num="1"  bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		进行中
 	</view>
-	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="menuClick">
+	<view class="order_item {{num ==2?'order_this':''}}" data-num="2" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		已中标
 	</view>
-	<view class="order_item {{num ==3?'order_this':''}}" data-num="3" bindtap="menuClick">
+	<view class="order_item {{num ==3?'order_this':''}}" data-num="3" bindtap="{{web_buttonCanClick?'menuClick':''}}">
 		未中标
 	</view>
 </view>

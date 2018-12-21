@@ -1,7 +1,19 @@
 <!--detail.wxml-->
 <wxs src="../../utils/func.wxs" module="func" />
-<view class="banner">
-	<image src="/images/index1.png"></image>
+<view class="banner" style="heigth:420rpx">
+	<view class="page-body" style="heigth:420rpx">
+	    <view class="page-section page-section-spacing swiper" style="heigth:420rpx">
+	      <swiper
+	        indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
+	        interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px" style="heigth:420rpx">
+	        <block wx:for="{{web_mainData.bannerImg}}" wx:index="{{index}}" wx:key="id">
+	          <swiper-item>
+	            <image src="{{item.url}}" style="heigth:420rpx"></image>
+	          </swiper-item>
+	        </block>
+	      </swiper>
+	    </view>
+	</view>
 </view>
 <view class="detail">
 	<view class="product_top w710">
@@ -22,9 +34,6 @@
 				<block wx:for="{{web_mainData.passage1}}" wx:key="id">
 					<text>{{item}}</text><span class="font20">•</span>
 				</block>
-			</view>
-			<view class="next_page">
-				<image src="/images/next_page.jpg"></image>
 			</view>
 		</view>
 	</view>	
@@ -62,10 +71,6 @@
 		<view class="font24" style="width:70%">
 			商品评价({{web_num}})
 		</view>
-		<view class="next_page" style="width:30%;" bindtap="intoPath" data-path="/pages/userComment/userComment">
-			<text class="font28 color9">查看全部</text>
-			<image src="/images/next_page.jpg"></image>
-		</view>
 	</view>
 	<view class="w710 comment_cont">
 	
@@ -73,7 +78,7 @@
 			<view class="comment_user flex">
 				<view class="comment_left">
 					<view class="user_img">
-	                  <image src="{{item.user[0].headImgUrl}}"></image>
+	                  <image src="{{item.user[0].headImgUrl}}" style="width:52rpx;height:52rpx;border-radius:50%"></image>
 	                </view>
 				</view>
 				<view class="comment_name font28">{{item.user[0].nickname}}</view>
@@ -87,15 +92,15 @@
 	<view class="comment_user flex" style="height:142rpx">
 		<view class="comment_left">
 			<view class="user_img" style="border-radius:0;">
-              <open-data type="userAvatarUrl"></open-data>
+              <image src="{{web_mainData.merchantUser[0].mainImg[0].url}}" style="width:52rpx;height:52rpx;border-radius:50%"></image>
             </view>
 		</view>
 		<view class="comment_name font28" style="width:60%;">
-			<view class="font28">{{web_mainData.merchant[0].passage1}}</view>
+			<view class="font28">{{web_mainData.merchantUserInfo[0].passage1}}</view>
 			<view class="font28">商品数量：{{web_mainData.product.totalCount}}件 已拼{{web_mainData.product.saleNum}}件</view>
 		</view>
 		<view class="comment_data color6 font24"  style="width:30%;">
-			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1?user_no={{web_mainData.user_no	}}">进店逛逛</view>
+			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1?user_no={{web_mainData.user_no}}">进店逛逛</view>
 		</view>
 	</view>
 	<view class="store_img flexRowBetween">
@@ -125,7 +130,7 @@
 			<view>购物车</view>
 		</view>
 		<view class="cart" bindtap="{{web_buttonCanClick?'collect':''}}">
-			<image src="{{url}}">></image>
+			<image src="{{web_isInCollectData?'/images/heart.png':'/images/collect.png'}}">></image>
 			<view>收藏</view>
 		</view>
 		<view class="cart" bindtap="{{web_buttonCanClick?'phoneCall':''}}">
@@ -137,13 +142,13 @@
 	<view class="buy_btn flex">
 		<view class="btn_left color1 flex" bindtap="selectModel" data-type="buy">
 			<view style="width:100%;text-align: center;">
-				<view class="font24">¥135</view>
+				<view class="font24">¥{{web_choosed_skuData.price}}</view>
 				<view class="font28">单独购买</view>
 			</view>
 		</view>
 		<view class="btn_right flex" bindtap="selectModel" data-type="groupBuy">
 			<view style="width:100%;text-align: center;">
-				<view class="font24">¥135</view>
+				<view class="font24">¥{{web_choosed_skuData.group_price}}</view>
 				<view class="font28">发起拼单</view>
 			</view>
 		</view>
@@ -154,8 +159,8 @@
 <view id="group2" wx:if="{{web_isShow1}}"  catchtouchmove="true">
 	<view class="group1 group2">
 		<view class="close" bindtap="isShow1"><image src="/images/close_icon.png"></image></view>
-		<view class="font32 color3">参与小美的拼团</view>
-		<view class="font28 color6">仅剩<text>1个</text>名额，23:49:07后结束</view>
+		<view class="font32 color3">参与{{web_groupData.user[0].nickname}}的拼团</view>
+		<view class="font28 color6">仅剩<text>{{web_lessNum}}个</text>名额</view>
 		<view class="group_member flexCenter;">
 			<view class="member">
 				<view class="member_cont">
@@ -165,15 +170,10 @@
 	                </view>
 				</view>
 			</view>
-			<view class="member ">
-				<view class="member_cont member1">
-					?
-				</view>
-			</view>
 		</view>
-		<form  bindsubmit="submit">
-			<button class="submit_info" bindtap="mask" form-type="submit" style="width:100%;margin:50rpx auto 0;">参与拼团</button>
-		</form>
+		
+			<button class="submit_info" bindtap="goBuy" form-type="submit" style="width:100%;margin:50rpx auto 0;">参与拼团</button>
+	
 	</view>
 </view>
 <view class="mask" wx:if="{{web_isShow}}" catchtouchmove="true" bindtap="mask">
@@ -182,8 +182,17 @@
 	<view class="w710" style="position: relative;">
 		<view class="flexRowBetween pricity">
 			<view class="choose_pro">
-				<image src="/images/index1.png"></image>
+				<image src="{{web_choosed_skuData.mainImg[0].url}}"></image>
 			</view>
+			<view class="product_txt">
+					<view class="pro_name">{{web_choosed_skuData.title}}</view>
+					<view class="pro_type">
+						{{web_choosed_skuData.description}}
+					</view>
+					<view class="price_choose">
+				￥{{web_buttonType=='buy'?web_choosed_skuData.price:web_choosed_skuData.group_price}}
+					</view>
+				</view>
 			<view class="close1" bindtap="isShow">
 			<image src="/images/close_icon.png"></image>
 			</view>
@@ -210,6 +219,6 @@
 		</view>
 	</view>
 
-		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'addOrder':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
+		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'goBuy':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
 
 </view>

@@ -11,22 +11,20 @@ Page({
     sForm:{
       item:'' 
     },
-    isLoadAll:false,
     is_show:false,
-    buttonCanClick:false,
     isFirstLoadAllStandard:['getProductData','getCouponData','getMoreData'],
   },
   //事件处理函数
 
   onLoad(options) {
     const self = this;
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.getProductData();
     self.getCouponData();
     self.getMoreData()
   },
+
+
 
 
   getProductData(){
@@ -49,9 +47,23 @@ Page({
         condition:'in'
       },
     };
+    postData.getAfter={
+      sku:{
+        tableName:'sku',
+        middleKey:'product_no',
+        key:'product_no',
+        condition:'=',
+        searchItem:{
+          status:1
+        }
+      },
+    };
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.productData.push.apply(self.data.productData,res.info.data);
+        for (var i = 0; i < res.info.data.length; i++) {
+          self.data.productData.push.apply(self.data.productData,res.info.data[i].sku);
+        }
+        
         if(self.data.productData.length>3){
           self.data.productData = self.data.productData.slice(0,3) 
         }
@@ -81,19 +93,26 @@ Page({
     postData.order = {
       listorder:'desc'
     };
+    postData.getAfter={
+      sku:{
+        tableName:'sku',
+        middleKey:'product_no',
+        key:'product_no',
+        condition:'=',
+        searchItem:{
+          status:1
+        }
+      },
+    };
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.moreData.push.apply(self.data.moreData,res.info.data);
-        for (var i = 0; i <  self.data.moreData.length; i++) {
-           self.data.moreData[i].passage1 = self.data.moreData[i].passage1.split(',');
-           console.log(self.data.moreData[i].passage1)
-        };
+        for (var i = 0; i < res.info.data.length; i++) {
+          self.data.moreData.push.apply(self.data.moreData,res.info.data[i].sku);
+        }      
       }else{
         self.data.isLoadAll = true;
         api.showToast('没有更多了','none');
       };
-
-      wx.hideLoading();
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMoreData',self);
       self.setData({
         web_moreData:self.data.moreData,
@@ -165,8 +184,10 @@ Page({
       product:[
         {id:self.data.couponData.id,count:1}
       ],
-      pay:{score:0},
       type:3,
+      data:{
+        passage1:self.data.couponData.id
+      }
     };
     const callback = (res)=>{
       if(res&&res.solely_code==100000){
@@ -188,12 +209,10 @@ Page({
       searchItem:{
         id:order_id,
       },
-      data:{
-        passage1:self.data.couponData
-      }
+      
     };
     postData.tokenFuncName='getProjectToken';
-    postData.payAfter={
+    postData.payAfter=[{
       tableName:'FlowLog',
       FuncName:'add',
       data:{
@@ -203,7 +222,7 @@ Page({
         type:3,
         thirdapp_id:getApp().globalData.thirdapp_id
       }
-    };
+    }];
     const callback = (res)=>{
       wx.hideLoading();
       if(res.solely_code==100000){

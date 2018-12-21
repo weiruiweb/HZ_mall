@@ -12,14 +12,12 @@ Page({
       
     },
     isFirstLoadAllStandard:['getMainData','getCouponData'],
-    isLoadAll:false,
+
   },
   
   onLoad() {
     const self = this;
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
+    api.commonInit(self);
     self.getCouponData()
   },
 
@@ -69,9 +67,6 @@ Page({
         condition:'='
       }
     };
-    postData.order = {
-      passage1:'desc'
-    }
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.mainData.push.apply(self.data.mainData,res.info.data);
@@ -105,7 +100,7 @@ Page({
 
   onReachBottom: function () {
     const self = this;
-    if(!self.data.isLoadAll){
+    if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
       self.getMainData();
     };

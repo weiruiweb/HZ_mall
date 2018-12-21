@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.2",
-	"appid": "wx4c16a5493b7fff43",
+	"appid": "wx7669bcf121fc5eb8",
 	"projectname": "%E5%8D%8E%E7%8F%8D%E5%95%86%E5%9F%8E",
 	"isGameTourist": false,
 	"condition": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 33,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -180,10 +180,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 24,
 					"name": "店铺",
 					"pathName": "pages/store1/store1",
-					"query": ""
+					"query": "user_no=UC18294143339677"
 				},
 				{
 					"id": -1,

@@ -12,9 +12,7 @@ Page({
  
   onLoad(options) {
     const self = this;
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    wx.showLoading();
-    wx.removeStorageSync('checkLoadAll');
+    api.commonInit(self);
     self.getMainData()
   },
 

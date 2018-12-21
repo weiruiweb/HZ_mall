@@ -9,7 +9,8 @@ Page({
 
 
   data: {
-
+    messageData:[],
+    skuIdArray:[],
     indicatorDots: true,
     vertical: false,
     autoplay: true,
@@ -27,7 +28,6 @@ Page({
     isShow1:false,
     labelData:[],
     orderData:[],
-    complete_api:[],
     keys:[],
     values:[],
     skuData:{},
@@ -36,40 +36,35 @@ Page({
     sku_item:[],
     choose_sku_item:[],
     buttonType:'',
-    isLoadAll:false,
-    buttonCanClick:false,
     isFirstLoadAllStandard:['getMessageData','getMainData'],
-    count:1
+    count:1,
+    searchItem:{}
   },
   
   onLoad(options){
     const self = this;
-    wx.removeStorageSync('checkLoadAll');
-    console.log(self.data.skuData);
-    self.data.paginate = api.cloneForm(getApp().globalData.paginate);
-    wx.showLoading();
-    self.setData({
-      web_count:self.data.count
-    });
+    api.commonInit(self);
+    
     if(options.id){
       self.data.id = options.id
     }
-    self.getMainData();
-    self.getMessageData();
+   
     self.orderGet();
-    if(wx.getStorageSync('collectData')[self.data.id]){
-      self.setData({
-        url: '/images/heart.png',
-      });
-    }else{
-      self.setData({
-        url: '/images/collect.png',
-      });
-    };
+    var cartData = api.getStorageArray('cartData');
+    var cartRes = api.findItemInArray(cartData,'id',self.data.id);
+    self.data.cart_count = cartRes.length>0?cartRes[1].count:0;
+    //初始化收藏
+    var collectData = api.getStorageArray('collectData');
+    self.data.isInCollectData = api.findItemInArray(collectData,'id',self.data.id);
+    self.getMainData();
+    
     wx.showShareMenu({
       withShareTicket: true
     });
-
+    self.setData({
+      web_isInCollectData:self.data.isInCollectData,    
+      web_count:self.data.count
+    });
     
   },
 
@@ -77,18 +72,23 @@ Page({
 
   collect(){
     const self = this;  
-    const id = self.data.id;
-    if(wx.getStorageSync('collectData')&&wx.getStorageSync('collectData')[id]){
-      api.deleteFootOne(id,'collectData');
-      self.setData({
-        url: '/images/collect.png',
-      });
-    }else{
-      api.footOne(self.data.mainData,'id',100,'collectData');  
-      self.setData({
-        url: '/images/heart.png',
-      });
+    if(getApp().globalData.buttonClick){
+      api.showToast('数据有误请稍等','none');
+      setTimeout(function(){
+        wx.showLoading();
+      },800)   
+      return;
     };
+    if(self.data.isInCollectData){
+      api.delStorageArray('collectData',self.data.choosed_skuData,'id'); 
+    }else{
+      api.setStorageArray('collectData',self.data.choosed_skuData,'id',999);
+    };
+    var collectData = api.getStorageArray('collectData');
+    self.data.isInCollectData = api.findItemInArray(collectData,'id',self.data.id);
+    self.setData({
+      web_isInCollectData:self.data.isInCollectData,
+    }); 
   },
 
   getMainData(){
@@ -117,12 +117,19 @@ Page({
         middleKey:'product_no',
         key:'product_no',
         condition:'=',
-        searchItem:{
+        searchItem:api.cloneForm(self.data.searchItem)
+      },
+      merchantUserInfo:{
+        tableName:'UserInfo',
+        middleKey:'user_no',
+        key:'user_no',
+        condition:'=',
+        searchItem:{      
           status:['in',[1]]
         },
       },
-      merchant:{
-        tableName:'UserInfo',
+      merchantUser:{
+        tableName:'user',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
@@ -163,8 +170,7 @@ Page({
           if(self.data.mainData.sku_array.indexOf(parseInt(key))!=-1){
             self.data.labelData.push(self.data.mainData.label[key])
           };    
-        };
-        
+        };       
         for (var i = 0; i < self.data.mainData.sku.length; i++) {
           if(self.data.mainData.sku[i].id==self.data.id){
             self.data.choosed_skuData = api.cloneForm(self.data.mainData.sku[i]);
@@ -173,14 +179,15 @@ Page({
             self.data.can_choose_sku_item = skuRes.can_choose_sku_item;
             console.log('self.data.can_choose_sku_item',self.data.can_choose_sku_item)
           };
+          self.data.skuIdArray.push(self.data.mainData.sku[i].id);//为了抓所有Sku的评论
         };
         self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
-
+        console.log('self.data.skuIdArray',self.data.skuIdArray)
       }else{
         api.showToast('商品信息有误','none');
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
-     
+      self.getMessageData();
       self.setData({
         web_choosed_skuData:self.data.choosed_skuData,
         web_labelData:self.data.labelData,
@@ -188,7 +195,7 @@ Page({
         web_choosed_sku_item:self.data.choosed_sku_item,
         web_can_choose_sku_item:self.data.can_choose_sku_item,
       });
-      console.log('self.data.labelData',self.data.labelData)
+      console.log('self.data.choosed_skuData',self.data.choosed_skuData)
     };
     api.productGet(postData,callback);
   },
@@ -203,7 +210,7 @@ Page({
     if(JSON.stringify(self.data.choosed_skuData)!='{}'){
       if(api.getDataSet(e,'type')=='+'){
         self.data.count++;
-      }else if(self.data.choosed_skuData.count > '1'){
+      }else if(api.getDataSet(e,'type')=='-'&&self.data.count > '1'){
         self.data.count--;
       }
     }else{
@@ -257,45 +264,40 @@ Page({
     })
   },
 
-  addCart(){
+
+
+  addCart(e){
     const self = this;
+    let formId = e.detail.formId;
+    if(JSON.stringify(self.data.choosed_skuData)=='{}'){
+      api.showToast('未选中商品','success');
+      api.buttonCanClick(self,true);
+      return;
+    };
+    if(self.data.choosed_skuData.is_group==1){
+      api.showToast('团购商品不可家加','success');
+      api.buttonCanClick(self,true);
+      return;
+    }
     self.data.choosed_skuData.count = self.data.count;
     self.data.choosed_skuData.isSelect = true;
-    console.log(self.data.choosed_skuData);
-    if(self.data.choosed_skuData.id !=''&&self.data.choosed_skuData.id !=undefined){
-      api.footOne(self.data.choosed_skuData,'id',100,'cartData'); 
-      api.showToast('已加入购物车啦','none')
-    }else{
-      api.showToast('请完善信息','none')
-    }
-    this.setData({
-      isShow:false,
-    })
+    var res = api.setStorageArray('cartData',self.data.choosed_skuData,'id',999); 
+    if(res){
+      api.showToast('加入成功','success');
+      self.data.isShow = !self.data.isShow;
+      self.setData({
+        isShow:self.data.isShow
+      })
+    };
+    var cartData = api.getStorageArray('cartData');
+    var cartRes = api.findItemInArray(cartData,'id',self.data.id);
+    self.data.cart_count = cartRes.length>0?cartRes[1].count:0;
+    self.setData({
+      web_cart_count:self.data.cart_count,
+    }); 
   },
 
 /*  goBuy(){
-    const self = this;
-    const callback = (user,res) =>{ 
-      const skuDatas = [];
-      skuDatas.push({
-        id:self.data.choosed_skuData.id,
-        count:self.data.count
-      });
-      console.log(skuDatas);
-      if(self.data.choosed_skuData.id !=''&&self.data.choosed_skuData.id !=undefined){
-        wx.setStorageSync('payPro',self.data.choosed_skuData);
-       
-        api.pathTo('/pages/confirm_order/confirm_order','nav')
-      }else{
-        api.showToast('请完善信息','none')
-      }
-    };
-    api.getAuthSetting(callback);
-
-
-  },*/
-
-  goBuy(){
 
     const self = this;
     api.buttonCanClick(self);
@@ -324,7 +326,7 @@ Page({
     };
     api.addOrder(postData,c_callback);
 
-  },
+  },*/
    
 
   chooseSku(e){
@@ -424,8 +426,8 @@ Page({
     postData.paginate = api.cloneForm(self.data.paginate);
     postData.tokenFuncName='getProjectToken',
     postData.searchItem = {
-      relation_id:self.data.id,
-      type:2
+      relation_id:['in',self.data.skuIdArray],
+      type:1
     };
     postData.order = {
       create_time:'desc'
@@ -462,7 +464,7 @@ Page({
     postData.tokenFuncName='getProjectToken',
     postData.searchItem = {
       user_type:0,
-      type:1,
+      type:5,
       group_leader:'true',
       order_step:4,
       pay_status:1
@@ -473,9 +475,6 @@ Page({
         searchItem:{
           sku_id:['in',[self.data.id]],
           status:['in',[1]]
-        },
-        fixSearchItem:{
-          status:1
         },
         key:'order_no',
         middleKey:'order_no',
@@ -556,20 +555,18 @@ Page({
       console.log('666',self.data.isMember )
       self.setData({
         web_isMember:self.data.isMember,
-        web_groupData:self.data.groupData
+        web_groupData:self.data.groupData,
+        web_lessNum:self.data.groupData.standard - self.data.groupData.groupMember.length
       })
     }
     api.orderGet(postData,callback)
   },
 
-  addOrder(){
+/*  addOrder(){
     const self = this;
     if(!self.data.order_id){
    
-      if(self.data.isMember){
-        api.showToast('请勿重复参团','none');
-        return;
-      };
+    
       console.log(777)
       const postData = {
         tokenFuncName:'getProjectToken',
@@ -602,51 +599,68 @@ Page({
     }else{
       self.pay(self.data.order_id)
     }  
-  },
+  },*/
 
-  pay(order_id){
+goBuy(){
+
     const self = this;
-   
-    var order_id = self.data.order_id;
-    const postData = {
-      token:wx.getStorageSync('token'),
-      searchItem:{
-        id:order_id,
-      },
-      wxPay:self.data.skuData.price,
-      wxPayStatus:0
+    api.buttonCanClick(self);
+ /*   if(self.data.isMember){
+      api.showToast('请勿重复参团','none');
+      api.buttonCanClick(self,true);
+      return;
+    };*/
+    if(self.data.buttonType=='groupBuy'&&self.data.choosed_skuData.is_group==0){
+      api.showToast('型号未开启团购','success');
+      api.buttonCanClick(self,true);
+      return; 
+    }
+    if(JSON.stringify(self.data.choosed_skuData)=='{}'){
+      api.showToast('未选中商品','success');
+      api.buttonCanClick(self,true);
+      return;
     };
-     
-    if(self.data.skuData.is_group==1){
-      postData.searchItem.status = ['in',[0,1]]
+    const postData = {
+      tokenFuncName:'getProjectToken',
+      sku:[
+        {
+          id:self.data.choosed_skuData.id,
+          count:self.data.count
+        }
+      ],
+      type:1,
+      data:{
+        standard:self.data.choosed_skuData.standard,
+        passage1:self.data.choosed_skuData.user_no
+      },  
+    };
+    if(self.data.choosed_skuData.is_group==1){
+      postData.isGroup=true;
+      postData.type = 5
+    };
+    if(self.data.group_no1&&self.data.group_no1!="undefined"){
+      postData.group_no=self.data.group_no1
+    };
+    if(self.data.group_no&&self.data.group_no!="undefined"){
+      postData.group_no=self.data.group_no
     };
     const callback = (res)=>{
-      wx.hideLoading();
-      if(res.solely_code==100000){
-      if(res.info){
-        const payCallback=(payData)=>{
-            if(payData==1){
-              setTimeout(function(){
-                api.pathTo('/pages/user_order/user_order','redi');
-              },800)  
-            };   
-          };
-          api.realPay(res.info,payCallback);      
-      }
+      api.buttonCanClick(self,true);
+      if(res&&res.solely_code==100000){
+        api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id,'nav');        
       }else{
-        api.showToast('支付失败','none')
-      }
-         
+        api.showToast(res.msg,'none');
+      };
     };
-    api.pay(postData,callback);
+    api.addOrder(postData,callback);
   },
 
 
   showGroupMember(){
     const self = this;
-    self.data.isShow = !self.data.isShow
+    self.data.isShow1 = !self.data.isShow1
     self.setData({
-      web_isShow:self.data.isShow
+      web_isShow1:self.data.isShow1
     })
   },
 
@@ -661,8 +675,12 @@ Page({
 
   phoneCall() {
     const self = this;
+    if(!self.data.mainData.merchantUserInfo[0].phone){
+      api.showToast('商家未设置客服','none');
+      return
+    };
     wx.makePhoneCall({
-      phoneNumber: self.data.mainData.merchant[0].phone,
+      phoneNumber: self.data.mainData.merchantUserInfo[0].phone,
     })
   },
 
