@@ -120,30 +120,43 @@ Page({
     const self = this;
     api.buttonCanClick(self);
     let formId = e.detail.formId;
-    console.log(999,formId)
-    const skuDatas = [];
+    
+    const orderList = [];
+    const userObg = {};
     for(var i=0;i<self.data.mainData.length;i++){
       if(self.data.mainData[i].isSelect){
-        skuDatas.push({
-          id:self.data.mainData[i].id,
-          count:self.data.mainData[i].count
-        });
-      }
+        if(userObg[self.data.mainData[i].user_no]){
+          orderList[userObg[self.data.mainData[i].user_no]].sku.push({
+              id:self.data.mainData[i].id,
+              count:self.data.mainData[i].count
+          });
+        }else{
+          var currentLength = orderList.length;
+          orderList.push({
+            sku:[{
+              id:self.data.mainData[i].id,
+              count:self.data.mainData[i].count
+            }],
+            type:self.data.mainData[i].type,
+            [self.data.mainData[i].user_no]:currentLength
+          });
+        };
+      };
     };
+
+    console.log('orderList',orderList);
     const postData = {
       tokenFuncName:'getProjectToken',
     };
+
     const callback = (res)=>{
       console.log(res);
-      if(res.info.data.length>0&&res.info.data[0].phone){
-       
+      //if(res.info.data.length>0&&res.info.data[0].phone){
         const c_postData = {
           tokenFuncName:'getProjectToken',
-          sku:skuDatas,
-          type:1
-
+          orderList:orderList,
         };
-        if(c_postData.sku.length==0){
+        if(c_postData.orderList.length==0){
           api.showToast('未选择商品','none');
           return;
         };
@@ -155,12 +168,13 @@ Page({
             api.showToast(res.msg,'none');
           };
         };
+        console.log('c_postData',c_postData);
         api.addOrder(c_postData,c_callback);
-      }else{
+      /*}else{
         api.showToast('请完善信息','none');
         api.buttonCanClick(self,true);
         api.pathTo('/pages/userInfo/userInfo','nav');
-      };
+      };*/
     };
     api.userInfoGet(postData,callback)
   },

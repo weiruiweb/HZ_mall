@@ -29,7 +29,7 @@
 <view class="product">
     <block wx:for="{{web_mainData}}">
         <view class="product_box w710 flexRowBetween">
-            <block wx:for="{{item.products}}" wx:key="id" wx:for-item="c_item">
+            <block wx:for="{{item.products}}" wx:key="id" wx:for-item="c_item" wx:for-index="c_index">
                 <view class="product_left">
                     <image src="{{c_item.snap_product.mainImg[0].url}}"></image>
                 </view>
@@ -45,6 +45,24 @@
                 </view>
             </block>
         </view>
+
+        <block wx:for="{{item.coupon}}" wx:for-item="cc_item" wx:for-index="cc_index">
+            <view class="sort_cont flex">
+                <view class="sort_left flex">
+                    <view class="sort_in flex">
+                        <view class="sort_img"><image style="width:30rpx;height:30rpx;" src="/images/index1.png"></image></view>
+                        <view class="sort_txt">
+                            <view class="font26 color text1">¥<text>100</text>{{cc_item.products[0].snap_product.description}}</view>
+                            <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
+                            <view class="color6 font22 text3">{{func.timestampToTime(cc_item.products[0].snap_product.end_time)}}前有效</view>
+                            <view class="submit_info bg font24" data-id="{{cc_item.id}}" data-mainIndex="{{index}}"  bindtap="useCoupon" >去使用
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <view style="width:100%;height:30rpx;background-color:gray"></view>
     </block>
 </view>
 
@@ -55,7 +73,7 @@
     <view class="infor_left flexRowBetween font28" style="width:70%;text-align:right;">
     <text class="color">-¥{{web_couponPrice}}</text><image src="/images/next_page.png" class="next_img"></image></view>
 </view>
-<block wx:for="{{web_orderData}}">
+<block wx:for="{{web_couponData}}">
     <view class="sort_cont flex">
         <view class="sort_left flex">
             <view class="sort_in flex">
@@ -64,7 +82,7 @@
                     <view class="font26 color text1">¥<text>100</text>{{item.products[0].snap_product.description}}</view>
                     <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
                     <view class="color6 font22 text3">{{func.timestampToTime(item.products[0].snap_product.end_time)}}前有效</view>
-                    <view class="submit_info bg font24" data-id="{{item.id}}" data-count="{{item.discount}}" bindtap="useCoupon" >去使用
+                    <view class="submit_info bg font24" data-id="{{item.id}}"  bindtap="useCoupon" >去使用
                     </view>
                 </view>
             </view>

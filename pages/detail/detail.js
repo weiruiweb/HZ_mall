@@ -99,7 +99,7 @@ Page({
     };
     postData.getBefore={
       sku:{
-        tableName:'sku',
+        tableName:'Sku',
         searchItem:{
           id:['in',[self.data.id]]
         },
@@ -113,7 +113,7 @@ Page({
     };
     postData.getAfter={
       sku:{
-        tableName:'sku',
+        tableName:'Sku',
         middleKey:'product_no',
         key:'product_no',
         condition:'=',
@@ -129,7 +129,7 @@ Page({
         },
       },
       merchantUser:{
-        tableName:'user',
+        tableName:'User',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
@@ -138,7 +138,7 @@ Page({
         },
       },
       product:{
-        tableName:'product',
+        tableName:'Product',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
@@ -434,7 +434,7 @@ Page({
     };
     postData.getAfter = {
       user:{
-        tableName:'user',
+        tableName:'User',
         middleKey:'user_no',
         key:'user_no',
         searchItem:{
@@ -522,7 +522,7 @@ Page({
     };
     postData.getAfter = {
       groupMember:{
-        tableName:'order',
+        tableName:'Order',
         middleKey:'group_no',
         key:'group_no',
         searchItem:{
@@ -532,7 +532,7 @@ Page({
         condition:'='
       },
       user:{
-        tableName:'user',
+        tableName:'User',
         middleKey:'user_no',
         key:'user_no',
         searchItem:{

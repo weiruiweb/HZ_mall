@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 24,
+			"current": 32,
 			"list": [
 				{
 					"id": -1,
@@ -231,7 +231,7 @@
 					"id": 32,
 					"name": "订单确认",
 					"pathName": "pages/confirm_order/confirm_order",
-					"query": "order_id=168"
+					"query": "order_id=44"
 				},
 				{
 					"id": 33,

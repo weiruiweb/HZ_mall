@@ -24,9 +24,6 @@ Page({
     self.getMoreData()
   },
 
-
-
-
   getProductData(){
     const self = this;
     const postData = {};
@@ -38,7 +35,7 @@ Page({
     };
     postData.getBefore = {
       label:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['优惠折扣']],
         },
@@ -49,7 +46,7 @@ Page({
     };
     postData.getAfter={
       sku:{
-        tableName:'sku',
+        tableName:'Sku',
         middleKey:'product_no',
         key:'product_no',
         condition:'=',
@@ -62,11 +59,10 @@ Page({
       if(res.info.data.length>0){
         for (var i = 0; i < res.info.data.length; i++) {
           self.data.productData.push.apply(self.data.productData,res.info.data[i].sku);
-        }
-        
+        };
         if(self.data.productData.length>3){
-          self.data.productData = self.data.productData.slice(0,3) 
-        }
+          self.data.productData = self.data.productData.slice(0,3);
+        };
       }else{
         api.showToast('没有更多了','none');
       }
@@ -95,7 +91,7 @@ Page({
     };
     postData.getAfter={
       sku:{
-        tableName:'sku',
+        tableName:'Sku',
         middleKey:'product_no',
         key:'product_no',
         condition:'=',

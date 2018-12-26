@@ -74,7 +74,7 @@ Page({
     };
     postData.getAfter = {
       product:{
-        tableName:'product',
+        tableName:'Product',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
@@ -108,7 +108,7 @@ Page({
         });
       }else{
         api.showToast('网络故障','none')
-      } 
+      }; 
       self.getCouponData();
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
     };
@@ -178,7 +178,7 @@ Page({
     };
     postData.getBefore = {
       label:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['商品分类']],
         },
@@ -228,8 +228,15 @@ Page({
     var limit = api.getDataSet(e,'limit');
     const postData = {
       tokenFuncName:'getProjectToken',
-      product:[
-        {id:id,count:1}
+      orderList:[
+        {
+          product:[
+            {
+              id:id,
+              count:1
+            }
+          ]
+        }
       ],
       pay:{score:0},
       type:type,

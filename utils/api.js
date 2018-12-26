@@ -262,6 +262,18 @@ class Api extends Base{
         this.request(allParams);       
     } 
 
+    addMultiOrder(param,callback){
+        var allParams ={
+            url:'Func/Order/addMultiOrder',
+            type:'post',
+            data:param,
+            sCallback: function(data) {
+                callback && callback(data);
+            }
+        };
+        this.request(allParams);       
+    } 
+
 
     signIn(param,callback){
         var allParams ={

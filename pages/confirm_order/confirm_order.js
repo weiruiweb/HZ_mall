@@ -14,6 +14,7 @@ Page({
     idData:[],
     orderData:[],
     couponData:[],
+    allCouponData:[],
     couponId:[],
     searchItem:{
       isdefault:1
@@ -49,6 +50,7 @@ Page({
     };
     getApp().globalData.address_id = '';
     self.getMainData();
+
   },
 
  
@@ -63,11 +65,11 @@ Page({
       self.data.searchItem.isdefault = 1;
     };
     for (var i = 0; i < self.data.mainData.length; i++) {
-      self.data.idData.push(self.data.mainData[i].id)
+      self.data.idData.push(self.data.mainData[i].id);
     };
     console.log(self.data.idData)
     self.getAddressData();
-    self.getCouponData(true)
+    
 
   },
 
@@ -89,15 +91,34 @@ Page({
     postData.searchItem = {
       id:['in',self.data.order_array]
     };
+    postData.getAfter = {
+      child:{
+        tableName:'Order',
+        key:'parentid',
+        middleKey:'id',
+        condition:'=',
+        searchItem:{
+          status:1
+        },
+      },
+    };
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.mainData = res.info.data;
+        self.data.parentMainData = res.info.data[0];
+        if(res.info.data[0].child.length>0){
+          self.data.mainData = res.info.data[0].child;
+        }else{
+          self.data.mainData = res.info.data;
+        };
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.setData({
         web_mainData:self.data.mainData,
+        web_parentMainData:self.data.parentMainData,
       });     
       self.countPrice();
+      console.log('getMainData',self.data.mainData)
+      self.getCouponData()
     };
     api.orderGet(postData,callback);
 
@@ -105,23 +126,43 @@ Page({
 
 
 
-  getCouponData(isNew){
+  getCouponData(){
     const self = this;
-    if(isNew){
-      api.clearPageIndex(self);
-    };
+    
     const postData = {};
-    postData.paginate = api.cloneForm(self.data.paginate);
+    
     postData.tokenFuncName = 'getProjectToken';
-    postData.searchItem = api.cloneForm(self.data.searchItemTwo)
+    postData.searchItem = api.cloneForm(self.data.searchItemTwo);
+    var couponUsernoArray = [];
+    var couponUsernoObj = {};
+    for (var i = 0; i < self.data.mainData.length; i++) {
+      couponUsernoArray.push(self.data.mainData[i].products[0].snap_product.user_no);
+      couponUsernoObj[self.data.mainData[i].products[0].snap_product.user_no] = i;
+      self.data.mainData[i].coupon = [];
+    };
+    console.log('self.data.mainData',self.data.mainData)
+    console.log('couponUsernoArray',couponUsernoArray)
+    if(couponUsernoArray.length>0){
+      postData.searchItem.passage1 = ['in',couponUsernoArray]
+    };
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.couponData.push.apply(self.data.couponData,res.info.data);
+        self.data.allCouponData = res.info.data;
+        self.data.couponData = [];
+        for (var i = 0; i < self.data.allCouponData.length; i++) {
+          if(self.data.mainData[couponUsernoObj[self.data.allCouponData[i].passage1]]){
+            self.data.mainData[couponUsernoObj[self.data.allCouponData[i].passage1]].coupon.push(self.data.allCouponData[i]);
+          }else{
+            self.data.couponData.push(self.data.allCouponData[i])
+          };
+        };
       }else{
         self.data.isLoadAll = true;
-      }
+      };
+      console.log('getMainData',self.data.mainData)
       self.setData({
         web_couponData:self.data.couponData,
+        web_mainData:self.data.mainData,
       });  
       self.countPrice();
     };
@@ -158,7 +199,6 @@ Page({
     postData.searchItem = {
       id:self.data.order_id
     };
-
     const callback = (res)=>{
       if(res.solely_code==100000){
         if(res.info){
@@ -188,43 +228,53 @@ Page({
 
  useCoupon(e){
     const self = this;
+
     var id = api.getDataSet(e,'id');
-    var findCoupon = api.findItemInArray(self.data.couponData,'id',id);
+    var mainIndex = api.getDataSet(e,'mainIndex');
+    var findCoupon = api.findItemInArray(self.data.allCouponData,'id',id);
     var findItem = api.findItemInArray(self.data.pay.coupon,'id',id);
-    console.log('findCoupon',findCoupon)
-    if(findCoupon){
-      findCoupon = findCoupon[1];
-      var findSameCoupon = api.findItemsInArray(self.data.pay.coupon,'product_id',findCoupon.products[0].snap_product.id);
+    if(mainIndex){
+      var order = self.data.mainData[mainIndex];
     }else{
-      api.showToast('优惠券错误','error');
-      return;
+      var order = self.data.parentMainData;
     };
+    console.log('findCoupon',findCoupon)
+    
     if(findItem){
       self.data.pay.coupon.splice(findItem[0],1);
     }else{
-      if((self.data.price-self.data.couponTotalPrice)<findCoupon.standard){
-        api.showToast('金额不达标','error');
-        return;
-      };
-      if(findCoupon.limit>0&&findSameCoupon.length>=findCoupon.limit){
-        api.showToast('叠加使用超限','error');
-        return;
-      };
-      if(findCoupon.type==3){
-        var couponPrice = findCoupon.discount;
-      }else if(findCoupon.type==4){
-        var couponPrice = findCoupon.discount*self.data.price;
-      };
+      var res = self.checkCoupon(order,findCoupon[1])
+      if(!res) return;
+        if(findCoupon.type==3){
+          var couponPrice = findCoupon.discount;
+        }else if(findCoupon.type==4){
+          var couponPrice = findCoupon.discount*self.data.price;
+        };
       if(parseFloat(couponPrice)+parseFloat(self.data.couponTotalPrice)>parseFloat(self.data.price)){
         couponPrice = parseFloat(self.data.price).toFixed(2) - parseFloat(self.data.couponTotalPrice).toFixed(2);
       };
       self.data.pay.coupon.push({
         id:id,
         price:couponPrice,
-        product_id:findCoupon.products[0].snap_product.id
+        standard_id:order.id
       });
     };
     self.countPrice();
+  },
+
+  checkCoupon(order,coupon){
+    const self = this;
+    console.log('coupon',coupon)
+    var findSameCoupon = api.findItemsInArray(self.data.pay.coupon,'product_id',coupon.products[0].snap_product.id);
+    if((order.price-self.data.couponTotalPrice)<coupon.standard){
+      api.showToast('金额不达标','error');
+      return false;
+    };
+    if(findCoupon.limit>0&&findSameCoupon&&findSameCoupon.length>=coupon.limit){
+      api.showToast('叠加使用超限','error');
+      return false;
+    };
+    return true;
   },
 
 

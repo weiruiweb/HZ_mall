@@ -45,7 +45,7 @@ Page({
     };
     postData.getAfter={
       sku:{
-        tableName:'sku',
+        tableName:'Sku',
         middleKey:'product_no',
         searchItem:{
           status:1
@@ -87,7 +87,7 @@ Page({
     };
     postData.getBefore = {
       label:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['商品分类']],
         },
