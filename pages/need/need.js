@@ -42,7 +42,7 @@ Page({
     };
     postData.getAfter = {
       userData:{
-        tableName:'user',
+        tableName:'User',
         searchItem:{
           status:1
         },

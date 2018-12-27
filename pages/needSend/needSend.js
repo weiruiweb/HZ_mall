@@ -48,7 +48,7 @@ Page({
     };
     postData.getBefore = {
       label:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['商品分类']],
         },

@@ -133,7 +133,7 @@ Page({
     
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = api.cloneForm(self.data.searchItemTwo);
-    var couponUsernoArray = [];
+    var couponUsernoArray = ['U910872296194660'];
     var couponUsernoObj = {};
     for (var i = 0; i < self.data.mainData.length; i++) {
       couponUsernoArray.push(self.data.mainData[i].products[0].snap_product.user_no);
@@ -232,6 +232,9 @@ Page({
     var id = api.getDataSet(e,'id');
     var mainIndex = api.getDataSet(e,'mainIndex');
     var findCoupon = api.findItemInArray(self.data.allCouponData,'id',id);
+    if(findCoupon){
+      findCoupon = findCoupon[1];
+    };
     var findItem = api.findItemInArray(self.data.pay.coupon,'id',id);
     if(mainIndex){
       var order = self.data.mainData[mainIndex];
@@ -243,7 +246,7 @@ Page({
     if(findItem){
       self.data.pay.coupon.splice(findItem[0],1);
     }else{
-      var res = self.checkCoupon(order,findCoupon[1])
+      var res = self.checkCoupon(order,findCoupon)
       if(!res) return;
         if(findCoupon.type==3){
           var couponPrice = findCoupon.discount;
@@ -253,6 +256,7 @@ Page({
       if(parseFloat(couponPrice)+parseFloat(self.data.couponTotalPrice)>parseFloat(self.data.price)){
         couponPrice = parseFloat(self.data.price).toFixed(2) - parseFloat(self.data.couponTotalPrice).toFixed(2);
       };
+      console.log('couponPrice',findCoupon.discount)
       self.data.pay.coupon.push({
         id:id,
         price:couponPrice,
@@ -270,7 +274,7 @@ Page({
       api.showToast('金额不达标','error');
       return false;
     };
-    if(findCoupon.limit>0&&findSameCoupon&&findSameCoupon.length>=coupon.limit){
+    if(coupon.limit>0&&findSameCoupon&&findSameCoupon.length>=coupon.limit){
       api.showToast('叠加使用超限','error');
       return false;
     };
@@ -279,37 +283,11 @@ Page({
 
 
 
-
-  
   countPrice(){
 
     const self = this;
     var totalPrice = 0;
     var couponPrice = 0;
-    var productsArray = self.data.mainData.products;
-    self.data.price = self.data.mainData.price;
-    if(self.data.pay.coupon.length>0){
-      var couponPrice = 0;
-      for (var i = 0; i < self.data.pay.coupon.length; i++) {
-        couponPrice += self.data.pay.coupon[i].price
-      };
-    };
-    self.data.pay.wxPay = self.data.price - couponPrice;
-    console.log('countPrice',self.data.pay)
-    self.setData({
-      web_couponPrice:couponPrice.toFixed(2),
-      web_price:self.data.price,
-      web_pay:self.data.pay
-    });
-
-  },
-
-  countPrice(){
-
-    const self = this;
-    var totalPrice = 0;
-    var couponPrice = 0;
-    var productsArray = self.data.mainData.products;
     self.data.couponTotalPrice = api.addItemInArray(self.data.pay.coupon,'price');
     self.data.price = api.addItemInArray(self.data.mainData,'price');
     console.log('self.data.price',self.data.price)

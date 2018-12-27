@@ -138,13 +138,12 @@ Page({
         },
       },
       product:{
-        tableName:'Product',
+        tableName:'Sku',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
         searchItem:{      
           status:['in',[1]],
-          type:1
         },
         compute:{
           saleNum:
@@ -275,7 +274,7 @@ Page({
       return;
     };
     if(self.data.choosed_skuData.is_group==1){
-      api.showToast('团购商品不可家加','success');
+      api.showToast('团购商品不可加','success');
       api.buttonCanClick(self,true);
       return;
     }
@@ -483,7 +482,7 @@ Page({
     };
     postData.getAfter = {
       user:{
-        tableName:'user',
+        tableName:'User',
         middleKey:'user_no',
         key:'user_no',
         searchItem:{
@@ -622,13 +621,14 @@ goBuy(){
     };
     const postData = {
       tokenFuncName:'getProjectToken',
-      sku:[
+      orderList:[
         {
-          id:self.data.choosed_skuData.id,
-          count:self.data.count
+          sku:[
+            {id:self.data.choosed_skuData.id,count:self.data.count}
+          ],
+          type:1, 
         }
       ],
-      type:1,
       data:{
         standard:self.data.choosed_skuData.standard,
         passage1:self.data.choosed_skuData.user_no

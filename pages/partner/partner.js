@@ -29,7 +29,7 @@ Page({
     };
     postData.getBefore = {
       article:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['合伙']],
           thirdapp_id:['=',[getApp().globalData.thirdapp_id]],

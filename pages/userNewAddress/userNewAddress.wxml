@@ -12,7 +12,7 @@
 	<view class="users_detail flexRowBetween" bindtap="chooseLocation" style="justify-content:left">
 
 		<text style="line-height:50px;font-size:30rpx">点击选取位置:</text>
-		<text style="line-height:50px;font-size:30rpx;color:#999">{{web_name}}</text>
+		<text style="line-height:50px;font-size:30rpx;color:#999">{{web_mainData.city}}</text>
 	</view>
 </view>
 
@@ -25,7 +25,7 @@
 <view class="user_input flexRowBetween  w710">
 	<view class="input_note font30 address_set">设为默认地址</view>
 	<view class="body-view">
-		<switch bindchange="switch2Change"/>
+		<switch bindchange="switch2Change" checked="{{web_isdefault==1?true:''}}" />
 	</view>
 </view>
 <view class="submit_info"  bindtap="{{web_buttonCanClick?'submit':''}}">

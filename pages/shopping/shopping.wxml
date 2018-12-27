@@ -11,7 +11,7 @@
                 </view>
                 <view class="shopping_name">
                     <text class="text1 avoidOverflow">{{item.title}}</text>
-                    <text class="text2">{{item.price}}</text>
+                    <text class="text2">{{item.description}}</text>
                     <text class="price color">¥{{item.price}}</text>
                 </view>
                 <view class="edit_number flexRowBetween">
@@ -48,11 +48,11 @@
 </view>
 
 <view id="shoppingEmpty" wx:if="{{web_mainData.length==0}}">
-    <view class="shopping_cart flex" bindtap="intoPathRedi" data-path="/pages/mall/Index/index">
+    <view class="shopping_cart flex" >
         <view class="scale2" style="width:104px;height:96px;margin:0 auto;{{img}};background-position: 0px -198px;"></view>
     </view>
     <view class="note">空空如也购物车没有任何商品</view>
-    <view class="goShopping" bindtap="intoPathRedi" data-path="/pages/mall/Sort/sort">去逛逛</view>
+    <view class="goShopping" bindtap="intoPathRedi" data-path="/pages/index/index">去逛逛</view>
 </view>
 <view class="navbar">
     <view class="navbar_item"   bindtap="intoPathRedi" data-path="/pages/index/index">

@@ -82,7 +82,7 @@ Page({
   orderUpdate(e){
     const self = this;
     const postData = {};
-    postData.token = wx.getStorageSync('token');
+    postData.tokenFuncName = 'getProjectToken';
     postData.data ={
       transport_status:2,
     }

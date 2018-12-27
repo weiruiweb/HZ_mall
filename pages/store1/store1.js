@@ -74,13 +74,12 @@ Page({
     };
     postData.getAfter = {
       product:{
-        tableName:'Product',
+        tableName:'Sku',
         middleKey:'user_no',
         key:'user_no',
         condition:'=',
         searchItem:{      
           status:['in',[1]],
-          type:1
         },
         compute:{
           saleNum:
@@ -220,11 +219,10 @@ Page({
     api.buttonCanClick(self);
     var id = api.getDataSet(e,'id');
     var type = api.getDataSet(e,'type');
-    var duration = api.getDataSet(e,'duration');
+    var end_time = api.getDataSet(e,'end_time');
     var discount = api.getDataSet(e,'discount');
     var standard = api.getDataSet(e,'standard');
     var user_no = api.getDataSet(e,'user_no');
-    console.log('duration',duration);
     var limit = api.getDataSet(e,'limit');
     const postData = {
       tokenFuncName:'getProjectToken',
@@ -241,7 +239,7 @@ Page({
       pay:{score:0},
       type:type,
       data:{
-        end_time:new Date().getTime() + duration,
+        end_time:end_time,
         limit:limit,
         discount:discount,
         standard:standard,

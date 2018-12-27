@@ -32,7 +32,7 @@ Page({
     };
     postData.getBefore = {
       product:{
-        tableName:'label',
+        tableName:'Label',
         searchItem:{
           title:['=',['一元购']],
         },

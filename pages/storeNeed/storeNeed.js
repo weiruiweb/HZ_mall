@@ -45,7 +45,7 @@ Page({
 
     postData.getAfter = {
       userMessage:{
-        tableName:'message',
+        tableName:'Message',
         middleKey:'relation_id',
         key:'id',
         searchItem:{

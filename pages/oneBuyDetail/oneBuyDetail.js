@@ -32,7 +32,7 @@ Page({
     postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
     postData.getAfter = {
       user:{
-        tableName:'user',
+        tableName:'User',
         middleKey:'passage1',
         key:'user_no',
         searchItem:{

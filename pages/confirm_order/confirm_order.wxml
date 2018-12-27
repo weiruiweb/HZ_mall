@@ -52,7 +52,7 @@
                     <view class="sort_in flex">
                         <view class="sort_img"><image style="width:30rpx;height:30rpx;" src="/images/index1.png"></image></view>
                         <view class="sort_txt">
-                            <view class="font26 color text1">¥<text>100</text>{{cc_item.products[0].snap_product.description}}</view>
+                            <view class="font26 color text1">¥<text>{{cc_item.discount}}</text>{{cc_item.products[0].snap_product.description}}</view>
                             <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
                             <view class="color6 font22 text3">{{func.timestampToTime(cc_item.products[0].snap_product.end_time)}}前有效</view>
                             <view class="submit_info bg font24" data-id="{{cc_item.id}}" data-mainIndex="{{index}}"  bindtap="useCoupon" >去使用
@@ -79,7 +79,7 @@
             <view class="sort_in flex">
                 <view class="sort_img"><image src="/images/index1.png"></image></view>
                 <view class="sort_txt">
-                    <view class="font26 color text1">¥<text>100</text>{{item.products[0].snap_product.description}}</view>
+                    <view class="font26 color text1">¥<text>{{item.discount}}</text>{{item.products[0].snap_product.description}}</view>
                     <view class="color6 font24 text2 avoidOverflow">仅限本店使用</view>
                     <view class="color6 font22 text3">{{func.timestampToTime(item.products[0].snap_product.end_time)}}前有效</view>
                     <view class="submit_info bg font24" data-id="{{item.id}}"  bindtap="useCoupon" >去使用

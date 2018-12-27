@@ -17,14 +17,14 @@
 			</view>
 			<view class="price_sale flexRowBetween" style="margin-top: 20rpx;">
 				<view class="font28">
-					活动进度 <text class="color">{{web_mainData.limit-(web_mainData.limit-web_mainData.sale_count)}}%</text>
+					活动进度 <text class="color">{{(web_mainData.sale_count/web_mainData.limit)*100}}%</text>
 				</view>
 				<view class="sale">
 					满{{web_mainData.limit}}人开奖
 				</view>
 			</view>
 			<view class="progress">
-				<progress percent="0" color="#e83632"  stroke-width="12" border-radius="10px"/>
+				<progress percent="{{(web_mainData.sale_count/web_mainData.limit)*100}}" color="#e83632"  stroke-width="12" border-radius="10px"/>
 			</view>
 		</view>	
 	</view>

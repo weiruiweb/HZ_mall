@@ -13,7 +13,7 @@
                         </view>
                         <view class="product_tlt flex" style="width:100%;height:50%;">
                             <view class="progress font24 color avoidOverflow">
-                                <progress percent="60" color="red"  stroke-width="12"/>
+                                <progress percent="{{(item.sale_count/item.limit)*100}}" color="red"  stroke-width="12" show-info="true" />
                             </view>
                             <view class="font24 color6 avoidOverflow residue">剩余<text class="color">{{item.limit-item.sale_count}}</text>个名额</view>
                         </view>

@@ -38,7 +38,7 @@ Page({
     };
     postData.getAfter = {
       userMessage:{
-        tableName:'message',
+        tableName:'Message',
         middleKey:'relation_id',
         key:'id',
         searchItem:{
@@ -47,7 +47,7 @@ Page({
         condition:'='
       },
       userData:{
-        tableName:'user',
+        tableName:'User',
         middleKey:['userMessage',0,'user_no'],
         key:'user_no',
         searchItem:{
@@ -160,7 +160,7 @@ Page({
     };
     postData.getAfter = {
       user:{
-        tableName:'user',
+        tableName:'User',
         searchItem:{
           status:1
         },

@@ -177,17 +177,21 @@ Page({
     };
     const postData = {
       tokenFuncName:'getProjectToken',
-      product:[
-        {id:self.data.couponData.id,count:1}
+      orderList:[
+        {
+          product:[
+            {id:self.data.couponData.id,count:1}
+          ],
+          type:3
+        }
       ],
-      type:3,
       data:{
         passage1:self.data.couponData.id
       }
     };
     const callback = (res)=>{
       if(res&&res.solely_code==100000){
-        self.pay(res.info)
+        self.pay(res.info.id)
       }; 
       self.setData({
         is_show:false
@@ -200,12 +204,11 @@ Page({
 
   pay(order_id){
     const self = this;
-    var order_id = self.data.order_id;
     const postData = {
       searchItem:{
         id:order_id,
       },
-      
+      score:0
     };
     postData.tokenFuncName='getProjectToken';
     postData.payAfter=[{
