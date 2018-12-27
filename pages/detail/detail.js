@@ -675,7 +675,7 @@ goBuy(){
 
   phoneCall() {
     const self = this;
-    if(!self.data.mainData.merchantUserInfo[0].phone){
+    if(self.data.mainData.merchantUserInfo.length==0){
       api.showToast('商家未设置客服','none');
       return
     };

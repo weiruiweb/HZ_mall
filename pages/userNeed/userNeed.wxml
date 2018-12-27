@@ -15,8 +15,8 @@
 </view>
 <view class="order_list">
 	<block wx:for="{{web_mainData}}" wx:key="id">
-		<view class="order_all"  bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail?id={{item.id}}">	
-			<view class="order_tlt flexRowBetween">
+		<view class="order_all"  >	
+			<view class="order_tlt flexRowBetween" bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail?id={{item.id}}">
 				<view class="tlt_left">
 					<text >交易时间:</text>
 					<text>{{item.create_time}}</text>
