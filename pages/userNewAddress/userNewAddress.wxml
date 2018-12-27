@@ -5,7 +5,7 @@
 </view>
 <view class="user_input flexRowBetween  w710">
 	<view class="input_note font30">手机号码:</view>
-	<input placeholder="请输入手机号码" style="width:450rpx;" value="{{web_mainData.phone}}"  data-key="phone" bindblur="inputChange"></input>
+	<input placeholder="请输入手机号码" value="{{web_mainData.phone}}"  data-key="phone" bindblur="inputChange"></input>
 	
 </view>
 <view class="user_input" style="padding:0 5%;width:90%;">

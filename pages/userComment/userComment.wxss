@@ -69,9 +69,6 @@ page{
 	font-size:28rpx;
 	color:#808080;
 }
-.order_type{
-	width:340rpx;
-}
 .total_money{
 	font-size:28rpx;
 	color:#666;
@@ -88,7 +85,7 @@ page{
 }
 .handle_order{
 	clear:both;
-	width:364rpx;
+	width:50%;
 	float:right;
 	margin-right:25rpx;
 	margin-top:20rpx;
@@ -102,4 +99,6 @@ page{
 	line-height:50rpx;
 	font-size:28rpx;
 	color:#636363;
+	float:right;
+	margin:0 20rpx;
 }

@@ -39,6 +39,19 @@ page{
 	padding:0rpx 25rpx;
 	overflow:hidden;
 	border-bottom:solid 1rpx #fff;
+	position:relative;
+}
+.comment_order{
+	position:absolute;
+	right:0;
+	top:10rpx;
+	width:60rpx;
+	height:60rpx;
+	text-align:center;
+}
+.comment_order image{
+	width:50rpx;
+	height:50rpx;
 }
 .order_tlt{
 	height:75rpx;
@@ -96,7 +109,7 @@ page{
 }
 .handle_order{
 	clear:both;
-	width:364rpx;
+	width:50%;
 	float:right;
 	margin-right:25rpx;
 	margin-top:20rpx;
@@ -110,4 +123,6 @@ page{
 	line-height:50rpx;
 	font-size:28rpx;
 	color:#636363;
+	float:right;
+	margin:0 20rpx;
 }

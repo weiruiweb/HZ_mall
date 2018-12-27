@@ -39,7 +39,7 @@ Page({
     };
     postData.getAfter = {
       product:{
-        tableName:'Product',
+        tableName:'Sku',
         middleKey:'relation_id',
         key:'id',
         searchItem:{

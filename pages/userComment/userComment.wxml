@@ -20,12 +20,10 @@
 					</view>
 				</view>
 			</view>
-			<view>{{item.content}}</view>
+			<view class="w710 bg1 font28 color6" style="padding-top:20rpx;padding-bottom:20rpx;">{{item.content}}</view>
 			<view class="handle">
 				<view class="handle_order">
-					<view class="flexRowBetween">
 						<view class="handle_orders delete_order" bindtap='intoPath' data-path="/pages/detail/detail?id={{item.relation_id}}">再次购买</view>
-					</view>
 				</view>
 			</view>
 		</view>	

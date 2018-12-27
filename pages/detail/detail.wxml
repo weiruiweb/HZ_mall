@@ -177,9 +177,10 @@
 	
 	</view>
 </view>
-<view class="mask" wx:if="{{web_isShow}}" catchtouchmove="true" bindtap="mask">
+<view class="mask" wx:if="{{web_isShow}}">
 </view>
-<view id="choose" class="{{web_isShow?'sildeIn':'slideOut'}}">
+<view id="choose" style="{{web_isShow?'bottom:0':'bottom:-100%'}}">
+	<view class="choose_cont">
 	<view class="w710" style="position: relative;">
 		<view class="flexRowBetween pricity">
 			<view class="choose_pro">
@@ -200,13 +201,14 @@
 		</view>
 		<block wx:for="{{web_labelData}}" wx:key="id">
 		<view class="font28 color6">{{item.title}}</view>
-		<view class="style_choose font28 flex">
-			<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
-				
-				<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" calss="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:gray':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
-				
-			</block>
-		</view>
+		<scroll-view  scroll-y style="height:190rpx;">
+			<view class="style_choose font28 flex">
+				<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
+					<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" class="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:gray':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
+					
+				</block>
+			</view>
+		</scroll-view>
 		</block>
 		<view class="choose_number flexRowBetween">
 			<view class="number_txt">
@@ -219,7 +221,6 @@
 			</view>
 		</view>
 	</view>
-
-		<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'goBuy':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:none;">确认</button>
-
+	<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'goBuy':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:0;">确认</button>
+	</view>
 </view>

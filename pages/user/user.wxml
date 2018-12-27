@@ -129,15 +129,17 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <button class="user_infor flexRowBetween w710" open-type="contact">
-        <view class="user_left flexRowBetween">
-            <image src="/images/user_icon8.png"></image>
-            <text>官方客服</text>
-        </view>
-        <view class="next_page">
-            <image src="/images/next_page.jpg"></image>
-        </view>
-    </button>
+    <view class="user_infor">
+        <button class="flexRowBetween font30 color3 padding:0" open-type="contact" style="border:0;background:none;height:100%;padding:0 2.6%">
+            <view class="user_left flexRowBetween">
+                <image src="/images/user_icon8.png"></image>
+                <text>官方客服</text>
+            </view>
+            <view class="next_page">
+                <image src="/images/next_page.jpg"></image>
+            </view>
+        </button>
+    </view>
     <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userStore/userStore">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon9.png"></image>

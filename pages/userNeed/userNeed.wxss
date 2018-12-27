@@ -76,9 +76,7 @@ page{
 }
 .handle_order{
 	clear:both;
-	width:364rpx;
 	float:right;
-	margin-right:25rpx;
 	margin-top:30rpx;
 }
 .handle_orders{
@@ -90,4 +88,6 @@ page{
 	line-height:50rpx;
 	font-size:28rpx;
 	color:#636363;
+	margin:0 20rpx;
+	float:right;
 }

@@ -18,22 +18,20 @@ Page({
 
     },
     id:'',
-    
+    buttonCanClick:true
   },
 
   onLoad(options) {
     const self=this;
-    api.commonInit(self);
+    
     if(options.id){
       self.data.id = options.id
       self.getMainData(self.data.id); 
-    }else{
-      self.setData({
-        web_region:self.data.region
-      })
     };
-    wx.hideLoading();
-    
+    self.setData({
+      web_buttonCanClick:self.data.buttonCanClick
+    })
+    wx.hideLoading();  
   },
 
   getMainData(id){

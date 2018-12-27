@@ -49,7 +49,7 @@ page{
 	border-bottom:solid 1px #e0e0e0;
 }
 .tlt_left{
-	width:50%;
+	width:70%;
 	overflow:hidden;
 	font-size:26rpx;
 }

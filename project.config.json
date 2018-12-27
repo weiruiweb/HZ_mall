@@ -231,7 +231,7 @@
 					"id": 32,
 					"name": "订单确认",
 					"pathName": "pages/confirm_order/confirm_order",
-					"query": "order_id=19"
+					"query": "order_id=39"
 				},
 				{
 					"id": 33,

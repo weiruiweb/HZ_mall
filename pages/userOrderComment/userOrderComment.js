@@ -80,8 +80,8 @@ Page({
       },
       data:{
         isremark:1,
-        user_no:wx.getStorageSync('mall_info').user_no,
-        thirdapp_id:getApp().globalData.mall_thirdapp_id
+        user_no:wx.getStorageSync('info').user_no,
+        thirdapp_id:getApp().globalData.thirdapp_id
       }
     }]
     const callback = (data)=>{  

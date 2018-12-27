@@ -15,8 +15,8 @@
                 <view class="sort_in flex">
                     <view class="sort_img"><image src="/images/index1.png"></image></view>
                     <view class="sort_txt">
-                        <view class="font32 color3">{{item.info.passage1}}</view>
-                        <view class="color6 font22">商品：{{item.product.totalCount}}</view>
+                        <view class="font32 color3 avoidOverflow">{{item.info.passage1}}</view>
+                        <view class="color6 font22  avoidOverflow">商品：{{item.product.totalCount}}</view>
                     </view>
                 </view>
             </view>
