@@ -22,11 +22,23 @@ Page({
     if(options.item){
       self.data.searchItem.title = ['LIKE',['%'+options.item+'%']]
     };
+    if(options.num){
+      self.data.num = options.num,
+      self.data.searchItem.category_id = self.data.num
+    };
     self.getLabelData();
-
+    self.getMainData();
     self.setData({
       web_num:self.data.num
     })
+  },
+
+  onPullDownRefresh(){
+    const self = this;
+    wx.showNavigationBarLoading(); 
+    delete self.data.searchItem.title;
+    self.getMainData(true);
+
   },
 
 
@@ -69,6 +81,10 @@ Page({
 
         web_mainData:self.data.mainData,
       });   
+      setTimeout(function(){
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+      },300);
       api.buttonCanClick(self,true);
       console.log('self.data.buttonCanClick',self.data.buttonCanClick)
     };
@@ -99,10 +115,6 @@ Page({
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.labelData.push.apply(self.data.labelData,res.info.data);
-        for (var i = 0; i < self.data.labelData.length; i++) {
-          self.data.idArray.push(self.data.labelData[i].id)
-        };
-        self.data.searchItem.category_id = ['in',self.data.idArray];
       }else{
         api.showToast('没有更多了','none');
       }
@@ -111,7 +123,6 @@ Page({
       self.setData({
         web_labelData:self.data.labelData,
       });
-      self.getMainData();
     };
     api.labelGet(postData,callback);   
   },
@@ -130,7 +141,7 @@ Page({
       web_num: num
     });
     if(num==0){
-      self.data.searchItem.category_id = ['in',self.data.idArray];
+      delete self.data.searchItem.category_id 
     }else{
       self.data.searchItem.category_id = ['in',[num]]; 
     }

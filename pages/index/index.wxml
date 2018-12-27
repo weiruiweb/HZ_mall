@@ -10,28 +10,28 @@
     </view>
 </view>
 <view class="index_cont bg">
-    <view class="menu flexRowBetween font26 color6" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct">
-      <view class="menu_item">
+    <view class="menu flexRowBetween font26 color6">
+      <view class="menu_item"  bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=2">
         <view><image src="/images/index_icon1.png"></image></view>
         <view>生态山货</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=3">
         <view><image src="/images/index_icon2.png"></image></view>
         <view>生鲜水果</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=4">
         <view><image src="/images/index_icon3.png"></image></view>
         <view>特色美食</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=5">
         <view><image src="/images/index_icon4.png"></image></view>
         <view>精品工艺</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=6">
         <view><image src="/images/index_icon5.png"></image></view>
         <view>今日特卖</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=7">
         <view><image src="/images/index_icon6.png"></image></view>
         <view>节日促销</view>
       </view>
@@ -39,7 +39,7 @@
         <view><image src="/images/index_icon7.png"></image></view>
         <view>一元购</view>
       </view>
-      <view class="menu_item">
+      <view class="menu_item" bindtap="intoPath" data-path="/pages/storeProduct/storeProduct?num=8">
         <view><image src="/images/index_icon8.png"></image></view>
         <view>精美礼物</view>
       </view>

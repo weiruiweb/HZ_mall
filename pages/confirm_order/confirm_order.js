@@ -46,7 +46,7 @@ Page({
       self.data.order_id = options.order_id;
       self.data.order_array = options.order_id.split(',');
     }else{
-      api.showToast('数据传递有误','error');
+      api.showToast('数据传递有误','none');
     };
     getApp().globalData.address_id = '';
     self.getMainData();
@@ -230,7 +230,8 @@ Page({
     const self = this;
 
     var id = api.getDataSet(e,'id');
-    var mainIndex = api.getDataSet(e,'mainIndex');
+    var mainIndex = api.getDataSet(e,'index');
+    console.log('mainIndex',mainIndex)
     var findCoupon = api.findItemInArray(self.data.allCouponData,'id',id);
     if(findCoupon){
       findCoupon = findCoupon[1];
@@ -271,11 +272,11 @@ Page({
     console.log('coupon',coupon)
     var findSameCoupon = api.findItemsInArray(self.data.pay.coupon,'product_id',coupon.products[0].snap_product.id);
     if((order.price-self.data.couponTotalPrice)<coupon.standard){
-      api.showToast('金额不达标','error');
+      api.showToast('金额不达标','none');
       return false;
     };
     if(coupon.limit>0&&findSameCoupon&&findSameCoupon.length>=coupon.limit){
-      api.showToast('叠加使用超限','error');
+      api.showToast('叠加使用超限','none');
       return false;
     };
     return true;
