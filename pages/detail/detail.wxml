@@ -148,7 +148,8 @@
 		</view>
 		<view class="btn_right flex" bindtap="selectModel" data-type="groupBuy">
 			<view style="width:100%;text-align: center;">
-				<view class="font24">¥{{web_choosed_skuData.group_price}}</view>
+				<view class="font24" wx:if="{{web_choosed_skuData.group_price}}">¥{{web_choosed_skuData.group_price}}</view>
+				<view class="font24" wx:else>未开启团购</view>
 				<view class="font28">发起拼单</view>
 			</view>
 		</view>
@@ -189,8 +190,8 @@
 					<view class="pro_type">
 						{{web_choosed_skuData.description}}
 					</view>
-					<view class="price_choose">
-				￥{{web_buttonType=='buy'?web_choosed_skuData.price:web_choosed_skuData.group_price}}
+					<view class="price_choose" >
+				￥{{web_buttonType=='buy'?web_choosed_skuData.price:(web_choosed_skuData.group_price?web_choosed_skuData.group_price:'未开启团购')}}
 					</view>
 				</view>
 			<view class="close1" bindtap="isShow">
