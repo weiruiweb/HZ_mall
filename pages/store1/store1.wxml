@@ -34,13 +34,13 @@
     </view>
     <view class="sort_item">
         <picker bindchange="lebelChange" value="{{index}}"  range="{{web_labelData}}" range-key ="title" style="width:100%;">
-          <view class="picker flex">
-            <view class="input_before1 font28 flex" style="width:22%;">
+          <view class="picker flex" style="width:100%;">
+            <view class="input_before1 font28 flex" style="width:40%;">
               分类:
             </view>
-            <view class="things_right flexRowBetween font28" style="width:50%;">
+            <view class="things_right flexRowBetween font28" style="width:60%;">
               <view class="thing1  flexRowBetween">
-                  <view class="font28"  style="text-align: center;width:100%;">{{web_labelData[web_index].title}}</view>
+                  <view class="font24 color9"  style="text-align: center;width:100%;">{{web_labelData[web_index].title}}</view>
               </view>
             </view>
           </view>
@@ -105,6 +105,6 @@
         </block>
     </scroll-view>
 
-    <button class="submit_info"  form-type="submit" style="line-height:80rpx;" bindtap="couponShow">确    认</button>
+    <button class="submit_info"  form-type="submit" style="line-height:80rpx;margin:0;" bindtap="couponShow">确    认</button>
 
 </view>

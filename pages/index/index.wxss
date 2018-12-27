@@ -13,8 +13,9 @@ page{
 	height:100%;
 }
 .search{
-	width:94.8%;
-	height:66rpx;
+	width:92.8%;
+	padding-left:2%;
+	height:76rpx;
 	background:#fff;
 	border-radius:50rpx;
 	position:absolute;
@@ -31,6 +32,7 @@ page{
 }
 .search input{
 	width:88%;
+	padding:0 2%;
 	height:100%;
 }
 /***************菜单*******************/
