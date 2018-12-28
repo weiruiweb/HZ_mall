@@ -1,24 +1,24 @@
 <!--manageAddress.wxml-->
 <view class="user_input flexRowBetween w710">
 	<view class="input_note font30">收货人:</view>
-	<input placeholder="请输入收货人" value="{{web_mainData.name}}"  data-key="name" bindblur="inputChange"></input>
+	<input placeholder="请输入收货人" placeholder-class="placeholder" value="{{web_mainData.name}}"  data-key="name" bindblur="inputChange"></input>
 </view>
 <view class="user_input flexRowBetween  w710">
 	<view class="input_note font30">手机号码:</view>
-	<input placeholder="请输入手机号码" value="{{web_mainData.phone}}"  data-key="phone" bindblur="inputChange"></input>
+	<input placeholder="请输入手机号码" placeholder-class="placeholder" value="{{web_mainData.phone}}"  data-key="phone" bindblur="inputChange"></input>
 	
 </view>
-<view class="user_input" style="padding:0 5%;width:90%;">
-	<view class="users_detail flexRowBetween" bindtap="chooseLocation" style="justify-content:left">
+<view class="user_input w710 flex">
+	<view class="users_detail flexRowBetween" bindtap="chooseLocation" style="width:100%;">
 
-		<text style="line-height:50px;font-size:30rpx">点击选取位置:</text>
-		<text style="line-height:50px;font-size:30rpx;color:#999">{{web_mainData.city}}</text>
+		<text style="line-height:50px;font-size:30rpx;color:#363636;margin-right:20rpx;width:30%;">点击选取位置:</text>
+		<text class="avoidOverflow" style="font-size:30rpx;color:#999;width:70%;">{{web_mainData.city}}</text>
 	</view>
 </view>
 
-<view style="width:90%;height:240rpx;margin:0 auto;line-height:50px;padding:0 5%;font-size:30rpx;display:flex">
-	<text style="line-height:50px;font-size:30rpx">详细地址:</text>
-	<textarea value="{{web_mainData.detail}}" style="border:1px solid #E5E5E5;height:200rpx;border-radius:15rpx;width:250px;margin:17px 10px;#999" class='user_textarea' data-key="detail" bindinput="inputChange"></textarea>
+<view class="w710 flex" style="height:280rpx;margin:0 auto;line-height:50px;font-size:30rpx;display:flex">
+	<text style="font-size:30rpx;color:#363636;margin-right:20rpx;width:26%;height:100%;">详细地址:</text>
+	<textarea value="{{web_mainData.detail}}" style="border:1px solid #E5E5E5;height:200rpx;border-radius:15rpx;width:250px;padding:17px 10px;color:#b2b2b2" class='user_textarea' data-key="detail" bindinput="inputChange"></textarea>
 </view>
 
 

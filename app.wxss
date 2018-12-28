@@ -121,3 +121,6 @@ page{
   height: 0;
   color: transparent;
 }
+.placeholder{
+	color:#b2b2b2;
+}

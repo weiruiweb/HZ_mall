@@ -2,11 +2,9 @@
 .input_note{
 	width:22%;
 	color:#363636;
-	height:100%;
 }
 .user_input{
 	height:90rpx;
-	line-height:90rpx;
 	border-bottom:solid 1px #e0e0e0;}
 .user_input input{
 	width:78%;
