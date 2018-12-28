@@ -19,8 +19,8 @@
 	<view class="product_top w710">
 		<view class="name_share flexRowBetween" style="align-items:center;">
 			<view class="product_name avoidOverflow color" style="width:60%; font-size:34rpx;">
-				¥{{web_mainData.price}}
-				<text class="font24 color3" style="text-decoration: line-through;">¥899.00</text>
+				¥{{web_choosed_skuData.price?web_choosed_skuData.price:web_mainData.price}}
+				<text class="font24 color3" style="text-decoration: line-through;">¥{{web_choosed_skuData.o_price}}</text>
 			</view>
 			<view style="width:40%;text-align:right;" class="font24 color6">
 				已售<text class="color">{{web_mainData.sale_count}}</text>件
@@ -31,9 +31,7 @@
 		</view>
 		<view class="detail_text flex" style="height:78rpx;line-height: 78rpx;border-bottom:solid 1px #e0e0e0;">
 			<view class="font24 color6" style="width:90%">
-				<block wx:for="{{web_mainData.passage1}}" wx:key="id">
-					<text>{{item}}</text><span class="font20">•</span>
-				</block>
+				{{web_mainData.description}}
 			</view>
 		</view>
 	</view>	
