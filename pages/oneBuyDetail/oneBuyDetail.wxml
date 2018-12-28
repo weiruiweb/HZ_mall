@@ -48,5 +48,5 @@
 		</view>
 	</view>
 </view>
-<view class="buy bg color1 font28" bindtap="{{web_buttonCanClick?'addOrder':''}}">{{web_mainData.user.length>0?'已开奖':'1.00马上抢购'}}</view>
+<view class="buy bg color1 font28" bindtap="{{web_buttonCanClick?(web_mainData.stock>0?'addOrder':''):''}}" style="{{web_mainData.stock>0?'':'background-color:#999'}}">{{web_mainData.user.length>0?'已开奖':'1.00马上抢购'}} </view>
 

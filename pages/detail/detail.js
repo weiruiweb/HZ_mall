@@ -48,8 +48,8 @@ Page({
     if(options.id){
       self.data.id = options.id
     }
-   
-    self.orderGet();
+   console.log('self.data.id',self.data.id)
+    
     var cartData = api.getStorageArray('cartData');
     var cartRes = api.findItemInArray(cartData,'id',self.data.id);
     self.data.cart_count = cartRes.length>0?cartRes[1].count:0;
@@ -187,6 +187,7 @@ Page({
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.getMessageData();
+      self.orderGet();
       self.setData({
         web_choosed_skuData:self.data.choosed_skuData,
         web_labelData:self.data.labelData,

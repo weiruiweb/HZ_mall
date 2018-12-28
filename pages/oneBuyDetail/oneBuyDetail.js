@@ -106,9 +106,13 @@ Page({
     api.buttonCanClick(self);
     const postData = {
       tokenFuncName:'getProjectToken',
-      product:[
-        {id:self.data.mainData.id,count:1}
-      ],
+      orderList:[
+        {
+          product:[
+            {id:self.data.mainData.id,count:1}
+          ], 
+        }
+      ],      
       type:1,
       pay:{
         wxPay:{
