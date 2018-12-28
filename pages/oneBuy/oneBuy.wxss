@@ -210,17 +210,28 @@ page{
 }
 .product1{
 	width:100%;
-	height:78rpx;
+	height:50rpx;
 }
 .progress{
-	width:60%;
+	width:100%;
 	border-radius: 20rpx;
 	overflow: hidden;
 }
 progress{
 	border-radius: 20rpx;
+	height:30rpx;
 }
 .residue{
-	width:40%;
-	text-align:right;
+	width:100%;
+	height:20%;
+}
+.price{
+	height:30%
+}
+.progress{
+	height:30rpx;
+	background:#f2f2f2;
+}
+.progress_cont{
+	height:30rpx;
 }

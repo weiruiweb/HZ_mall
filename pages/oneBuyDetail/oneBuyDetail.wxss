@@ -54,3 +54,28 @@
 	position: fixed;
 	bottom:0;
 }
+.reward_status{
+	padding-top:20rpx;
+	padding-bottom:20rpx;
+}
+.infor_list{
+	height:78rpx;
+	border-bottom:solid 1px #e0e0e0;
+}
+.infor_list .input_before{
+	width:16%;
+}
+.infor_list input{
+	padding:2% 0;
+	width:80%;
+	height:78rpx;
+	line-height:78rpx;
+	font-size:28rpx;
+	color:#666;
+}
+.submit_info{
+	margin:30rpx auto;
+	width:50%;
+	height:70rpx;
+	line-height:70rpx;
+}
