@@ -52,6 +52,15 @@ Page({
           status:1
         },
         condition:'='
+      },
+      user:{
+        tableName:'User',
+        middleKey:['userMessage',0,'user_no'],
+        key:'user_no',
+        searchItem:{
+          status:1
+        },
+        condition:'='
       }
     };
     const callback = (res)=>{

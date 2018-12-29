@@ -670,7 +670,7 @@ class Base{
         wx.removeStorageSync('threeInfo');
         wx.removeStorageSync('threeToken');
         if(!wx.getStorageSync('login')){
-            self.pathTo('/pages/User/user','tab')
+            self.pathTo('/pages/login/login','redi')
         }else{
             self.showToast('系统故障','fail')
         }

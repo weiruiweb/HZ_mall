@@ -171,8 +171,6 @@ Page({
 
           };
           console.log(self.data.idData)
-      }else{
-        api.showToast('数据错误','none');
       }
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getStoreData',self);
      

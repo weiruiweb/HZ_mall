@@ -7,7 +7,7 @@
 </scroll-view>
 <view class="product_all w710">
     <block wx:for="{{web_mainData}}" wx:key="id">
-        <view class="product flexRowBetween"  bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+        <view class="product flexRowBetween">
             <view class="product_left">
                 <image src="{{item.mainImg[0].url}}"></image>
             </view>

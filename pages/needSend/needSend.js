@@ -16,7 +16,6 @@ Page({
       content:'',
       passage1:'',
       phone:'',
-      passage2:'',
       type:2,
       behavior:1
     },

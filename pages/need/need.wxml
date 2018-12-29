@@ -1,9 +1,10 @@
 <!--manageAddress.wxml-->
+<wxs module="func" src="../../utils/func.wxs" />
 <view class="search flex">
     <view class="search_btn">
         <image src="/images/search.png"></image>
     </view>
-    <input placeholder="请搜索相关产品" class="font28 color9" bindconfirm="changeBind" data-key="item" value="{{web_sForm.item}}"></input>
+    <input placeholder="请搜索相关需求" class="font28 color9" bindconfirm="changeBind" data-key="item" value="{{web_sForm.item}}"></input>
 </view>
 <view class="w710">
 	<view style="border-radius: 20rpx;width:100%;">
@@ -21,7 +22,8 @@
 					<view class="font28 color3"><text class="color">{{item.score}}</text>件</view>
 				</view>
 				<view class="need_right3">
-					<view class="font28 color3">{{item.create_time}}发布</view>
+
+				<view class="font28 color3">{{func.shortString(item.create_time,10)}}发布</view>
 				</view>
 			</view>
 		</block>

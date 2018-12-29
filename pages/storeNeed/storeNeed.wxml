@@ -32,7 +32,7 @@
 				<view class="flexRowBetween orderlistShow" >
 					<view class="order_left">
 						<view class="user_img">
-		                  <open-data type="userAvatarUrl"></open-data>
+		                  <image src="{{item.user[0].headImgUrl}}" class="user_img" />
 		                </view>
 					</view>
 					<view class="order_name font32 color3">

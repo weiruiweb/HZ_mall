@@ -16,14 +16,14 @@
 <view class="order_list">
 	<block wx:for="{{web_mainData}}" wx:key="id">
 		<view class="order_all"  >	
-			<view class="order_tlt flexRowBetween" bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail?id={{item.id}}">
+			<view class="order_tlt flexRowBetween" >
 				<view class="tlt_left">
 					<text >交易时间:</text>
 					<text>{{item.create_time}}</text>
 				</view>
 			</view>
 			<view class="same_stroe bg1">
-				<view class="flexRowBetween orderlistShow" >
+				<view class="flexRowBetween orderlistShow" bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail?id={{item.id}}">
 					<view class="order_left">
 						<view class="user_img">
 		                  <open-data type="userAvatarUrl"></open-data>

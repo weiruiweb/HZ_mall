@@ -20,6 +20,17 @@ var timeToTimestamp= function(format){
     
 }
 
+var shortString = function(str,i){
+   if(str){
+     return str.substring(0,i);
+   };
+  console.log('str',666)
+}
+
+var test = function(){
+  return 123;
+}
+
 var stringToArray= function(str,babel){
     if(str){
         return str.split(babel);
@@ -100,10 +111,9 @@ module.exports = {
   arrayByItem: arrayByItem,
   countPrice: countPrice,
   multiply: multiply,
+  shortString: shortString,
   integer: integer,
   getArrayByTarget: getArrayByTarget,
   inArray:inArray
-
- 
- 
+  
 };

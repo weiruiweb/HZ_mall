@@ -26,9 +26,13 @@ Page({
       self.data.num = options.num,
       self.data.searchItem.category_id = self.data.num
     };
+    if(options.type){
+      self.data.name = options.name
+    };
     self.getLabelData();
     self.getMainData();
     self.setData({
+      web_name:self.data.name,
       web_num:self.data.num
     })
   },

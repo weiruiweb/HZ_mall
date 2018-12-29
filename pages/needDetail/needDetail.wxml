@@ -39,7 +39,7 @@
 			<view class="need w710 flex" >
 				<view class="need_left1">
 					<view class="user_img">
-		              <open-data type="userAvatarUrl"></open-data>
+		              <image src="{{item.user[0].mainImg[0].url}}" class="user_img" />
 		            </view>
 				</view>
 				<view class="need_right1">

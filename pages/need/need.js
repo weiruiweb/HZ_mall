@@ -53,9 +53,8 @@ Page({
     };
     const callback = (res)=>{
       if(res.info.data.length>0){
-  
-          self.data.mainData.push.apply(self.data.mainData,res.info.data)
-
+        self.data.mainData.push.apply(self.data.mainData,res.info.data)
+       
       }else{
         self.data.isLoadAll = true;
         api.showToast('没有更多了','none');

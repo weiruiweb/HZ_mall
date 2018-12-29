@@ -120,7 +120,7 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userComment/userComment">
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userComment/userComment" style="margin-bottom:20px">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon7.png"></image>
             <text>我的评价</text>
@@ -129,7 +129,7 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <view class="user_infor">
+    <view class="user_infor" style="margin-bottom:20px">
         <button class="flexRowBetween font30 color3 padding:0" open-type="contact" style="border:0;background:none;height:100%;padding:0 2.6%">
             <view class="user_left flexRowBetween">
                 <image src="/images/user_icon8.png"></image>
@@ -140,7 +140,7 @@
             </view>
         </button>
     </view>
-    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userStore/userStore">
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/login/login">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon9.png"></image>
             <text>我要开店</text>
