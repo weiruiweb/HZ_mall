@@ -4,7 +4,7 @@
     <view class="user_img">
       <image src="{{web_userData.mainImg[0].url}}" class="user_img"></image>
     </view>
-    <view class="font30">{{web_userData.info.passage1}}</view>
+    <view class="font30">{{web_userData.info.idCard}}</view>
     <view class="font24 color9">已拼：{{web_userData.product.saleNum}}件</view>
     <view class="flexCenter collect" style="margin-top:30rpx;">
         <view class="font30 color6 flex" style="margin:0 50rpx;" bindtap="{{web_buttonCanClick?'phoneCall':''}}">

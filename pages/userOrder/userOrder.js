@@ -23,9 +23,12 @@ Page({
     api.commonInit(self);
     if(options.num){
       self.changeSearch(options.num)
-    }else{
-      self.getMainData()  
-    }   
+    }
+  },
+
+  onshow(){
+    const self = this;
+    self.getMainData()
   },
 
 
@@ -84,6 +87,7 @@ Page({
     const postData = {};
     postData.tokenFuncName = 'getProjectToken';
     postData.data ={
+      order_step:3,
       transport_status:2,
     }
     postData.searchItem = {};
@@ -153,7 +157,7 @@ Page({
     }else if(num=='3'){
       self.data.searchItem.pay_status = '1';
       self.data.searchItem.transport_status = '2';
-      self.data.searchItem.order_step = ['in',[0,5]]
+      self.data.searchItem.order_step = ['in',[0,3,5]]
     }else if(num=='4'){
       self.data.searchItem.order_step = ['in',[1,2]];
     }

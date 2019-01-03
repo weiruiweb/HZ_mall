@@ -18,7 +18,7 @@
                 </view>
             </view>
             <view class="sort_right flex">
-                <view class="submit_info bg font24">去使用</view>
+                <view class="submit_info bg font24" data-path="/pages/store1/store1?user_no={{item.merchant[0].user_no}}" bindtap="intoPath">去使用</view>
             </view>
         </view>
     </view>

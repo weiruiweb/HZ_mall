@@ -9,7 +9,7 @@
             </view>
         </view>
         <view class="user_right">
-            <view class="font32 color1">{{web_userData.info.passage1}}</view>
+            <view class="font32 color1">{{web_userData.info.idCard}}</view>
             <view class="font30 color1">{{web_userData.user_no}}</view>
         </view>
     </view>

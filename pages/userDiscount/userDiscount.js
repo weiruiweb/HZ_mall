@@ -105,6 +105,12 @@ Page({
       self.getMainData();
     };
   },
+
+  intoPath(e){
+    const self = this;
+    api.pathTo(api.getDataSet(e,'path'),'nav');
+  },
+
 })
 
   

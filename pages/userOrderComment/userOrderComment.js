@@ -88,9 +88,7 @@ Page({
       if(data.solely_code == 100000){
         api.showToast('评价成功','none');
         setTimeout(function(){
-          wx.navigateBack({
-            delta:1
-          })
+          api.pathTo('/pages/userOrder/userOrder','redi')
         }, 1000)
       }else{
         api.showToast('评价失败','none');
