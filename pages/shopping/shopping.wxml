@@ -49,7 +49,7 @@
 
 <view id="shoppingEmpty" wx:if="{{web_mainData.length==0}}">
     <view class="shopping_cart flex" >
-        <view ></view>
+        <view class="empty"><image src="/images/empty.png"></image></view>
     </view>
     <view class="note">空空如也购物车没有任何商品</view>
     <view class="goShopping" bindtap="intoPathRedi" data-path="/pages/index/index">去逛逛</view>
