@@ -88,7 +88,7 @@ Page({
       if(data.solely_code == 100000){
         api.showToast('评价成功','none');
         setTimeout(function(){
-          api.pathTo('/pages/userOrder/userOrder','redi')
+          api.pathTo('/pages/user/user','rela')
         }, 1000)
       }else{
         api.showToast('评价失败','none');

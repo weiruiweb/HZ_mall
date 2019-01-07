@@ -183,7 +183,7 @@ Page({
         self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
         console.log('self.data.skuIdArray',self.data.skuIdArray)
       }else{
-        api.showToast('商品信息有误','none');
+        api.showToast('商品信息有误','none',1000);
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
       self.getMessageData();
@@ -249,7 +249,7 @@ Page({
   selectModel(e){
     const self = this;
     if(self.data.buttonClicked){
-      api.showToast('数据有误请稍等','none');
+      api.showToast('数据有误请稍等','none',1000);
       setTimeout(function(){
         wx.showLoading();
       },800)   
@@ -270,12 +270,12 @@ Page({
     const self = this;
     let formId = e.detail.formId;
     if(JSON.stringify(self.data.choosed_skuData)=='{}'){
-      api.showToast('未选中商品','success');
+      api.showToast('未选中商品','none',1000);
       api.buttonCanClick(self,true);
       return;
     };
     if(self.data.choosed_skuData.is_group==1){
-      api.showToast('团购商品不可加','success');
+      api.showToast('团购商品不可加','none',1000);
       api.buttonCanClick(self,true);
       return;
     }
@@ -283,7 +283,7 @@ Page({
     self.data.choosed_skuData.isSelect = true;
     var res = api.setStorageArray('cartData',self.data.choosed_skuData,'id',999); 
     if(res){
-      api.showToast('加入成功','success');
+      api.showToast('加入成功','none',1000);
       self.data.isShow = !self.data.isShow;
       self.setData({
         isShow:self.data.isShow
@@ -376,7 +376,7 @@ Page({
   onShareAppMessage(res){
     const self = this;
     if(self.data.buttonClicked){
-      api.showToast('数据有误请稍等','none');
+      api.showToast('数据有误请稍等','none',1000);
       setTimeout(function(){
         wx.showLoading();
       },800)   
@@ -611,12 +611,12 @@ goBuy(){
       return;
     };*/
     if(self.data.buttonType=='groupBuy'&&self.data.choosed_skuData.is_group==0){
-      api.showToast('型号未开启团购','success');
+      api.showToast('型号未开启团购','none',1000);
       api.buttonCanClick(self,true);
       return; 
     }
     if(JSON.stringify(self.data.choosed_skuData)=='{}'){
-      api.showToast('未选中商品','success');
+      api.showToast('未选中商品','none',1000);
       api.buttonCanClick(self,true);
       return;
     };
@@ -677,7 +677,7 @@ goBuy(){
   phoneCall() {
     const self = this;
     if(self.data.mainData.merchantUserInfo.length==0){
-      api.showToast('商家未设置客服','none');
+      api.showToast('商家未设置客服','none',1000);
       return
     };
     wx.makePhoneCall({

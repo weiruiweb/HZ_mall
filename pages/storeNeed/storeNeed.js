@@ -8,7 +8,6 @@ Page({
     isFirstLoadAllStandard:['getMainData'],
     searchItem:{
       thirdapp_id:getApp().globalData.thirdapp_id,
-      type:2, 
     }
    /* getBefore:{}*/
   }, 

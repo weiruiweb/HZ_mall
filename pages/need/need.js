@@ -15,7 +15,8 @@ Page({
     searchItem:{
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2, 
-      behavior:1
+      behavior:1,
+      user_type:0
     }
   }, 
 
