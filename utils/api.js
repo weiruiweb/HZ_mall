@@ -287,6 +287,19 @@ class Api extends Base{
         this.request(allParams);       
     }
 
+    register(param,callback) {
+  
+        var allParams = {
+            url:'Project/Solely/register',
+            type:'post',
+            data:param,
+            sCallback: function(data){
+                callback&&callback(data);
+            }
+        };
+        this.request(allParams)
+    }
+
     getQrCode(param,callback){
         var allParams ={
             url:'Base/Qr/ProgramQrGet',

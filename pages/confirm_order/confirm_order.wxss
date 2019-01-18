@@ -190,3 +190,23 @@ page{
 	width:12rpx;
 	height:20rpx;
 }
+.balance{
+	height:80rpx;
+	background:#fff;
+}
+
+.balance_left,.balance_right{
+	width:50%;
+}
+.balance_left text{
+	margin-right:20rpx;
+}
+.balance_right input{
+	padding:0 2%;
+	width:96%;
+	border:solid 1px #e0e0e0;
+	border-radius:10rpx;
+}
+.balance_right input{
+	border:none;
+}

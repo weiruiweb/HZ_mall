@@ -22,6 +22,12 @@ Page({
     submitData:{
       passage1:''
     },
+    sForm:{
+      score:0,
+    },
+    scoreForm:{
+
+    },
     searchItemTwo:{
       thirdapp_id:getApp().globalData.mall_thirdapp_id,
       user_no:wx.getStorageSync('info').user_no,
@@ -29,7 +35,7 @@ Page({
     },
    
     order_id:'',
-    isFirstLoadAllStandard:['getMainData'],
+    isFirstLoadAllStandard:['getMainData','getUserData'],
     pay:{
       coupon:[]
     }
@@ -50,7 +56,7 @@ Page({
     };
     getApp().globalData.address_id = '';
     self.getMainData();
-
+    self.getUserData()
   },
 
  
@@ -226,7 +232,27 @@ Page({
 
   },
 
- useCoupon(e){
+  getUserData(){
+    const self = this;
+    const postData = {};
+    postData.tokenFuncName = 'getProjectToken';
+    const callback = (res)=>{
+      if(res.solely_code==100000){
+        if(res.info.data.length>0){
+          self.data.userData = res.info.data[0]; 
+        }
+        self.setData({
+          web_userData:self.data.userData,
+        });  
+      }else{
+        api.showToast('网络故障','none')
+      };
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getUserData',self);
+    };
+    api.userInfoGet(postData,callback);   
+  }, 
+
+  useCoupon(e){
     const self = this;
 
     var id = api.getDataSet(e,'id');
@@ -282,6 +308,46 @@ Page({
     return true;
   },
 
+  inputBind(e){
+    const self = this;
+    
+    console.log('inputBind',e);
+	
+    if(api.getDataSet(e,"key")=='score'){
+      var testScore = api.getDataSet(e,"score");
+      var orderitemid = api.getDataSet(e,"orderitemid");
+ 	
+
+      console.log('testScore',testScore);
+      console.log('orderitemid',orderitemid);
+      if(parseFloat(e.detail.value)>0){
+      	self.data.scoreForm[orderitemid] = e.detail.value;
+      }else{
+      	self.data.scoreForm[orderitemid] = 0;
+      };
+      
+      self.data.scoreForm.score = 0;
+      console.log('self.data.scoreForm',self.data.scoreForm);
+      self.data.sForm.score = 0;
+      for(var key in self.data.scoreForm){
+        self.data.sForm.score += parseFloat(self.data.scoreForm[key]);
+      };
+      console.log('inputBind',self.data.sForm.score);
+      
+      if(self.data.sForm.score>self.data.userData.score||!testScore||(testScore&&self.data.sForm.score>testScore)){
+        api.showToast('积分不符合规则','error');
+        self.data.sForm.score = 0;
+        self.setData({
+          web_sForm:self.data.sForm,
+        }); 
+        return;
+      };
+    };
+    console.log('test',self.data.sForm);
+    self.countPrice(); 
+
+  },
+
 
 
   countPrice(){
@@ -293,6 +359,13 @@ Page({
     self.data.price = api.addItemInArray(self.data.mainData,'price');
     console.log('self.data.price',self.data.price)
     var wxPay = self.data.price - self.data.couponTotalPrice  ;
+    if(self.data.sForm.score>=0){
+      self.data.pay.score = self.data.sForm.score
+    }else{
+    	self.data.pay.score = 0
+    };
+    
+    var wxPay = self.data.price - self.data.couponTotalPrice - parseInt(self.data.sForm.score);
     if(wxPay>0){
       self.data.pay.wxPay = {
         price:wxPay.toFixed(2),
@@ -306,7 +379,8 @@ Page({
     self.setData({
       web_couponPrice:parseFloat(self.data.couponTotalPrice).toFixed(2),
       web_price:parseFloat(self.data.price).toFixed(2),
-      web_pay:self.data.pay
+      web_pay:self.data.pay,
+      web_sForm:self.data.sForm,
     });
 
   },

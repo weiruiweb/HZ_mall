@@ -10,7 +10,7 @@
       <image src="/images/login1.png"></image>
     </view>
      <view class="input_in">
-      <input placeholder="账号"  data-key="login_name" bindinput="bindInputChange"></input>
+      <input placeholder="请输入您的账号"  data-key="login_name" bindinput="bindInputChange"></input>
     </view>
   </view>
   <view class="login_input flexRowBetween">
@@ -18,11 +18,12 @@
       <image src="/images/login2.png"></image>
     </view>
      <view class="input_in">
-      <input placeholder="密码" type="password" data-key="password" bindinput="bindInputChange"></input>
+      <input placeholder="请输入您的密码" type="password" data-key="password" bindinput="bindInputChange"></input>
     </view>
-
   </view>
 </view>
 <form bindsubmit="submit" report-submit="true">
   <button form-type="submit" class="submit_info" style="width:60%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;border-radius: 50rpx;" bindtap="submit">登录</button>
 </form>
+
+<view style="font-size:15px;color:#666;text-align:center;margin-top:50px;" data-path="/pages/userStore/userStore"  bindtap='intoPath'>没有账号？去注册</view>

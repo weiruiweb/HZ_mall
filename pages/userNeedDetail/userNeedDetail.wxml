@@ -95,6 +95,6 @@
 		</block>
 	</view>
 </view>
-<!--<form bindsubmit="submit" report-submit="true" wx:if="{{web_mainData.behavior==1}}">
+<form bindsubmit="submit" report-submit="true" wx:if="{{web_mainData.behavior==1}}">
   <button form-type="submit" class="submit_info" style="width:94%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;">提交</button>
-</form>-->
+</form>

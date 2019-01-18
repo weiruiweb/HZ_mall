@@ -26,9 +26,9 @@ Page({
     }
   },
 
-  onshow(){
+  onShow(){
     const self = this;
-    self.getMainData()
+    self.getMainData(true)
   },
 
 

@@ -107,7 +107,7 @@ Page({
         }      
       }else{
         self.data.isLoadAll = true;
-        api.showToast('没有更多了','none');
+        api.showToast('没有更多了','none',1000);
       };
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMoreData',self);
       self.setData({
