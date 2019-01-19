@@ -10,7 +10,7 @@
       <image src="/images/login1.png"></image>
     </view>
      <view class="input_in">
-      <input placeholder="请输入您的登陆名" value="{{web_sForm.name}}"  data-key="name" bindblur="changeBind"></input>
+      <input placeholder="请输入您的登录名" value="{{web_sForm.name}}"  data-key="name" bindblur="changeBind"></input>
     </view>
   </view>
   <view class="login_input flexRowBetween">
@@ -32,5 +32,5 @@
   </view>
 </view>
 
-<button form-type="submit" class="submit_info" style="width:60%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;border-radius: 50rpx;" bindtap="{{web_buttonCanClick?'submit':''}}">会员注册</button>
+<button form-type="submit" class="submit_info" style="width:60%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;border-radius: 50rpx;" bindtap="{{web_buttonCanClick?'submit':''}}">商户申请</button>
 

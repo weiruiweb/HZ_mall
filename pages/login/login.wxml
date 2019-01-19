@@ -26,4 +26,4 @@
   <button form-type="submit" class="submit_info" style="width:60%;margin:160rpx auto 0 auto;height:88rpx;line-height:88rpx;border-radius: 50rpx;" bindtap="submit">登录</button>
 </form>
 
-<view style="font-size:15px;color:#666;text-align:center;margin-top:50px;" data-path="/pages/userStore/userStore"  bindtap='intoPath'>没有账号？去注册</view>
+<view style="font-size:15px;color:#666;text-align:center;margin-top:50px;" data-path="/pages/userStoreNotice/userStoreNotice"  bindtap='intoPath'>没有账号？去注册</view>

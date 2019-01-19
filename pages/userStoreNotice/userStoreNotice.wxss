@@ -1,0 +1,21 @@
+/**index.wxss**/
+
+@import "../../wxParse/wxParse.wxss"; 
+.register_tlt{
+	height:88rpx;
+	line-height:88rpx;
+	margin-top:24rpx;
+}
+.agree{
+	margin-top:48rpx;
+}
+.agree_left image{
+	width:30rpx;
+	height:30rpx;
+	margin-right:20rpx;
+}
+.submit_info{
+	width:100%;
+	border-radius:0;
+	margin:80rpx auto 0 auto;
+}

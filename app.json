@@ -33,7 +33,8 @@
     "pages/detail/detail",
     "pages/confirm_order/confirm_order",
     "pages/store1/store1",
-    "pages/oneStoreProduct/oneStoreProduct"
+    "pages/oneStoreProduct/oneStoreProduct",
+    "pages/userStoreNotice/userStoreNotice"
   ],
 
   "window": {

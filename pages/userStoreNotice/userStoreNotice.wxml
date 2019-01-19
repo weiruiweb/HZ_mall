@@ -1,0 +1,22 @@
+<view class="w710">
+	<view class="register_tlt font28 color2">
+		标题那天那天那天那天标题标题标题标题
+	</view>
+	<view class="font26 color6">
+		标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题
+	</view>
+	<view class="register_tlt font28 color2">
+		标题那天那天那天那天标题标题标题标题
+	</view>
+	<view class="font26 color6">
+		标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题
+	</view>
+	<view class="agree flex" bindtap="choose">
+		<view class="agree_left" >
+			<image src="{{web_choose?'/images/register_icon.jpg':'/images/select.png'}}"></image>
+		</view>
+		<view class="agree_right font24 color2">我已阅读并同意</view>
+	</view>
+	<view class="submit_info" bindtap="{{web_choose?'intoPath':''}}" data-path="/pages/userStore/userStore">确认</view>
+</view>
+
