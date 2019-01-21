@@ -1,0 +1,42 @@
+/**index.wxss**/
+page{
+	background:#fff;
+}
+.credit_list{
+	padding:0 34rpx;
+	height:110rpx;
+	border-bottom:solid 1px #e0e0e0;
+}
+.credit_item{
+	width:100%;
+	height:110rpx;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+}
+.credit_reson{
+	color:#444;
+}
+.credit_left{
+	width:50%;
+}
+.credit_right{
+	width:50%;
+	text-align:right;
+}
+.credit{
+	height:200rpx;
+}
+.credit_user{
+	width:28%;
+}
+.credit_infor{
+	width:40%;
+}
+.credit_number{
+	width:32%;
+}
+.credit_cont{
+	width:100%;
+	height:160rpx;
+}

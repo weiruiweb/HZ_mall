@@ -120,7 +120,7 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userComment/userComment" style="margin-bottom:20px">
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userComment/userComment">
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon7.png"></image>
             <text>我的评价</text>
@@ -129,7 +129,7 @@
             <image src="/images/next_page.jpg"></image>
         </view>
     </view>
-    <view class="user_infor" style="margin-bottom:20px">
+    <view class="user_infor">
         <button class="flexRowBetween font30 color3 padding:0" open-type="contact" style="border:0;background:none;height:100%;padding:0 2.6%">
             <view class="user_left flexRowBetween">
                 <image src="/images/user_icon8.png"></image>
@@ -144,6 +144,42 @@
         <view class="user_left flexRowBetween">
             <image src="/images/user_icon9.png"></image>
             <text>我要开店</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userGroup/userGroup">
+        <view class="user_left flexRowBetween">
+            <image src="/images/icon10.png"></image>
+            <text>我的团队</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userCredit/userCredit">
+        <view class="user_left flexRowBetween">
+            <image src="/images/icon11.png"></image>
+            <text>我的佣金</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userWithList/userWithList">
+        <view class="user_left flexRowBetween">
+            <image src="/images/icon12.png"></image>
+            <text>提现</text>
+        </view>
+        <view class="next_page">
+            <image src="/images/next_page.jpg"></image>
+        </view>
+    </view>
+    <view class="user_infor flexRowBetween w710" bindtap="intoPath" data-path="/pages/userFoot/userFoot">
+        <view class="user_left flexRowBetween">
+            <image src="/images/icon13.png"></image>
+            <text>我的足迹</text>
         </view>
         <view class="next_page">
             <image src="/images/next_page.jpg"></image>

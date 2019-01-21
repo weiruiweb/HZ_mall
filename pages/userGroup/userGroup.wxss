@@ -1,0 +1,28 @@
+/**index.wxss**/
+
+@import "../../wxParse/wxParse.wxss"; 
+
+page{
+	width:100%;
+	min-height:100%;
+}
+.group{
+	height:160rpx;
+	margin-top:20rpx;
+}
+.group_left{
+	width:18%;
+}
+.group_center{
+	width:60%;
+}
+.group_right{
+	width:22%;
+	text-align:right;
+}
+.user_img{
+	width:100rpx;
+	height:100rpx;
+	border-radius:50%;
+	overflow:hidden;
+}

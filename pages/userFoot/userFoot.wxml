@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<view class="store">
+    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font32 color3 avoidOverflow">北大王</view>
+                        <view class="color6 font22  avoidOverflow">商品：8</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex" bindtap="intoPath" data-path="/pages/store1/store1">
+                <view class="submit_info bg font24">进入店铺</view>
+            </view>
+        </view>
+        <scroll-view class="recommend_scroll_x_box" scroll-x="true">
+            <view class="recommend_hot_box" bindtap="intoPath" data-path="/pages/detail/detail">
+                <image src="/images/index_icon1.png" class="recommend_hot_image"></image>
+            </view>
+        </scroll-view>
+    </view>
+</view>
+<view class="store">
+    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
+        <view class="sort_cont flex">
+            <view class="sort_left flex">
+                <view class="sort_in flex">
+                    <view class="sort_img"><image src="/images/index1.png"></image></view>
+                    <view class="sort_txt">
+                        <view class="font32 color3 avoidOverflow">北大王</view>
+                        <view class="color6 font22  avoidOverflow">商品：8</view>
+                    </view>
+                </view>
+            </view>
+            <view class="sort_right flex" bindtap="intoPath" data-path="/pages/store1/store1">
+                <view class="submit_info bg font24">进入店铺</view>
+            </view>
+        </view>
+        <scroll-view class="recommend_scroll_x_box" scroll-x="true">
+            <view class="recommend_hot_box" bindtap="intoPath" data-path="/pages/detail/detail">
+                <image src="/images/index_icon1.png" class="recommend_hot_image"></image>
+            </view>
+        </scroll-view>
+    </view>
+</view>

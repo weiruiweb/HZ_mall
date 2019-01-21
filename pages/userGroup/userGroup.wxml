@@ -1,0 +1,22 @@
+<view class="w710 flex group bg1">
+    <view class="group_left">
+      <view class="user_img">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+    </view>
+    <view class="group_center font28 color2 avoidOverflow">
+      店铺店铺店铺店铺店铺店铺店铺
+    </view>
+    <view class="group_right font24 color6">2019-8-9</view>
+</view>
+<view class="w710 flex group bg1">
+    <view class="group_left">
+      <view class="user_img">
+        <open-data type="userAvatarUrl"></open-data>
+      </view>
+    </view>
+    <view class="group_center font28 color2 avoidOverflow">
+      店铺店铺店铺店铺店铺店铺店铺
+    </view>
+    <view class="group_right font24 color6">2019-8-9</view>
+</view>

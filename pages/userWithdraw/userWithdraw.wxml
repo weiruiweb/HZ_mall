@@ -1,0 +1,25 @@
+<!--index3.wxml-->
+<view class="w710">
+  <view class="cash" style="margin-top:30rpx;">
+      <view class="cash_bank">
+          <view class="font28 color2 bind_bank">绑定银行卡</view>
+          <input data-key="passage1" bindinput="changeBind" value=""></input>
+      </view>
+      <view class="case_box">
+        <view class="cash_tlt color2 font32 bg1">
+            提现金额
+        </view>
+        <view class="cash_input flexRowBetween bg1">
+            <view class="input_masks color2">¥</view>
+            <input data-key="cash" bindinput="changeBind" value=""></input>
+        </view>
+        <view class="cash_can font24 color6 bg1 flex">
+            本次可提现<text>¥52852</text>
+            <view class="font28 color2">全部提现</view>
+        </view>
+        <view class="cash_cont bg1" style="padding-top:70rpx;padding-bottom:30rpx;">
+            <button class="submit_info">提现</button>
+        </view>
+      </view>
+  </view>
+</view>

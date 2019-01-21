@@ -33,7 +33,6 @@ page{
 	overflow:hidden;
 	margin:0px auto;
 }
-
 .order{
 	margin-top:12rpx;
 	background:#fff;

@@ -34,13 +34,18 @@
     "pages/confirm_order/confirm_order",
     "pages/store1/store1",
     "pages/oneStoreProduct/oneStoreProduct",
-    "pages/userStoreNotice/userStoreNotice"
+    "pages/userStoreNotice/userStoreNotice",
+    "pages/userFoot/userFoot",
+    "pages/userGroup/userGroup",
+    "pages/userCredit/userCredit",
+    "pages/userWithdraw/userWithdraw",
+    "pages/userWithList/userWithList"
   ],
 
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "首页",
+    "navigationBarTitleText": "华珍商场",
     "navigationBarTextStyle": "black"
   }
 }
