@@ -8,7 +8,7 @@ Page({
     messageData:[],
     storeData:[],
     mainData:[],
-    isFirstLoadAllStandard:['getMainData','getStoreData','getMerchantData'],
+    isFirstLoadAllStandard:['getMainData','getStoreData'],
     submitData:{
      
       score:'',
@@ -20,6 +20,7 @@ Page({
   onLoad(options){
     const self = this;
     api.commonInit(self);
+    self.data.user_type = options.user_type;
     self.data.id=options.id;
     self.getMainData();
   },
@@ -28,11 +29,15 @@ Page({
   getMainData(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectToken';
+   
+    	postData.tokenFuncName='getProjectToken';
+
+    
     postData.searchItem = {
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2,
-      id:self.data.id
+      id:self.data.id,
+      user_type:['in',[0,1]]
     };
     postData.order = {
       create_time:'normal'
@@ -68,7 +73,7 @@ Page({
     api.messageGet(postData,callback);   
   },
 
-  getMerchantData() {
+/*  getMerchantData() {
     const self = this;
     const postData = {};
     postData.tokenFuncName='getProjectMerchantToken';
@@ -83,18 +88,25 @@ Page({
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMerchantData',self);
     };
     api.userGet(postData, callback);
-  },
+  },*/
 
   checkMessage(){
     const self = this;
-
     const postData = {
-      tokenFuncName:'getProjectMerchantToken',
       searchItem:{
         type:3,
         relation_id:self.data.mainData.id, 
+
       }, 
     };
+    if(wx.getStorageSync('threeInfo')&&wx.getStorageSync('threeToken')){
+    	postData.tokenFuncName = 'getProjectMerchantToken';
+    	postData.searchItem.user_no= wx.getStorageSync('threeInfo').user_no;
+    }else{
+    	 postData.tokenFuncName='getProjectToken';	
+    	 postData.searchItem.user_no = wx.getStorageSync('info').user_no;
+    };
+  
     const callback = (res) =>{
       if(res.info.data.length>0){
         self.data.messageData.push.apply(self.data.messageData,res.info.data)
@@ -125,12 +137,18 @@ Page({
     const self = this;
     wx.showLoading();
     const postData = {};
-    postData.token = wx.getStorageSync('threeToken')
     postData.data = api.cloneForm(self.data.submitData);
+    if(wx.getStorageSync('threeInfo')&&wx.getStorageSync('threeToken')){
+    	postData.tokenFuncName = 'getProjectMerchantToken';
+    	postData.data.user_no= wx.getStorageSync('threeInfo').user_no;
+    }else{
+    	 postData.tokenFuncName='getProjectToken';	
+    	 postData.data.user_no = wx.getStorageSync('info').user_no;
+    };
+    
     postData.data.type = 3;
     postData.data.behavior = 1;
     postData.data.relation_id = self.data.id;
-    postData.data.user_no = wx.getStorageSync('threeInfo').user_no;
     console.log(postData)
     const callback = (data)=>{  
       if(data.solely_code == 100000){
@@ -177,7 +195,7 @@ Page({
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:3,
       relation_id:self.data.id,
-      user_type:1
+      user_type:['in',[0,1]]
     };
     postData.order = {
       create_time:'normal'
@@ -213,7 +231,7 @@ Page({
         web_storeNum:self.data.storeData.length,
         web_storeData:self.data.storeData,
       });
-      self.getMerchantData()
+      /*self.getMerchantData()*/
     };
     api.messageGet(postData,callback);   
   },

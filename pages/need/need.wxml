@@ -9,10 +9,10 @@
 <view class="w710">
 	<view style="border-radius: 20rpx;width:100%;">
 		<block wx:for="{{web_mainData}}" wx:key="id">
-			<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail?id={{item.id}}">
+			<view class="need w710 flex" bindtap="intoPath" data-path="/pages/needDetail/needDetail?id={{item.id}}&user_type={{item.user_type}}">
 				<view class="need_left1">
 					<view class="user_img">
-		              <image src="{{item.userData[0].headImgUrl}}" style="width:44px;height:44px"/>
+		              <image src="{{item.userData[0].headImgUrl?item.userData[0].headImgUrl:item.userData[0].mainImg[0].url}}" style="width:44px;height:44px"/>
 		            </view>
 				</view>
 				<view class="need_right1">

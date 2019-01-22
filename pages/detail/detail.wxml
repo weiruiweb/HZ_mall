@@ -102,7 +102,7 @@
 		</view>
 	</view>
 	<view class="store_img flexRowBetween">
-		<block wx:for="{{web_mainData.product}}" wx:key="id">
+		<block wx:for="{{web_mainData.product}}" wx:key="id" >
 			<view class="storeImgs" wx:if="{{item.mainImg[0].url}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
 				<image src="{{item.mainImg[0].url}}" ></image>
 			</view>

@@ -85,7 +85,7 @@
 
 					<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="{{web_buttonCanClick?'refuedOrder':''}}" wx:if="{{item.pay_status == '1'}}">申请退款</view>
 
-					<view class="handle_orders delete_order" bindtap="{{web_buttonCanClick?'orderUpdate':''}}"  wx:if="{{item.pay_status == '1'&&item.transport_status == '1'&&item.order_step == '0'}}" data-id="{{item.id}}">确认收货</view>
+					<view class="handle_orders delete_order" bindtap="{{web_buttonCanClick?'orderUpdate':''}}"  wx:if="{{item.pay_status == '1'&&item.transport_status == '1'&&item.order_step == '0'}}" data-index="{{index}}">确认收货</view>
 				</view>
 			</view>
 		</view>	

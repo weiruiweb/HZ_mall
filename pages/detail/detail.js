@@ -47,9 +47,8 @@ Page({
     
     if(options.id){
       self.data.id = options.id
-    }
-   console.log('self.data.id',self.data.id)
-    
+    };
+    console.log('self.data.id',self.data.id) 
     var cartData = api.getStorageArray('cartData');
     var cartRes = api.findItemInArray(cartData,'id',self.data.id);
     self.data.cart_count = cartRes.length>0?cartRes[1].count:0;
@@ -61,6 +60,15 @@ Page({
     wx.showShareMenu({
       withShareTicket: true
     });
+    if(options.scene){
+      var scene = decodeURIComponent(options.scene)
+    };
+    if(options.user_no){
+      self.data.user_no = options.user_no
+    };
+    if(options.id){
+      self.data.id = options.id
+    };
     self.setData({
       web_isInCollectData:self.data.isInCollectData,    
       web_count:self.data.count
@@ -164,6 +172,7 @@ Page({
     const callback = (res)=>{
       if(res.info.data.length>0){
         self.data.mainData = res.info.data[0];
+
         self.data.mainData.passage1 = self.data.mainData.passage1.split(',');
         for(var key in self.data.mainData.label){
           if(self.data.mainData.sku_array.indexOf(parseInt(key))!=-1){
@@ -173,6 +182,11 @@ Page({
         for (var i = 0; i < self.data.mainData.sku.length; i++) {
           if(self.data.mainData.sku[i].id==self.data.id){
             self.data.choosed_skuData = api.cloneForm(self.data.mainData.sku[i]);
+            var footData = api.getStorageArray('footData');
+            self.data.isFoot = api.findItemInArray(footData,'id',self.data.choosed_skuData.id);
+            if(!self.data.isFoot){
+              api.setStorageArray('footData',self.data.choosed_skuData,'id',999); 
+            };
             self.data.choosed_sku_item = api.cloneForm(self.data.mainData.sku[i].sku_item);
             var skuRes = api.skuChoose(self.data.mainData.sku,self.data.choosed_sku_item);
             self.data.can_choose_sku_item = skuRes.can_choose_sku_item;
@@ -389,7 +403,7 @@ Page({
         self.data.shareBtn = false;
       }
       return {
-        title: '巧巧爱家',
+        title: '华珍商城',
         path: 'pages/detail/detail?id='+self.data.id+'&&user_no='+wx.getStorageSync('info').user_no,
         success: function (res){
           console.log(res);
@@ -645,10 +659,14 @@ goBuy(){
     if(self.data.group_no&&self.data.group_no!="undefined"){
       postData.group_no=self.data.group_no
     };
+
     const callback = (res)=>{
       api.buttonCanClick(self,true);
       if(res&&res.solely_code==100000){
-        api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id,'nav');        
+        if(self.data.user_no&&self.data.user_no!="undefined"){
+          api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id+'&user_no='+self.data.user_no,'nav'); 
+        }
+               
       }else{
         api.showToast(res.msg,'none');
       };

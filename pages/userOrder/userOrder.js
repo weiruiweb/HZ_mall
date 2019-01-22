@@ -84,6 +84,8 @@ Page({
 
   orderUpdate(e){
     const self = this;
+    var index = api.getDataSet(e,'index');
+    console.log('index',index)
     const postData = {};
     postData.tokenFuncName = 'getProjectToken';
     postData.data ={
@@ -91,7 +93,18 @@ Page({
       transport_status:2,
     }
     postData.searchItem = {};
-    postData.searchItem.id = api.getDataSet(e,'id');
+    postData.searchItem.id = self.data.mainData[index].id;
+    postData.saveAfter=[{
+      tableName:'FlowLog',
+      FuncName:'add',
+      data:{
+        user_no:self.data.mainData[index].products[0].user_no,
+        count:self.data.mainData[index].price,
+        trade_info:'用户购买收入',
+        status:1,
+        type:2
+      }
+    }]
     const callback  = res=>{
       api.showToast('已确认收货','none');
       self.getMainData(true);

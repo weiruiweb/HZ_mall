@@ -19,7 +19,9 @@ Page({
   onLoad(options){
     const self = this;
     api.commonInit(self);
+    self.data.user_type = options.user_type;
     self.data.id=options.id;
+    console.log('options',options)
     self.getMainData();
   },
 
@@ -27,7 +29,12 @@ Page({
   getMainData(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectToken';
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    }
+    
     postData.searchItem = {
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2,
@@ -36,7 +43,18 @@ Page({
     postData.order = {
       create_time:'normal'
     };
-
+    postData.getAfter = {
+      user:{
+        tableName:'User',
+        searchItem:{
+          status:1
+        },
+        middleKey:'user_no',
+        key:'user_no',
+        condition:'in'
+      },
+      
+    };
     const callback = (res)=>{
       if(res.info.data.length>0){
   
@@ -63,7 +81,12 @@ Page({
     postData.searchItem = {
       id:self.data.id
     };
-    postData.tokenFuncName='getProjectToken';
+    
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    }
     postData.data = api.cloneForm(self.data.submitData);
     postData.saveAfter=[
       {
@@ -93,7 +116,12 @@ Page({
     const callback = (data)=>{  
       if(data.solely_code == 100000){
         api.showToast('更新状态成功','none'); 
-        api.pathTo('/pages/userNeed/userNeed','redi',500)
+        if(self.data.user_type&&self.data.user_type==1){
+          api.pathTo('/pages/storeSendNeed/storeSendNeed','redi',500)
+        }else{
+           api.pathTo('/pages/userNeed/userNeed','redi',500)
+        }
+        
       }else{
         api.showToast('更新状态失败','none');
       };
@@ -133,12 +161,16 @@ Page({
   getStoreData(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectToken';
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    };
     postData.searchItem = {
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:3,
       relation_id:self.data.id,
-      user_type:1
+      user_type:['in',[0,1]]
     };
     postData.order = {
       create_time:'normal'

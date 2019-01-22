@@ -16,7 +16,7 @@ Page({
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:2, 
       behavior:1,
-      user_type:0
+      user_type:['in',[0,1]]
     }
   }, 
 
@@ -94,7 +94,7 @@ Page({
     const self = this;
     if(!self.data.isLoadAll&&self.data.buttonCanClick){
       self.data.paginate.currentPage++;
-      self.getLabelData();
+      self.getMainData();
     };
   },
 

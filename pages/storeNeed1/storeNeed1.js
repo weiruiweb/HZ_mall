@@ -6,7 +6,7 @@ Page({
   data: {
     storeData:[],
     mainData:[],
-    isFirstLoadAllStandard:['getMainData','getStoreData','getMerchantData'],
+    isFirstLoadAllStandard:['getMainData','getStoreData'],
     submitData:{
      
       score:'',
@@ -19,6 +19,7 @@ Page({
   onLoad(options){
     const self = this;
     api.commonInit(self);
+    self.data.user_type = options.user_type;
     self.data.id=options.id;
     self.getMainData();
   },
@@ -27,7 +28,11 @@ Page({
   getMainData(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectMerchantToken';
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    }
     postData.searchItem = {
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:3,
@@ -74,10 +79,14 @@ Page({
     api.messageGet(postData,callback);   
   },
 
-  getMerchantData() {
+/*  getMerchantData() {
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectMerchantToken';
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    };
     const callback = (res) => {
       self.data.merchantData = {};
       if (res.info.data.length > 0) {
@@ -89,7 +98,7 @@ Page({
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMerchantData',self);
     };
     api.userGet(postData, callback);
-  },
+  },*/
 
   changeBind(e){
     const self = this;
@@ -109,7 +118,11 @@ Page({
     const self = this;
     wx.showLoading();
     const postData = {};
-    postData.token = wx.getStorageSync('threeToken')
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    };
     postData.data = api.cloneForm(self.data.submitData);
     postData.searchItem = {
       id:self.data.id
@@ -148,7 +161,11 @@ Page({
   getStoreData(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectMerchantToken';
+    if(self.data.user_type&&self.data.user_type==1){
+      postData.tokenFuncName='getProjectMerchantToken';
+    }else{
+       postData.tokenFuncName='getProjectToken';
+    }
     postData.searchItem = {
       thirdapp_id:getApp().globalData.thirdapp_id,
       type:3,
@@ -199,7 +216,7 @@ Page({
         web_storeDataSelect:self.data.storeDataSelect,
         web_storeData:self.data.storeData,
       });
-      self.getMerchantData()
+      //self.getMerchantData()
     };
     api.messageGet(postData,callback);   
   },

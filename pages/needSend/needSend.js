@@ -99,9 +99,14 @@ Page({
   messageAdd(){
     const self = this;
     const postData = {};
-    postData.tokenFuncName='getProjectToken';
     postData.data = api.cloneForm(self.data.submitData);
-    postData.data.user_no = wx.getStorageSync('info').user_no;
+    if(wx.getStorageSync('threeInfo')&&wx.getStorageSync('threeToken')){
+    	postData.tokenFuncName = 'getProjectMerchantToken';
+    	postData.data.user_no= wx.getStorageSync('threeInfo').user_no;
+    }else{
+    	 postData.tokenFuncName='getProjectToken';	
+    	 postData.data.user_no = wx.getStorageSync('info').user_no;
+    };
     console.log(postData)
     const callback = (data)=>{  
       if(data.solely_code == 100000){

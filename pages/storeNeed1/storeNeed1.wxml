@@ -3,7 +3,7 @@
 	<view class="need w710 flexs" style="margin-top:20rpx;">
 		<view class="need_left">
 			<view class="user_img">
-              <image src="{{web_mainData.userData[0].headImgUrl}}" style="width:44px;height:44px"/>
+              <image src="{{web_mainData.user_type==1?web_mainData.user[0].mainImg[0].url:web_mainData.user[0].headImgUrl}}" class="user_img" />
             </view>
 		</view>
 		<view class="need_right">
@@ -40,11 +40,11 @@
 			<view class="need w710 flex" >
 				<view class="need_left1">
 					<view class="user_img">
-		              <image src="{{item.user[0].mainImg[0].url}}" class="user_img" />
+		              <image src="{{item.user_type==1?item.user[0].mainImg[0].url:item.user[0].headImgUrl}}" class="user_img" />
 		            </view>
 				</view>
 				<view class="need_right1">
-					<view class="font28 color3">{{item.userInfo[0].passage1}}</view>
+					<view class="font28 color3">{{item.user_type==1?item.userInfo[0].passage1:item.user[0].nickname}}</view>
 				</view>
 				<view class="need_right2">
 					<view class="font28 color3">{{item.userInfo[0].name}}</view>
@@ -90,11 +90,11 @@
 			<view class="need w710 flex" >
 				<view class="need_left1">
 					<view class="user_img">
-		              <image src="{{item.user[0].mainImg[0].url}}" class="user_img" />
+		              <image src="{{item.user_type==1?item.user[0].mainImg[0].url:item.user[0].headImgUrl}}" class="user_img" />
 		            </view>
 				</view>
 				<view class="need_right1">
-					<view class="font28 color3">{{item.userInfo[0].passage1}}</view>
+					<view class="font28 color3">{{item.user_type==1?item.userInfo[0].passage1:item.user[0].nickname}}</view>
 				</view>
 				<view class="need_right2">
 					<view class="font28 color3">{{item.userInfo[0].name}}</view>

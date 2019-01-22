@@ -54,6 +54,9 @@ Page({
     }else{
       api.showToast('数据传递有误','none');
     };
+    if(options.user_no){
+      self.data.user_no = options.user_no
+    };
     getApp().globalData.address_id = '';
     self.getMainData();
     self.getUserData()
@@ -204,6 +207,23 @@ Page({
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = {
       id:self.data.order_id
+    };
+    postData.payAfter = [];
+    if(self.data.user_no){
+      postData.payAfter.push( 
+        {
+          flowLog:{
+            tableName:'FlowLog',
+            FuncName:'add',
+            data:{
+              type:2,
+              count:10,
+              user_no:self.data.user_no,
+              trade_info:'分享商品奖励',
+            }
+          }
+        }
+      )
     };
     const callback = (res)=>{
       if(res.solely_code==100000){

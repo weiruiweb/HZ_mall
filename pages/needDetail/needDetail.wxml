@@ -33,17 +33,17 @@
 <view class="w710" wx:if="{{web_storeNum>0}}">
 	<view style="border-radius: 20rpx;width:100%;">
 		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
-			<view class="tlt_cont">参与服务商</view>
+			<view class="tlt_cont">参与人</view>
 		</view>
 		<block wx:for="{{web_storeData}}" wx:key="id">
 			<view class="need w710 flex" >
 				<view class="need_left1">
 					<view class="user_img">
-		              <image src="{{item.user[0].mainImg[0].url}}" class="user_img" />
+		              <image src="{{item.user_type==1?item.user[0].mainImg[0].url:item.user[0].headImgUrl}}" class="user_img" />
 		            </view>
 				</view>
 				<view class="need_right1">
-					<view class="font28 color3">{{item.userInfo[0].passage1}}</view>
+					<view class="font28 color3">{{item.user_type==1?item.userInfo[0].passage1:item.user[0].nickname}}</view>
 				</view>
 				<view class="need_right2">
 					<view class="font28 color3">{{item.userInfo[0].name}}</view>
@@ -55,12 +55,12 @@
 <view class="w710"  wx:else>
 	<view style="border-radius: 20rpx;width:100%;">
 		<view class="need_tlt font28 flex" style="margin-top:20rpx;">
-			<view class="tlt_cont">参与服务商</view>
+			<view class="tlt_cont">参与人</view>
 		</view>
 
 		<view class="need w710 flex">
 			<view style="text-align:center;font-size:28rpx;width:100%">
-				还没有服务商参与
+				还没有人参与
 			</view>
 		</view>
 	
@@ -100,7 +100,7 @@
 
 		<view class="need w710 flex">
 			<view style="text-align:center;font-size:28rpx;width:100%">
-				已参与，至商户个人中心查看更多
+				已参与，至个人中心查看更多
 			</view>
 		</view>
 	

@@ -15,7 +15,7 @@
 </view>
 <view class="order_list">
 	<block wx:for="{{web_mainData}}" wx:key="id">
-		<view class="order_all"  bindtap="intoPath" data-path="/pages/storeNeed1/storeNeed1?id={{item.id}}">	
+		<view class="order_all"  bindtap="intoPath" data-path="/pages/storeNeed1/storeNeed1?id={{item.id}}&&user_type={{item.user_type}}">	
 			<view class="order_tlt flexRowBetween">
 				<view class="tlt_left">
 					<text >参与时间:</text>
@@ -25,7 +25,7 @@
 	            已中标
 		        </view>
 		        <view class="tlt_right color" wx:if="{{item.behavior==3}}">
-	            未中标 
+	            未中标
 		        </view>
 			</view>
 			<view class="same_stroe bg1">

@@ -1,0 +1,50 @@
+<!--manageAddress.wxml-->
+<view class="order_sort flexRowBetween">
+	<view class="order_item {{web_num ==0?'order_this':''}}" data-num="0" bindtap="menuClick">
+		全部
+	</view>
+	<view class="order_item {{web_num ==1?'order_this':''}}" data-num="1"  bindtap="menuClick">
+		待选择
+	</view>
+	<view class="order_item {{web_num ==2?'order_this':''}}" data-num="2" bindtap="menuClick">
+		已选择
+	</view>
+	<view class="order_item {{web_num ==3?'order_this':''}}" data-num="3" bindtap="menuClick">
+		已取消
+	</view>
+</view>
+<view class="order_list">
+	<block wx:for="{{web_mainData}}" wx:key="id">
+		<view class="order_all"  >	
+			<view class="order_tlt flexRowBetween" >
+				<view class="tlt_left">
+					<text >交易时间:</text>
+					<text>{{item.create_time}}</text>
+				</view>
+			</view>
+			<view class="same_stroe bg1">
+				<view class="flexRowBetween orderlistShow" bindtap="intoPath" data-path="/pages/userNeedDetail/userNeedDetail?id={{item.id}}&&user_type={{item.user_type}}">
+					<view class="order_left">
+						<view class="user_img">
+		                  <image src="{{item.user[0].mainImg[0].url}}" class="user_img" />
+		                </view>
+					</view>
+					<view class="order_name font32 color3">
+						{{item.keywords}}
+					</view>
+					<view class="order_right font28 color3">
+						<text class="color">{{item.score}}</text>件
+					</view>
+				</view>
+			</view>
+			<view class="handle">
+				<view class="handle_order">
+						<view class="handle_orders delete_order" wx:if="{{item.behavior=='1'}}" data-id="{{item.id}}" bindtap="updateNeed">关闭需求</view>
+
+						<view class="handle_orders delete_order" data-id="{{item.id}}" bindtap="deleteNeed">删除需求</view>
+				</view>
+			</view>
+		</view>	
+	</block>
+</view>
+

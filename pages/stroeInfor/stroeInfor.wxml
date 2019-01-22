@@ -51,4 +51,7 @@
     </view>
   </view>
 </view>
+  
+<view class="font32 color">登陆pc端网站https://www.huazhensc.cn/cms管理你的店铺</view>
+
 <view class="submit_info"  bindtap="{{web_buttonCanClick?'submit':''}}" > 保存 </view>

@@ -33,11 +33,13 @@ Page({
     });
     self.getLabelData();
     self.getUserData();
+
+    
   },
 
   onShow(){
     const self = this;
-    
+
   },
 
  
@@ -108,6 +110,7 @@ Page({
       }else{
         api.showToast('网络故障','none')
       }; 
+      
       self.getCouponData();
       api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
     };

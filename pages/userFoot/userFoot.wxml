@@ -1,47 +1,25 @@
 <!--index.wxml-->
-<view class="store">
-    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
-        <view class="sort_cont flex">
-            <view class="sort_left flex">
-                <view class="sort_in flex">
-                    <view class="sort_img"><image src="/images/index1.png"></image></view>
-                    <view class="sort_txt">
-                        <view class="font32 color3 avoidOverflow">北大王</view>
-                        <view class="color6 font22  avoidOverflow">商品：8</view>
+<view class="product_all w710">
+    <block wx:for="{{web_mainData}}" wx:key="id">
+        <view class="product flexRowBetween"  bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+            <view class="product_left">
+                <image src="{{item.mainImg[0].url}}"></image>
+            </view>
+            <view class="product_right flexRowBetween">
+                <view class="product_detail">
+                    <view class="font32 color3 product_top" style="width:100%;height:74%;">
+                    <view class="product1 font30 color3">{{item.title}}</view>
+                        <view class="product_des font26 color9 avoidOverflow">
+                            {{item.description}}
+                        </view>
+                    </view>
+                    
+                    <view class="font28 color6 flexRowBetween">
+                        <view class="product_name font32 color">¥{{item.price}}</view>
+                        <view class="font24 color9">已售<text>{{item.sale_count}}</text>件</view>
                     </view>
                 </view>
             </view>
-            <view class="sort_right flex" bindtap="intoPath" data-path="/pages/store1/store1">
-                <view class="submit_info bg font24">进入店铺</view>
-            </view>
         </view>
-        <scroll-view class="recommend_scroll_x_box" scroll-x="true">
-            <view class="recommend_hot_box" bindtap="intoPath" data-path="/pages/detail/detail">
-                <image src="/images/index_icon1.png" class="recommend_hot_image"></image>
-            </view>
-        </scroll-view>
-    </view>
-</view>
-<view class="store">
-    <view class="w710" style="margin-bottom:14rpx;background: #fff;">
-        <view class="sort_cont flex">
-            <view class="sort_left flex">
-                <view class="sort_in flex">
-                    <view class="sort_img"><image src="/images/index1.png"></image></view>
-                    <view class="sort_txt">
-                        <view class="font32 color3 avoidOverflow">北大王</view>
-                        <view class="color6 font22  avoidOverflow">商品：8</view>
-                    </view>
-                </view>
-            </view>
-            <view class="sort_right flex" bindtap="intoPath" data-path="/pages/store1/store1">
-                <view class="submit_info bg font24">进入店铺</view>
-            </view>
-        </view>
-        <scroll-view class="recommend_scroll_x_box" scroll-x="true">
-            <view class="recommend_hot_box" bindtap="intoPath" data-path="/pages/detail/detail">
-                <image src="/images/index_icon1.png" class="recommend_hot_image"></image>
-            </view>
-        </scroll-view>
-    </view>
+    </block>  
 </view>

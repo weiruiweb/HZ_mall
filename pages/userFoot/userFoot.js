@@ -7,6 +7,9 @@ const token = new Token();
 
 Page({
    data: {
+    num:0,
+    mainData:[],
+    isFirstLoadAllStandard:['getMainData']
   },
 
   /**
@@ -14,13 +17,39 @@ Page({
    */
   onLoad(options) {
     const self = this;
-    
+    api.commonInit(self);
+    self.getMainData();
+
   },
+
+  getMainData(){
+    const self = this;
+    self.data.mainData = api.getStorageArray('footData');
+    self.setData({
+      web_mainData:self.data.mainData,
+    });
+    api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self)
+    console.log(self.data.mainData)
+  },
+
+
+ 
+
+
+
 
   intoPath(e){
     const self = this;
     api.pathTo(api.getDataSet(e,'path'),'nav');
   },
+
+  cancel(e){
+    const self = this;
+    console.log(api.getDataSet(e,'id'))
+    api.deleteFootOne(api.getDataSet(e,'id'),'footData');
+    self.getMainData();
+  },
+
 
 })
 
