@@ -35,7 +35,7 @@ Page({
     },
    
     order_id:'',
-    isFirstLoadAllStandard:['getMainData','getUserData'],
+    isFirstLoadAllStandard:['getMainData','getUserData','distributionGet'],
     pay:{
       coupon:[]
     }
@@ -127,13 +127,32 @@ Page({
       });     
       self.countPrice();
       console.log('getMainData',self.data.mainData)
-      self.getCouponData()
+      self.getCouponData();
+      self.distributionGet()
     };
     api.orderGet(postData,callback);
 
   }, 
 
+  distributionGet(){
+    const self = this;
+    const postData = {};
+    postData.tokenFuncName = 'getProjectToken';
+    postData.searchItem = {
+      child_no:wx.getStorageSync('info').user_no
+    };
+    const callback = (res)=>{
+      if(res.solely_code==100000){
+        self.data.distributionData = res;
+        self.setData({
+          web_distributionData:self.data.distributionData,
+        });
+      };
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'distributionGet',self)
+    };
+    api.distributionGet(postData,callback);
 
+  },
 
   getCouponData(){
     const self = this;
@@ -203,29 +222,49 @@ Page({
   pay(order_id){
 
     const self = this;
+    var levelOneCash = (wx.getStorageSync('info').thirdApp.custom_rule.firstClass*self.data.pay.wxPay.price.toFixed(2))/100; 
+    var levelTwoCash = (wx.getStorageSync('info').thirdApp.custom_rule.secondClass*self.data.pay.wxPay.price.toFixed(2))/100;
     const postData = self.data.pay;
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = {
       id:self.data.order_id
     };
     postData.payAfter = [];
-    if(self.data.user_no){
-      postData.payAfter.push( 
-        {
-          flowLog:{
-            tableName:'FlowLog',
-            FuncName:'add',
-            data:{
-              type:2,
-              count:10,
-              user_no:self.data.user_no,
-              trade_info:'分享商品奖励',
-            }
-          }
-        }
-      )
-    };
-    const callback = (res)=>{
+    if(self.data.distributionData.info.data.length>0){
+      var transitionArray = self.data.distributionData.info.data;
+      for (var i = 0; i < transitionArray.length; i++){
+          if(transitionArray[i].level==1){
+            postData.payAfter.push( 
+              {
+                tableName:'FlowLog',
+                FuncName:'add',
+                data:{
+                  count:levelOneCash,
+                  trade_info:'下级消费奖励',
+                  user_no:transitionArray[i].parent_no,
+                  type:2,
+                  thirdapp_id:getApp().globalData.thirdapp_id
+                }
+              }
+            );
+          }else if(transitionArray[i].level==2){
+            postData.payAfter.push(
+              {
+                tableName:'FlowLog',
+                FuncName:'add',
+                data:{
+                  count:levelTwoCash,
+                  trade_info:'下级消费奖励',
+                  user_no:transitionArray[i].parent_no,
+                  type:2,
+                  thirdapp_id:getApp().globalData.thirdapp_id
+                }
+              }
+            );
+          };  
+        } 
+      } 
+      const callback = (res)=>{
       if(res.solely_code==100000){
         if(res.info){
           const payCallback=(payData)=>{
@@ -245,11 +284,9 @@ Page({
       }else{
         api.showToast(res.msg,'none');
       };
-      api.buttonCanClick(self,true);
-
-    };
+        api.buttonCanClick(self,true)
+      };
     api.pay(postData,callback);
-
   },
 
   getUserData(){

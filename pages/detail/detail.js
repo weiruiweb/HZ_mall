@@ -55,7 +55,6 @@ Page({
     //初始化收藏
     var collectData = api.getStorageArray('collectData');
     self.data.isInCollectData = api.findItemInArray(collectData,'id',self.data.id);
-    self.getMainData();
     
     wx.showShareMenu({
       withShareTicket: true
@@ -64,11 +63,17 @@ Page({
       var scene = decodeURIComponent(options.scene)
     };
     if(options.user_no){
-      self.data.user_no = options.user_no
+      var parent_no = options.user_no
     };
-    if(options.id){
-      self.data.id = options.id
-    };
+    console.log('options',options)
+    if(parent_no){
+       const callback=(res)=>{
+        self.getMainData();
+      };
+      api.parentAdd('getProjectToken',parent_no,callback); 
+    }else{
+      self.getMainData();
+    }
     self.setData({
       web_isInCollectData:self.data.isInCollectData,    
       web_count:self.data.count
@@ -663,9 +668,9 @@ goBuy(){
     const callback = (res)=>{
       api.buttonCanClick(self,true);
       if(res&&res.solely_code==100000){
-        if(self.data.user_no&&self.data.user_no!="undefined"){
-          api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id+'&user_no='+self.data.user_no,'nav'); 
-        }
+        
+        api.pathTo('/pages/confirm_order/confirm_order?order_id='+res.info.id,'nav'); 
+    
                
       }else{
         api.showToast(res.msg,'none');
