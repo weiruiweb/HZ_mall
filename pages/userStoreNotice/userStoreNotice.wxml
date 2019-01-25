@@ -1,15 +1,9 @@
 <view class="w710">
-	<view class="register_tlt font28 color2">
-		标题那天那天那天那天标题标题标题标题
-	</view>
-	<view class="font26 color6">
-		标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题
-	</view>
-	<view class="register_tlt font28 color2">
-		标题那天那天那天那天标题标题标题标题
-	</view>
-	<view class="font26 color6">
-		标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题标题那天那天那天那天标题标题标题标题
+	<view class="register_tlt font28">
+		<view class="content ql-editor" >
+	        <import src="../../wxParse/wxParse.wxml"/>
+	        <template is="wxParse" data="{{wxParseData:web_mainData.content}}"/>
+	    </view> 
 	</view>
 	<view class="agree flex" bindtap="choose">
 		<view class="agree_left" >

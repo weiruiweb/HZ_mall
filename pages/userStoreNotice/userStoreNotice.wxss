@@ -2,8 +2,6 @@
 
 @import "../../wxParse/wxParse.wxss"; 
 .register_tlt{
-	height:88rpx;
-	line-height:88rpx;
 	margin-top:24rpx;
 }
 .agree{
