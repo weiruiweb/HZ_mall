@@ -1,6 +1,6 @@
 <!--index3.wxml-->
 <view class="userWith">
-    <view class="userWithD font28">
+    <view class="userWithD font32">
         总金额：¥{{web_userData.info.balance}}
     </view>
     <button class="submit_info" bindtap="intoPath" >提现</button>
@@ -10,10 +10,10 @@
         <view class="credit_list">
             <view class="credit_item">
                 <view class="credit_left">
-                    <view class="credit_reson font28">
-                        {{item.trade_info}}<text class="credit_right font24 color">{{item.status==0?'(审核中)':''}}</text>
+                    <view class="credit_reson font30">
+                        {{item.trade_info}}<text class="credit_right font28 color">{{item.status==0?'(审核中)':''}}</text>
                     </view>
-                    <view class="credit_dates font24 color9">
+                    <view class="credit_dates font26 color9">
                        {{item.create_time}}
                     </view>
                 </view>
