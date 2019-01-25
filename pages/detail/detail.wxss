@@ -134,8 +134,9 @@ page{
 	margin-top:20rpx;
 }
 .storeImgs{
-	width:29.5%;
+	width:33.333%;
 	height:210rpx;
+	display:inline-block;
 }
 .storeImgs image{
 	width:100%;
@@ -467,4 +468,38 @@ page{
 	left:0;
 	z-index:999;
 	overflow:hidden;
+}
+
+.recommend_scroll_x_box {
+  height: 230rpx;
+  white-space: nowrap;
+  display: flex;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.recommend_hot_box {
+  width: 200rpx;
+  height: 210rpx;
+  margin-right: 10rpx;
+  display: inline-block;
+}
+.back {
+width:135rpx;
+  height:135rpx;
+  border-radius:50%;
+  position:fixed;
+  right:-65rpx;
+  top:65%;
+  background:linear-gradient(to bottom,rgba(232,54,50,1.00),rgba(244,157,154,1.00));
+  box-shadow:6rpx 0 20rpx #f7c8c7;
+
+}
+.back_cont{
+  width:80%;
+  text-align:center;
+  line-height:normal;
+  margin-right:50%;
 }

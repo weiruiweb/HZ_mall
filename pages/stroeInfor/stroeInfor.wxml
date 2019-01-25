@@ -61,6 +61,12 @@
   </view>
 </view>
   
-<view class="font32 color">登陆pc端网站https://www.huazhensc.cn/cms管理你的店铺</view>
+<view class="p40 bg1">
+  <view class="flex font28" style="height:70rpx;line-height:70rpx;">
+    <view class="color3" style="margin-right:30rpx;">登陆pc端网站</view>
+    <view class="font28 color6">https://www.huazhensc.cn/cms</view>
+  </view>
+  <view class="color3 font28" style="height:70rpx;line-height:70rpx;text-align: center;">管理你的店铺!!!</view>
+</view>
 
 <view class="submit_info"  bindtap="{{web_buttonCanClick?'submit':''}}" > 保存 </view>

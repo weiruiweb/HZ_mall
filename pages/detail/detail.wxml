@@ -101,12 +101,14 @@
 			<view class="store_in" bindtap="intoPath" data-path="/pages/store1/store1?user_no={{web_mainData.user_no}}">进店逛逛</view>
 		</view>
 	</view>
-	<view class="store_img flexRowBetween">
-		<block wx:for="{{web_mainData.product}}" wx:key="id" >
-			<view class="storeImgs" wx:if="{{item.mainImg[0].url&&index<3}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
-				<image src="{{item.mainImg[0].url}}" ></image>
-			</view>
-		</block>
+	<view class="store_img flex">
+		<scroll-view class="recommend_scroll_x_box" scroll-x="true">
+			<block wx:for="{{web_mainData.product}}" wx:key="id" >
+				<view class="storeImgs" wx:if="{{item.mainImg[0].url&&index<3}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+					<image src="{{item.mainImg[0].url}}" ></image>
+				</view>
+			</block>
+		</scroll-view>
 	</view>
 </view>
 <view class="w710 detail_introduce">
@@ -199,7 +201,7 @@
 		</view>
 		<block wx:for="{{web_labelData}}" wx:key="id">
 			<view class="font28 color6">{{item.title}}</view>
-			<scroll-view  scroll-y style="height:190rpx;">
+			<scroll-view  scroll-y style="height:120rpx;">
 				<view class="style_choose font28 flex">
 					<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
 						<view  bindtap="{{func.inArray(c_item.id,web_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" class="this_style"  style=" {{func.inArray(c_item.id,web_can_choose_sku_item)==-1?'color:gray':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
@@ -221,4 +223,7 @@
 	</view>
 	<button class="submit_info" bindtap="{{web_buttonType=='buy'?'goBuy':(web_buttonType=='groupBuy'?'goBuy':'addCart')}}" style="width:750rpx;height:88rpx;margin:0 auto;line-height:88rpx;font-size:32rpx;border-radius:0;">确认</button>
 	</view>
+</view>
+<view class="back flex">
+  <view class="back_cont font24 color1" bindtap="intoPath" data-path="/pages/index/index">首页</view>
 </view>

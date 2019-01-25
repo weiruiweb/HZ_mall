@@ -210,3 +210,17 @@ page{
 .balance_right input{
 	border:none;
 }
+.bg_white{
+	width:50%;
+}
+.bg_white input{
+	padding-left:3%;
+}
+.product_title{
+	width:50%;
+}
+.credit_infor{
+	height:80rpx;
+	line-height:80rpx;
+	margin-top:20rpx;
+}
