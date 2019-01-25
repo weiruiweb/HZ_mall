@@ -13,7 +13,7 @@ page{
 	width:87%;
 	padding:0 6.5%;
 	background:#fcfcfc;
-	padding-bottom:60rpx;
+	height:180rpx;
 }
 .cash_bank input{
 	border:solid 1px #e0e0e0;
@@ -66,8 +66,7 @@ page{
 	margin:0 auto;
 }
 .bind_bank{
-	height:110rpx;
-	line-height:140rpx;
+	
 }
 .cash_can>view{
 	margin-left:40rpx;
@@ -76,7 +75,20 @@ page{
 	box-shadow:0 0 20rpx #e0e0e0;
 }
 .case_box{
-	margin-top:100rpx;
 	border-radius:20rpx;
 	padding-bottom:30rpx;
+}
+.bind_bank{
+	width:30%;
+}
+.card_number{
+	width:30%;
+}
+.next_page{
+	width:40%;
+	text-align:right;
+}
+.next_page image{
+	width:12rpx;
+	height:20rpx;
 }

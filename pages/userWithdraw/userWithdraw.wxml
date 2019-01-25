@@ -1,9 +1,14 @@
 <!--index3.wxml-->
 <view class="w710">
   <view class="cash" style="margin-top:30rpx;">
-      <view class="cash_bank">
+      <view class="cash_bank flexRowBetween">
           <view class="font28 color2 bind_bank">绑定银行卡</view>
-          <input data-key="cardNum" bindinput="changeBind" value="{{web_submitData.cardNum}}"></input>
+          <!-- <input data-key="cardNum" bindinput="changeBind" value="{{web_submitData.cardNum}}"></input> -->
+          <view class="card_number font24 color9">******464664</view>
+          <view class="next_page" bindtap="intoPath" data-path="/pages/userBindBank/userBindBank">
+            <image src="/images/next_page.jpg"></image>
+            <view class="font24 color">编辑</view>
+          </view>
       </view>
       <view class="case_box">
         <view class="cash_tlt color2 font32 bg1">

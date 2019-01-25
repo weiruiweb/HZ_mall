@@ -39,7 +39,8 @@
     "pages/userGroup/userGroup",
     "pages/userCredit/userCredit",
     "pages/userWithdraw/userWithdraw",
-    "pages/userWithList/userWithList"
+    "pages/userWithList/userWithList",
+    "pages/userBindBank/userBindBank"
   ],
 
   "window": {

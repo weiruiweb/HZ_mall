@@ -1,0 +1,20 @@
+<!--index3.wxml-->
+<view class="w710">
+    <view class="input_list1 font28 flex">
+      <view class="input_before1">开户人:</view>
+      <input placeholder="请输入开户人"></input>
+    </view>
+    <view class="input_list1 font28 flex">
+      <view class="input_before1">银行卡号:</view>
+      <input placeholder="请输入银行卡号"></input>
+    </view>
+    <view class="input_list1 font28 flex">
+      <view class="input_before1">开户行:</view>
+      <input placeholder="请输入开户行"></input>
+    </view>
+    <view class="input_list1 font28 flex">
+      <view class="input_before1">手机号:</view>
+      <input placeholder="请输入手机号"></input>
+    </view>
+</view>
+<button class="submit_info">保存</button>
