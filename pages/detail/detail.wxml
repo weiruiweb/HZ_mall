@@ -94,7 +94,7 @@
             </view>
 		</view>
 		<view class="comment_name font28" style="width:60%;">
-			<view class="font28">{{web_mainData.merchantUserInfo[0].passage1}}</view>
+			<view class="font28">{{web_mainData.merchantUserInfo[0].idCard}}</view>
 			<view class="font28">商品数量：{{web_mainData.product.countNum}}件 已拼{{web_mainData.product.saleNum}}件</view>
 		</view>
 		<view class="comment_data color6 font24"  style="width:30%;">
@@ -103,7 +103,7 @@
 	</view>
 	<view class="store_img flexRowBetween">
 		<block wx:for="{{web_mainData.product}}" wx:key="id" >
-			<view class="storeImgs" wx:if="{{item.mainImg[0].url}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
+			<view class="storeImgs" wx:if="{{item.mainImg[0].url&&index<3}}" bindtap="intoPath" data-path="/pages/detail/detail?id={{item.id}}">
 				<image src="{{item.mainImg[0].url}}" ></image>
 			</view>
 		</block>

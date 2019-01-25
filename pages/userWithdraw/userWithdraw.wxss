@@ -79,10 +79,10 @@ page{
 	padding-bottom:30rpx;
 }
 .bind_bank{
-	width:30%;
+	width:25%;
 }
 .card_number{
-	width:30%;
+	width:35%;
 }
 .next_page{
 	width:40%;

@@ -1,84 +1,77 @@
-//logs.js
 import {Api} from '../../utils/api.js';
 var api = new Api();
-
+const app = getApp();
 import {Token} from '../../utils/token.js';
 const token = new Token();
 
 Page({
   data: {
-
+    disabled: true,
+    isFirstLoadAllStandard:['getMainData'],
     submitData:{
-      count:'',
-      cardNum:'',
+      bank_name:'',
+      bank_card:'',
+      bank_user:'',
+      bank_phone:''
     },
-    isFirstLoadAllStandard:['getUserData']
 
-
+  },
+  //事件处理函数
+  preventTouchMove: function(e) {
 
   },
 
-
-
-  onLoad(options){
+  onLoad(options) {
     const self = this;
     api.commonInit(self);
     if(options.type){
       self.data.type = options.type
     };
-    self.getUserData();
+    self.getMainData()
   },
 
 
 
-
-
-  changeBind(e){
+  changeBind(e) {
     const self = this;
-    api.fillChange(e,self,'submitData');
-
-    console.log(self.data.submitData);
+    api.fillChange(e, self, 'submitData');
     self.setData({
-      web_submitData:self.data.submitData,
-    }); 
+      web_submitData: self.data.submitData,
+    });
+    console.log(self.data.submitData)
   },
 
 
 
-  flowLogAdd(){
+
+  submit() {
     const self = this;
-    const postData = {
-        
-        data:{
-          user_no:wx.getStorageSync('info').user_no,
-          count:-self.data.submitData.count,
-          cardNum:self.data.submitData.card,
-          trade_info:'提现',
-          status:0,
-          type:2
+    api.buttonCanClick(self)
+    var name = self.data.submitData.bank_user;
+    var phone= self.data.submitData.bank_phone;
+    const pass = api.checkComplete(self.data.submitData);
+    if (pass) {
+      if (phone.trim().length != 11 || !/^1[3|4|5|6|7|8|9]\d{9}$/.test(phone)) {
+        api.buttonCanClick(self,true);
+        api.showToast('手机格式错误', 'none')
+      } else {
+        if (!/^[\u4E00-\u9FA5]+$/.test(name)) {
+          api.buttonCanClick(self,true);
+          api.showToast('姓名格式错误', 'none')
+        } else {
+          self.userInfoUpdate();
         }
-    };
-    if(self.data.type=='merchant'){
-      postData.tokenFuncName = 'getProjectMerchantToken';
-    }else{
-      postData.tokenFuncName = 'getProjectToken';
-    }
-    const callback = (res)=>{
-      if(res.solely_code==100000){
-        api.showToast('申请成功','none'); 
-        setTimeout(function(){
-          wx.navigateBack({
-            delta: 1
-          })
-        },300);
       }
-      api.buttonCanClick(self,true)
+    } else {
+      api.buttonCanClick(self,true);
+      api.showToast('请补全信息', 'none');
+      
     };
-    api.flowLogAdd(postData,callback)
-
   },
 
-  getUserData(){
+
+
+  getMainData() {
     const self = this;
     const postData = {};
     if(self.data.type=='merchant'){
@@ -86,75 +79,69 @@ Page({
     }else{
       postData.tokenFuncName = 'getProjectToken';
     }
-    const callback = (res)=>{
-      if(res.info.data.length>0){
-        self.data.userData = res.info.data[0]
+    const callback = (res) => {
+      self.data.mainData = {};
+      if (res.info.data.length > 0) {
+        self.data.mainData = res.info.data[0];
+        self.data.submitData.bank_phone = res.info.data[0].info.bank_phone;
+        self.data.submitData.bank_name = res.info.data[0].info.bank_name; 
+        self.data.submitData.bank_card = res.info.data[0].info.bank_card;
+        self.data.submitData.bank_user = res.info.data[0].info.bank_user; 
       };
       self.setData({
-        web_userData:self.data.userData
+        web_submitData:self.data.submitData,
+        web_mainData: self.data.mainData
       });
-     api.checkLoadAll(self.data.isFirstLoadAllStandard,'getUserData',self)
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
     };
-    api.userGet(postData,callback);   
+    api.userGet(postData, callback);
   },
-  
 
-  submit(){
+  userInfoUpdate(){
     const self = this;
-    api.buttonCanClick(self);
-    var num = self.data.submitData.count;
-    const pass = api.checkComplete(self.data.submitData);
-    if(pass){  
-      console.log(self.data.userData)
-      if(num>=100){
-
-        if(self.data.userData.info.balance&&parseInt(self.data.userData.info.balance)>=num){
-          if(!(/(^[1-9]\d*$)/.test(num))){
-            api.buttonCanClick(self,true)
-           api.showToast('请输入正整数','none')
-          }else{
-            self.flowLogAdd();
-          }   
-        }else{
-          api.buttonCanClick(self,true)
-          api.showToast('佣金不足','none');  
-        }  
-      }else{
-        console.log(parseInt(self.data.userData.info.balance));
-        api.buttonCanClick(self,true)
-        api.showToast('最低提现100元','none');  
-      }
-       
+    const postData = {};
+    if(self.data.type=='merchant'){
+      postData.tokenFuncName = 'getProjectMerchantToken';
     }else{
-      api.buttonCanClick(self,true)
-      api.showToast('请补全信息','none');
+      postData.tokenFuncName = 'getProjectToken';
+    }
+    postData.data = {};
+    postData.data = api.cloneForm(self.data.submitData);
+    const callback = (data)=>{
+      if(data.solely_code==100000){
+        api.showToast('完善成功','none')
+        setTimeout(function(){
+          wx.navigateBack({
+            delta: 1
+          });
+        },300); 
+      }else{
+        api.showToast('网络故障','none')
+      };
+      api.buttonCanClick(self,true);
     };
+    api.userInfoUpdate(postData,callback);
   },
 
-  allOut(){
+
+
+  intoPath(e) {
     const self = this;
-    self.data.submitData.count = self.data.userData.info.balance;
-    self.setData({
-      web_submitData:self.data.submitData
-    });
+    api.pathTo(api.getDataSet(e, 'path'), 'nav');
   },
 
-  intoPath(e){
-    const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
-  },
-
-  intoPathBack(e){
+  intoPathRedi(e) {
     const self = this;
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   },
 
-  intoPathRedirect(e){
+  intoPathRedirect(e) {
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'redi');
-  },
+    api.pathTo(api.getDataSet(e, 'path'), 'redi');
+  }
+
 })
 
   

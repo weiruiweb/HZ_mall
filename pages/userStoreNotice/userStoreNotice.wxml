@@ -11,6 +11,6 @@
 		</view>
 		<view class="agree_right font24 color2">我已阅读并同意</view>
 	</view>
-	<view class="submit_info" bindtap="{{web_choose?'intoPath':''}}" data-path="/pages/userStore/userStore">确认</view>
+	<view class="submit_info" bindtap="intoPath" data-path="/pages/userStore/userStore">确认</view>
 </view>
 

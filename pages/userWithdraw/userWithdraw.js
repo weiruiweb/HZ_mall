@@ -10,7 +10,6 @@ Page({
 
     submitData:{
       count:'',
-      cardNum:'',
     },
     isFirstLoadAllStandard:['getUserData']
 
@@ -26,11 +25,14 @@ Page({
     if(options.type){
       self.data.type = options.type
     };
-    self.getUserData();
+ 
   },
 
 
-
+  onShow(){
+    const self = this;
+    self.getUserData()
+  },
 
 
   changeBind(e){
@@ -50,19 +52,26 @@ Page({
     const postData = {
         
         data:{
-          user_no:wx.getStorageSync('info').user_no,
+          
           count:-self.data.submitData.count,
-          cardNum:self.data.submitData.card,
+
           trade_info:'提现',
           status:0,
           type:2
         }
     };
     if(self.data.type=='merchant'){
+      postData.data.user_no  = wx.getStorageSync('threeInfo').user_no;
       postData.tokenFuncName = 'getProjectMerchantToken';
     }else{
+      postData.data.user_no  = wx.getStorageSync('info').user_no;
       postData.tokenFuncName = 'getProjectToken';
-    }
+    };
+    if(self.data.userData.info.bank_card.length==0){
+        api.buttonCanClick(self,true);
+        api.showToast('请绑定银行卡','none');
+        return;
+    };
     const callback = (res)=>{
       if(res.solely_code==100000){
         api.showToast('申请成功','none'); 
@@ -88,7 +97,11 @@ Page({
     }
     const callback = (res)=>{
       if(res.info.data.length>0){
-        self.data.userData = res.info.data[0]
+        self.data.userData = res.info.data[0];
+        if(self.data.userData.info.bank_card.length>0){
+          self.data.userData.info.bank_card = self.data.userData.info.bank_card.substring(self.data.userData.info.bank_card.length-4)
+        }
+        
       };
       self.setData({
         web_userData:self.data.userData
@@ -127,7 +140,7 @@ Page({
        
     }else{
       api.buttonCanClick(self,true)
-      api.showToast('请补全信息','none');
+      api.showToast('请填写提现金额','none');
     };
   },
 
@@ -141,7 +154,15 @@ Page({
 
   intoPath(e){
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
+    if(self.data.type){
+      wx.navigateTo({
+        url:"/pages/userBindBank/userBindBank?type="+self.data.type,
+      })
+    }else{
+      wx.navigateTo({
+        url:"/pages/userBindBank/userBindBank"
+      })
+    }
   },
 
   intoPathBack(e){

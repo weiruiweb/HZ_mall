@@ -92,6 +92,7 @@ Page({
     const self = this;
     const postData = {};
     postData.tokenFuncName='getProjectMerchantToken';
+    postData.user_type = 1;
     postData.data = {};
     postData.data = api.cloneForm(self.data.submitData);
     const callback = (data)=>{

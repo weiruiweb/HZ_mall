@@ -4,10 +4,9 @@
       <view class="cash_bank flexRowBetween">
           <view class="font28 color2 bind_bank">绑定银行卡</view>
           <!-- <input data-key="cardNum" bindinput="changeBind" value="{{web_submitData.cardNum}}"></input> -->
-          <view class="card_number font24 color9">******464664</view>
+          <view class="card_number font24 color9">{{web_userData.info.bank_card?'****'+web_userData.info.bank_card:'请添加提现银行卡'}}</view>
           <view class="next_page" bindtap="intoPath" data-path="/pages/userBindBank/userBindBank">
             <image src="/images/next_page.jpg"></image>
-            <view class="font24 color">编辑</view>
           </view>
       </view>
       <view class="case_box">

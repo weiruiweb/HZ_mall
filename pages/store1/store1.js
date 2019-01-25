@@ -251,9 +251,10 @@ Page({
     };
     const callback = (res)=>{
       if(res&&res.solely_code==100000){
-        api.showToast('领取成功！','none',1000,function(){
-          self.getCouponData(true)
-        });   
+        api.showToast('领取成功！','none',1000)
+          setTimeout(function(){
+            self.getCouponData(true)
+          },1000);  
       }else{
         api.showToast(res.msg,'none')
       }

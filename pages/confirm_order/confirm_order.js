@@ -222,8 +222,14 @@ Page({
   pay(order_id){
 
     const self = this;
-    var levelOneCash = (wx.getStorageSync('info').thirdApp.custom_rule.firstClass*self.data.pay.wxPay.price.toFixed(2))/100; 
-    var levelTwoCash = (wx.getStorageSync('info').thirdApp.custom_rule.secondClass*self.data.pay.wxPay.price.toFixed(2))/100;
+    api.buttonCanClick(self);
+    if(self.data.addressData.length==0){
+      api.buttonCanClick(self,true)
+      api.showToast('请选择收货地址','none');
+      return
+    };
+    var levelOneCash = (wx.getStorageSync('info').thirdApp.custom_rule.firstClass*parseFloat(self.data.pay.wxPay.price).toFixed(2))/100; 
+    var levelTwoCash = (wx.getStorageSync('info').thirdApp.custom_rule.secondClass*parseFloat(self.data.pay.wxPay.price).toFixed(2))/100;
     const postData = self.data.pay;
     postData.tokenFuncName = 'getProjectToken';
     postData.searchItem = {

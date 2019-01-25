@@ -41,14 +41,11 @@ Page({
       },
     };
     const callback = (res)=>{
-        if(res.info.data.length>0){
-          self.data.mainData=res.info.data[0]
-          self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
-        }
-        
-        
-        api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
-      
+      if(res.info.data.length>0){
+        self.data.mainData=res.info.data[0]
+        self.data.mainData.content = api.wxParseReturn(res.info.data[0].content).nodes;
+      }    
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);    
       self.setData({
         web_mainData:self.data.mainData,
       });  
@@ -57,12 +54,6 @@ Page({
   },
 
 
-
-
-  onShow(){
-    const self = this;
-   
-  },
   
   choose(e){
     const self = this;
@@ -75,7 +66,12 @@ Page({
 
   intoPath(e){
     const self = this;
-    api.pathTo(api.getDataSet(e,'path'),'nav');
+    if(self.data.is_choose){
+      api.pathTo(api.getDataSet(e,'path'),'nav'); 
+    }else{
+      api.showToast('请确认阅读并同意','none')
+    }
+    
   },
 
 

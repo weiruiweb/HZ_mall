@@ -34,6 +34,56 @@ Page({
     const postData = {};
     postData.paginate = api.cloneForm(self.data.paginate);
     postData.searchItem = api.cloneForm(self.data.searchItem);
+    postData.searchItem.user_no = wx.getStorageSync('threeInfo').user_no;
+    postData.searchItem.type=1;
+    postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
+    postData.order = {
+      listorder:'desc'
+    };
+    postData.getAfter={
+      sku:{
+        tableName:'Sku',
+        middleKey:'product_no',
+        searchItem:{
+          status:1
+        },
+        key:'product_no',
+        condition:'=',
+      } 
+    };
+    const callback = (res)=>{
+      if(res.info.data.length>0){
+        for (var i = 0; i < res.info.data.length; i++) {
+          self.data.mainData.push.apply(self.data.mainData,res.info.data[i].sku);
+        } 
+        
+      }else{
+        self.data.isLoadAll = true;
+        api.showToast('没有更多了','none');
+      };
+      api.checkLoadAll(self.data.isFirstLoadAllStandard,'getMainData',self);
+      self.setData({
+
+        web_mainData:self.data.mainData,
+      });   
+      setTimeout(function(){
+        wx.hideNavigationBarLoading();
+        wx.stopPullDownRefresh();
+      },300);
+      api.buttonCanClick(self,true);
+      console.log('self.data.buttonCanClick',self.data.buttonCanClick)
+    };
+    api.productGet(postData,callback);
+  },
+
+  /*getMainData(isNew){
+    const self = this;
+    if(isNew){
+      api.clearPageIndex(self);  
+    };
+    const postData = {};
+    postData.paginate = api.cloneForm(self.data.paginate);
+    postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = api.cloneForm(getApp().globalData.thirdapp_id);
     postData.searchItem.user_no = wx.getStorageSync('threeInfo').user_no;
     postData.searchItem.type=1;
@@ -59,7 +109,7 @@ Page({
       api.buttonCanClick(self,true);
     };
     api.productGet(postData,callback);
-  },
+  },*/
 
   getLabelData(){
     const self = this;
