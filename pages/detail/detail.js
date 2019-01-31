@@ -200,6 +200,15 @@ Page({
               var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.choosed_sku_item[i]]);
               self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
             };
+
+            if(self.data.labelData.length==1){
+              for (var i = 0; i < self.data.labelData.length; i++) {
+                  self.data.merge_can_choose_sku_item = [];
+                  for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+                      self.data.merge_can_choose_sku_item.push(self.data.labelData[i].child[j].id);
+                  };
+              };
+            };
             console.log('self.data.merge_can_choose_sku_item',self.data.merge_can_choose_sku_item)
           };
           self.data.skuIdArray.push(self.data.mainData.sku[i].id);//为了抓所有Sku的评论
