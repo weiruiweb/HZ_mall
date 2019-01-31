@@ -43,7 +43,8 @@ Page({
     postData.searchItem = api.cloneForm(self.data.searchItem);
     postData.searchItem.thirdapp_id = getApp().globalData.thirdapp_id;
     postData.searchItem.type = ['in',[1,5]];
-    postData.searchItem.status = ['in',[0,1]]
+    postData.searchItem.status = ['in',[0,1]];
+    postData.searchItem.user_no = wx.getStorageSync('info').user_no;
     postData.order = {
       create_time:'desc'
     }
@@ -187,6 +188,45 @@ Page({
       self.data.paginate.currentPage++;
       self.getMainData();
     };
+  },
+
+  onShareAppMessage(res,e){
+    const self = this;
+    var id = api.getDataSet(e,'id');
+    var group_no = api.getDataSet(e,'group_no');
+     console.log(res)
+      if(res.from == 'button'){
+        self.data.shareBtn = true;
+      }else{   
+        self.data.shareBtn = false;
+      }
+      return {
+        title: '华珍商场',
+        path: 'pages/detail/detail?group_no='+group_no+'&&product_id='+id,
+        success: function (res){
+          console.log(res);
+          console.log(parentNo)
+          if(res.errMsg == 'shareAppMessage:ok'){
+            console.log('分享成功')
+            if (self.data.shareBtn){
+              if(res.hasOwnProperty('shareTickets')){
+              console.log(res.shareTickets[0]);
+                self.data.isshare = 1;
+              }else{
+                self.data.isshare = 0;
+              }
+            }
+          }else{
+            wx.showToast({
+              title: '分享失败',
+            })
+            self.data.isshare = 0;
+          }
+        },
+        fail: function(res) {
+          console.log(res)
+        }
+      }
   },
 
  

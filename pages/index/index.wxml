@@ -157,7 +157,7 @@
             {{web_couponData.discount}}<text class="font28 color1">元</text>
         </view>
        <view class="discount1_btn">     
-            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;" open-type="getUserInfo" data-id="{{web_couponData.id}}" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">点击领取</button>   
+            <button  form-type="submit" class="color" style="width:240rpx;height:58rpx;line-height:58rpx;" open-type="getUserInfo" data-id="{{web_couponData.id}}" style="background:white;width:240rpx" bindgetuserinfo="{{web_buttonCanClick?'submit':''}}">点击领取</button>   
        </view>
     </view>
     <view class="close" bindtap="close">
