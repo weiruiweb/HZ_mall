@@ -408,10 +408,10 @@ Page({
       if(!hasone){
         console.log(self.data.labelData[i]);
         for (var j = 0; j < self.data.labelData[i].child.length; j++) {
-          
             var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.labelData[i].child[j].id]);
+            var finalIndex = finalRes.can_choose_sku_item.indexOf(self.data.labelData[i].child[j].id);
+            finalRes.can_choose_sku_item.splice(finalIndex,1);
             self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
-          
         };
       };
     };
