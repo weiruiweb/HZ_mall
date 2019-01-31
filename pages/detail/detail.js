@@ -217,7 +217,7 @@ Page({
         web_labelData:self.data.labelData,
         web_mainData:self.data.mainData,
         web_choosed_sku_item:self.data.choosed_sku_item,
-        web_can_choose_sku_item:self.data.can_choose_sku_item,
+        web_merge_can_choose_sku_item:self.data.merge_can_choose_sku_item,
       });
       console.log('self.data.choosed_skuData',self.data.choosed_skuData)
     };
@@ -386,10 +386,15 @@ Page({
     self.data.choosed_skuData = skuRes.choosed_skuData;
     self.data.can_choose_sku_item = skuRes.can_choose_sku_item;
     self.data.merge_can_choose_sku_item = [];
-    for (var i = 0; i < self.data.choosed_sku_item.length; i++) {
-      var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.choosed_sku_item[i]]);
-      self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+    if(self.data.choosed_sku_item.length>0){
+      for (var i = 0; i < self.data.choosed_sku_item.length; i++) {
+        var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.choosed_sku_item[i]]);
+        self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+      };
+    }else{
+      self.data.merge_can_choose_sku_item = self.data.can_choose_sku_item;
     };
+    
     self.data.count = 1;
     self.countTotalPrice();
 
@@ -400,7 +405,7 @@ Page({
     self.setData({
       web_choosed_sku_item:self.data.choosed_sku_item,
       web_choosed_skuData:self.data.choosed_skuData,
-      web_can_choose_sku_item:self.data.can_choose_sku_item,
+      web_merge_can_choose_sku_item:self.data.merge_can_choose_sku_item,
     });
     
   },
