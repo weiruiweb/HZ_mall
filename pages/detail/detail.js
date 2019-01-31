@@ -38,7 +38,8 @@ Page({
     buttonType:'',
     isFirstLoadAllStandard:['getMessageData','getMainData'],
     count:1,
-    searchItem:{}
+    searchItem:{},
+    merge_can_choose_sku_item:[]
   },
   
   onLoad(options){
@@ -195,7 +196,11 @@ Page({
             self.data.choosed_sku_item = api.cloneForm(self.data.mainData.sku[i].sku_item);
             var skuRes = api.skuChoose(self.data.mainData.sku,self.data.choosed_sku_item);
             self.data.can_choose_sku_item = skuRes.can_choose_sku_item;
-            console.log('self.data.can_choose_sku_item',self.data.can_choose_sku_item)
+            for (var i = 0; i < self.data.choosed_sku_item.length; i++) {
+              var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.choosed_sku_item[i]]);
+              self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+            };
+            console.log('self.data.merge_can_choose_sku_item',self.data.merge_can_choose_sku_item)
           };
           self.data.skuIdArray.push(self.data.mainData.sku[i].id);//为了抓所有Sku的评论
         };
@@ -353,12 +358,26 @@ Page({
     console.log('chooseSku',e)
     
     var id = api.getDataSet(e,'id');
-    if(self.data.can_choose_sku_item.indexOf(id)==-1){
+    if(self.data.merge_can_choose_sku_item.indexOf(id)==-1){
+      //self.data.choosed_sku_item = [];
       return;
     };
 
     var index = self.data.choosed_sku_item.indexOf(id);
+    console.log('index',index)
     if(index==-1){
+      var newSkuRes = api.skuChoose(self.data.mainData.sku,[id]);
+      var newchoosed_sku_item = api.cloneForm(self.data.choosed_sku_item);
+      self.data.choosed_sku_item = [];
+
+      for (var i = 0; i < newchoosed_sku_item.length; i++) {
+        if(newSkuRes.can_choose_sku_item.indexOf(newchoosed_sku_item[i])!=-1){
+          self.data.choosed_sku_item.push(newchoosed_sku_item[i]);
+        };
+      };
+      console.log('newSkuRes.can_choose_sku_item',newSkuRes.can_choose_sku_item)
+      
+      
       self.data.choosed_sku_item.push(id);
     }else{
       self.data.choosed_sku_item.splice(index,1);
@@ -366,7 +385,11 @@ Page({
     var skuRes = api.skuChoose(self.data.mainData.sku,self.data.choosed_sku_item);
     self.data.choosed_skuData = skuRes.choosed_skuData;
     self.data.can_choose_sku_item = skuRes.can_choose_sku_item;
-
+    self.data.merge_can_choose_sku_item = [];
+    for (var i = 0; i < self.data.choosed_sku_item.length; i++) {
+      var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.choosed_sku_item[i]]);
+      self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+    };
     self.data.count = 1;
     self.countTotalPrice();
 
