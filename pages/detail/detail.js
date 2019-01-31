@@ -394,27 +394,37 @@ Page({
     }else{
       self.data.merge_can_choose_sku_item = self.data.can_choose_sku_item;
     };
-    for (var i = 0; i < self.data.labelData.length; i++) {
+    if(self.data.labelData.length>1){
+      for (var i = 0; i < self.data.labelData.length; i++) {
       
-      var hasone = false;
-      for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+        var hasone = false;
+        for (var j = 0; j < self.data.labelData[i].child.length; j++) {
 
-        if(self.data.choosed_sku_item.indexOf(self.data.labelData[i].child[j].id)!=-1){
-          console.log('self.data.labelData[i].child[j].id',self.data.labelData[i].child[j].id)
-          hasone = true
+          if(self.data.choosed_sku_item.indexOf(self.data.labelData[i].child[j].id)!=-1){
+            console.log('self.data.labelData[i].child[j].id',self.data.labelData[i].child[j].id)
+            hasone = true
+          };
+        };
+        console.log('hasone',hasone)
+        if(!hasone){
+          console.log(self.data.labelData[i]);
+          for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+              var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.labelData[i].child[j].id]);
+              var finalIndex = finalRes.can_choose_sku_item.indexOf(self.data.labelData[i].child[j].id);
+              finalRes.can_choose_sku_item.splice(finalIndex,1);
+              self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+          };
         };
       };
-      console.log('hasone',hasone)
-      if(!hasone){
-        console.log(self.data.labelData[i]);
-        for (var j = 0; j < self.data.labelData[i].child.length; j++) {
-            var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.labelData[i].child[j].id]);
-            var finalIndex = finalRes.can_choose_sku_item.indexOf(self.data.labelData[i].child[j].id);
-            finalRes.can_choose_sku_item.splice(finalIndex,1);
-            self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
-        };
+    }else{
+      for (var i = 0; i < self.data.labelData.length; i++) {
+          self.data.merge_can_choose_sku_item = [];
+          for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+              self.data.merge_can_choose_sku_item.push(self.data.labelData[i].child[j].id);
+          };
       };
     };
+    
     
     self.data.count = 1;
     self.countTotalPrice();
