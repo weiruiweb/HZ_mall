@@ -355,7 +355,7 @@ Page({
 
   chooseSku(e){
     const self = this;
-    console.log('chooseSku',e)
+    console.log('self.data.labelData',self.data.labelData)
     
     var id = api.getDataSet(e,'id');
     if(self.data.merge_can_choose_sku_item.indexOf(id)==-1){
@@ -394,14 +394,35 @@ Page({
     }else{
       self.data.merge_can_choose_sku_item = self.data.can_choose_sku_item;
     };
+    for (var i = 0; i < self.data.labelData.length; i++) {
+      
+      var hasone = false;
+      for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+
+        if(self.data.choosed_sku_item.indexOf(self.data.labelData[i].child[j].id)!=-1){
+          console.log('self.data.labelData[i].child[j].id',self.data.labelData[i].child[j].id)
+          hasone = true
+        };
+      };
+      console.log('hasone',hasone)
+      if(!hasone){
+        console.log(self.data.labelData[i]);
+        for (var j = 0; j < self.data.labelData[i].child.length; j++) {
+          
+            var finalRes = api.skuChoose(self.data.mainData.sku,[self.data.labelData[i].child[j].id]);
+            self.data.merge_can_choose_sku_item.push.apply(self.data.merge_can_choose_sku_item,finalRes.can_choose_sku_item);
+          
+        };
+      };
+    };
     
     self.data.count = 1;
     self.countTotalPrice();
 
-    console.log('self.data.mainData.sku',self.data.mainData.sku)
-    console.log('self.data.choosed_sku_item',self.data.choosed_sku_item)
-    console.log('self.data.can_choose_sku_item',self.data.can_choose_sku_item)
-    console.log('self.data.choosed_skuData',self.data.choosed_skuData)
+    console.log('self.data.mainData.sku',self.data.mainData.sku);
+    console.log('self.data.choosed_sku_item',self.data.choosed_sku_item);
+    console.log('self.data.can_choose_sku_item',self.data.can_choose_sku_item);
+    console.log('self.data.choosed_skuData',self.data.choosed_skuData);
     self.setData({
       web_choosed_sku_item:self.data.choosed_sku_item,
       web_choosed_skuData:self.data.choosed_skuData,
