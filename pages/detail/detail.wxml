@@ -205,7 +205,6 @@
 				<view class="style_choose font28 flex">
 					<block wx:for="{{item.child}}" wx:for-item="c_item" wx:key="c_item">
 						<view  bindtap="{{func.inArray(c_item.id,web_merge_can_choose_sku_item)!=-1?'chooseSku':''}}" data-id="{{c_item.id}}" class="this_style"  style=" {{func.inArray(c_item.id,web_merge_can_choose_sku_item)==-1?'color:gray':(func.inArray(c_item.id,web_choosed_sku_item)!=-1?'color:red':'color:black')}}">{{c_item.title}}</view>
-						
 					</block>
 				</view>
 			</scroll-view>
